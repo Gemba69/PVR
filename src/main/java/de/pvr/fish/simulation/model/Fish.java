@@ -10,6 +10,10 @@ public class Fish {
 	
 	private Fish neighborFish;
 	
+	public Fish (int angle, Position position) {
+		this.angle = angle;
+		this.position = position;
+	}
 	
 	public void move(Radius radius) {
 		switch (radius) {
