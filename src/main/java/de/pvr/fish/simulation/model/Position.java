@@ -39,4 +39,28 @@ public class Position {
 		}
 	}
 	
+	public Position getRadiusStartPosition(int radius) {
+		int positionX = this.coordinateX - radius;
+		if (positionX < 0) {
+			positionX = 0;
+		}
+		int positionY = this.coordinateY - radius;
+		if (positionY < 0) {
+			positionY = 0;
+		}
+		return new Position(positionX, positionY);
+	}
+	
+	public Position getRadiusEndPosition(int radius) {
+		int positionX = this.coordinateX + radius;
+		if (positionX > FishConstants.FIELD_LENGTH) {
+			positionX = FishConstants.FIELD_LENGTH;
+		}
+		int positionY = this.coordinateY + radius;
+		if (positionY > FishConstants.FIELD_HEIGHT) {
+			positionY = FishConstants.FIELD_HEIGHT;
+		}
+		return new Position(positionX, positionY);
+	}
+	
 }

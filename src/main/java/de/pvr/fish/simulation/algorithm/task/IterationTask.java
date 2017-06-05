@@ -98,7 +98,39 @@ public class IterationTask implements Callable<Void>{
 	
 	private ArrayList<Pair<Fish, Radius>> searchInR1(Fish fish, int freeCapacity) {
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
-		//TODO
+		Position startPosition = fish.getPosition().getRadiusStartPosition(FishConstants.RADIUS1 * FishConstants.FISH_BODY_LENGTH);
+		Position endPosition =  fish.getPosition().getRadiusEndPosition(FishConstants.RADIUS1 * FishConstants.FISH_BODY_LENGTH);
+		
+		for (int i = startPosition.getCoordinateX(); i < endPosition.getCoordinateX(); i++) {
+			for ( int j = startPosition.getCoordinateY(); j < endPosition.getCoordinateY(); j++) {
+				if (fishes[i][j] != null) {
+					neighbourFishes.add(Pair.of(fishes[i][j], Radius.R1));
+				}
+			}
+		}
+		//TODO Einschränkung im Totenwinkel
+		
+		//TODO reduceToFour
+		if (neighbourFishes.size() > freeCapacity) {
+			
+		}
+		
+		return neighbourFishes;
+	}
+	
+	private ArrayList<Pair<Fish, Radius>> searchInR2(Fish fish, int freeCapacity) {
+		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
+		Position startPosition = fish.getPosition().getRadiusStartPosition(FishConstants.RADIUS2 * FishConstants.FISH_BODY_LENGTH);
+		Position endPosition =  fish.getPosition().getRadiusEndPosition(FishConstants.RADIUS2 * FishConstants.FISH_BODY_LENGTH);
+		
+		for (int i = startPosition.getCoordinateX(); i < endPosition.getCoordinateX(); i++) {
+			for ( int j = startPosition.getCoordinateY(); j < endPosition.getCoordinateY(); j++) {
+				if (fishes[i][j] != null) {
+					neighbourFishes.add(Pair.of(fishes[i][j], Radius.R1));
+				}
+			}
+		}
+		//TODO Einschränkung im Totenwinkel
 		
 		//TODO reduceToFour
 		if (neighbourFishes.size() > freeCapacity) {
@@ -110,23 +142,23 @@ public class IterationTask implements Callable<Void>{
 	
 	private ArrayList<Pair<Fish, Radius>> searchInR3(Fish fish, int freeCapacity) {
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
-		//TODO
+		Position startPosition = fish.getPosition().getRadiusStartPosition(FishConstants.RADIUS3 * FishConstants.FISH_BODY_LENGTH);
+		Position endPosition =  fish.getPosition().getRadiusEndPosition(FishConstants.RADIUS3 * FishConstants.FISH_BODY_LENGTH);
+		
+		for (int i = startPosition.getCoordinateX(); i < endPosition.getCoordinateX(); i++) {
+			for ( int j = startPosition.getCoordinateY(); j < endPosition.getCoordinateY(); j++) {
+				if (fishes[i][j] != null) {
+					neighbourFishes.add(Pair.of(fishes[i][j], Radius.R1));
+				}
+			}
+		}
+		//TODO Einschränkung im Totenwinkel
 		
 		//TODO reduceToFour
 		if (neighbourFishes.size() > freeCapacity) {
 			
 		}
-		return neighbourFishes;
-	}
-	
-	private ArrayList<Pair<Fish, Radius>> searchInR2(Fish fish, int freeCapacity) {
-		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
-		//TODO
 		
-		//TODO reduceToFour
-		if (neighbourFishes.size() > freeCapacity) {
-			
-		}
 		return neighbourFishes;
 	}
 

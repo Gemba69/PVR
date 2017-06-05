@@ -20,7 +20,7 @@ public class FishConstants {
 	public static int RADIUS2 = 4;
 	public static int RADIUS3 = 6;
 	
-	public static int FISH_BODY_LENTH = 1;
+	public static int FISH_BODY_LENGTH = 1;
 	
 	
 }
