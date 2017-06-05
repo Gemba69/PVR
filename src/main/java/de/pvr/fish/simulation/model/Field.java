@@ -61,17 +61,41 @@ public class Field {
 	public void nextInteration() {
 		LOG.info("Starting Iteration");
 		
+		//split Task 
+		Position startPosition = new Position (0, 0);
+		for (Position position : splitTasks()) {
+			this.tasks.add(new TestTask(this.fishes, startPosition, position));
+			position.nextPosition();
+			startPosition = position;
+		}
+		
+		//Executtion
 		try {
 			this.executorService.invokeAll(this.tasks);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
 		
 		// for....
 		
 		//setNeigbourFish
 		//fish.move()
+	}
+	
+	private ArrayList<Position> splitTasks() {
+		ArrayList<Position> borderPositions = new ArrayList<Position>();
+		int fishcounter = 0;
+		for (int i = 0; i < this.length - 1; i++) {
+			for( int j = 0; j < this.height - 1; j++) {
+				if (this.fishes[i][j] != null) {
+					fishcounter++;
+					if (fishcounter%(FishConstants.NUMBER_FISH/FishConstants.THREADS) == 0) {
+						borderPositions.add(new Position(i, j));
+					}
+				}
+			}
+		}
+		return borderPositions;
 	}
 	
 	

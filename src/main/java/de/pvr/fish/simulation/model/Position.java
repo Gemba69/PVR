@@ -1,5 +1,7 @@
 package de.pvr.fish.simulation.model;
 
+import de.pvr.fish.simulation.config.FishConstants;
+
 public class Position {
 
 	
@@ -26,6 +28,15 @@ public class Position {
 	
 	public void setCoordinateY(int coordinateY) {
 		this.coordinateY = coordinateY;
+	}
+	
+	public void nextPosition() {
+		if (FishConstants.FIELD_LENGTH - 1 > this.coordinateX) {
+			this.coordinateX++;
+		} else {
+			this.coordinateX = 0;
+			this.coordinateY++;
+		}
 	}
 	
 }
