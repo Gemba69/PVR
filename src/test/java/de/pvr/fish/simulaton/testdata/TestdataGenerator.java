@@ -1,9 +1,9 @@
 package de.pvr.fish.simulaton.testdata;
 
-import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
 import de.pvr.fish.simulation.util.RandomGenerator;
+import de.pvr.sosh.simulation.application.Field;
 
 public class TestdataGenerator {
 

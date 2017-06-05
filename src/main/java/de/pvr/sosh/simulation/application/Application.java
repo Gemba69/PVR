@@ -1,7 +1,5 @@
 package de.pvr.sosh.simulation.application;
 
-import de.pvr.fish.simulation.model.Field;
-
 public class Application {
 
 	

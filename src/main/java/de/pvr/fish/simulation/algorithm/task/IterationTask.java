@@ -31,7 +31,7 @@ public class IterationTask implements Callable<Void>{
 
 	@Override
 	public Void call() throws Exception {
-		LOG.info("Starting with Task");
+		LOG.info("Starting with Task iteration");
 		for (int i = startPosition.getCoordinateX() ; i < endPosition.getCoordinateX(); i++) {
 			for (int j = startPosition.getCoordinateY() ; j < endPosition.getCoordinateY(); i++) {
 				if (fishes[i][j] != null) {

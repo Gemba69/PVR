@@ -1,4 +1,4 @@
-package de.pvr.fish.simulation.model;
+package de.pvr.sosh.simulation.application;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.algorithm.task.IterationTask;
 import de.pvr.fish.simulation.config.FishConstants;
+import de.pvr.fish.simulation.model.Fish;
+import de.pvr.fish.simulation.model.Position;
 
 public class Field {
 	
@@ -38,7 +40,7 @@ public class Field {
 	}
 	
 	public void nextInteration() {
-		LOG.info("Starting Iteration");
+		LOG.info("Starting overall Iteration");
 		
 		//split Task 
 		Position startPosition = new Position (0, 0);
@@ -48,7 +50,7 @@ public class Field {
 			startPosition = position;
 		}
 		
-		//Executtion
+		//Execution
 		try {
 			this.executorService.invokeAll(this.tasks);
 		} catch (InterruptedException e) {
@@ -61,7 +63,7 @@ public class Field {
 		//fish.move()
 	}
 	
-	private ArrayList<Position> splitTasks() {
+	public ArrayList<Position> splitTasks() {
 		ArrayList<Position> borderPositions = new ArrayList<Position>();
 		int fishcounter = 0;
 		for (int i = 0; i < this.length - 1; i++) {
@@ -70,6 +72,7 @@ public class Field {
 					fishcounter++;
 					if (fishcounter%(FishConstants.NUMBER_FISH/FishConstants.THREADS) == 0) {
 						borderPositions.add(new Position(i, j));
+						//FIXME: Ranbedingung, wenn Fischanzahl durch Threads nicht glatt durchgeht bzw, wenn es als letztes keine Zahl gibt
 					}
 				}
 			}

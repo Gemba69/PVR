@@ -2,7 +2,7 @@ package de.pvr.fish.simulation.config;
 
 public class FishConstants {
 
-	public static int THREADS = 4;
+	public static int THREADS = 3;
 	
 	public static int NUMBER_FISH = 10;
 	
