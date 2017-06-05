@@ -1,28 +1,43 @@
 package de.pvr.fish.simulation.model;
 
-import java.util.ArrayList;
+
 
 public class Field {
-
 	
-	private ArrayList<Fish> fishes;
+	private Fish[][] fishes;
 	private int length;
 	private int height;
 	private int numberOfSquares;
 	
 	
-	private ArrayList<Fish> getNeigbourFishes(Fish fish) {
-		ArrayList<Fish> neighbourFishes = new ArrayList<>();
+	public Field(int length, int height) {
+		this.length = length;
+		this.height = height;
+	}
+	
+	public void addFish(Fish fish) {
+		this.fishes[fish.getPosition().getCoordinateX()][fish.getPosition().getCoordinateY()] = fish;
+	}
+	
+	private void setNeigbourFish(Fish fish) {
+		Fish neighbourFish = new Fish();
 		
 		
-		return neighbourFishes;
+		fish.setNeighborFish(neighbourFish);
 	}
 	
 	
-	
-	public void addFishToField(Fish fish) {
-		fishes.add(fish);
+	public void nextInteration() {
+		
+		// for....
+		
+		//setNeigbourFish
+		//fish.move()
 	}
+	
+	
+
+
 	
 	
 }
