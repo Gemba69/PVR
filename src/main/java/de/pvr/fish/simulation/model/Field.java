@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.pvr.fish.simulation.algorithm.task.TestTask;
+import de.pvr.fish.simulation.algorithm.task.IterationTask;
 import de.pvr.fish.simulation.config.FishConstants;
 
 public class Field {
@@ -18,7 +18,7 @@ public class Field {
 	private int numberOfSquares;
 	
 	private ExecutorService executorService;
-	private ArrayList<TestTask> tasks;
+	private ArrayList<IterationTask> tasks;
 	
 	private static final Logger LOG = LogManager.getLogger(Field.class);
 	
@@ -29,34 +29,13 @@ public class Field {
 		fishes = new Fish[length][height];
 		
 		this.executorService = Executors.newFixedThreadPool(FishConstants.THREADS);
-		this.tasks = new ArrayList<TestTask>();
+		this.tasks = new ArrayList<IterationTask>();
 		
 	}
 	
-	public void addFish(Fish fish) {
+	public void addNewFishToField(Fish fish) {
 		this.fishes[fish.getPosition().getCoordinateX()][fish.getPosition().getCoordinateY()] = fish;
 	}
-	
-	private void setNeigbourFish(Fish fish) {
-		ArrayList<Fish> neighbourFishes = new ArrayList<Fish>();
-		Fish neighbourFish = new Fish(1, new Position (1,1));
-		
-		
-		while  (neighbourFishes.isEmpty()) {
-			
-		}
-		
-		if (neighbourFishes.size() == 1 ) {
-			fish.setNeighborFish( neighbourFishes.get(1));
-		} else {
-			//Mehrere Fische mit demselben Abstand 
-		}
-		
-		
-		//toten Winkel und Gleiche Abstände unbedingt berücksichtigen - Randbedingungen
-		fish.setNeighborFish(neighbourFish);
-	}
-	
 	
 	public void nextInteration() {
 		LOG.info("Starting Iteration");
@@ -64,7 +43,7 @@ public class Field {
 		//split Task 
 		Position startPosition = new Position (0, 0);
 		for (Position position : splitTasks()) {
-			this.tasks.add(new TestTask(this.fishes, startPosition, position));
+			this.tasks.add(new IterationTask(this.fishes, startPosition, position));
 			position.nextPosition();
 			startPosition = position;
 		}

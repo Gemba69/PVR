@@ -22,7 +22,7 @@ public class TestdataGenerator {
 		Field field = getEmptyField();
 		
 		for (int i = 0; i < maxFishes; i++) {
-			field.addFish(generateRandomFish());
+			field.addNewFishToField(generateRandomFish());
 		}	
 		return field;
 	}
@@ -34,16 +34,16 @@ public class TestdataGenerator {
 	public static Field getFieldWithSpecific10Fishes() {
 		Field field = getEmptyField();
 		
-		field.addFish(new Fish(180, new Position(100,100)));
-		field.addFish(new Fish(180, new Position(102,102)));
-		field.addFish(new Fish(0, new Position(104,104)));
-		field.addFish(new Fish(90, new Position(101,102)));
-		field.addFish(new Fish(270, new Position(10,10)));
-		field.addFish(new Fish(180, new Position(105,103)));
-		field.addFish(new Fish(0, new Position(103,107)));
-		field.addFish(new Fish(90, new Position(99,99)));
-		field.addFish(new Fish(90, new Position(100,102)));
-		field.addFish(new Fish(180, new Position(500,500))); //far away
+		field.addNewFishToField(new Fish(180, new Position(100,100)));
+		field.addNewFishToField(new Fish(180, new Position(102,102)));
+		field.addNewFishToField(new Fish(0, new Position(104,104)));
+		field.addNewFishToField(new Fish(90, new Position(101,102)));
+		field.addNewFishToField(new Fish(270, new Position(10,10)));
+		field.addNewFishToField(new Fish(180, new Position(105,103)));
+		field.addNewFishToField(new Fish(0, new Position(103,107)));
+		field.addNewFishToField(new Fish(90, new Position(99,99)));
+		field.addNewFishToField(new Fish(90, new Position(100,102)));
+		field.addNewFishToField(new Fish(180, new Position(500,500))); //far away
 		
 		return field;
 	}

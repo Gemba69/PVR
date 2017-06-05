@@ -7,23 +7,22 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.config.FishConstants;
-import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
 import de.pvr.fish.simulation.util.Radius;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-public class TestTask implements Callable<Void>{
+public class IterationTask implements Callable<Void>{
 	
 	private Fish[][] fishes;
 	private Position startPosition;
 	private Position endPosition;
 	
-	private static final Logger LOG = LogManager.getLogger(TestTask.class);
+	private static final Logger LOG = LogManager.getLogger(IterationTask.class);
 	
 	
-	public TestTask( Fish[][] fishes, Position startPosition, Position endPosition) {
+	public IterationTask( Fish[][] fishes, Position startPosition, Position endPosition) {
 		this.fishes = fishes;
 		this.startPosition = startPosition;
 		this.endPosition = endPosition;
@@ -64,35 +63,70 @@ public class TestTask implements Callable<Void>{
 	
 	private void setToNewPlace(Fish fish, ArrayList<Pair<Fish, Radius>> neighbourFishes) {
 		if (neighbourFishes.isEmpty()) {
+			fish.turnAround();
+		} else {
+			this.fishes[fish.getPosition().getCoordinateX()][fish.getPosition().getCoordinateY()] = null;
 			
-		} 
+			int newAngle = 0;
+			int newPositionX = 0;
+			int newPositionY = 0;
+			int R3counter = 0; 
+			
+			for (Pair<Fish, Radius> pair : neighbourFishes) {
+				switch (pair.getRight()) {
+				case R1:
+					newAngle = newAngle + ((fish.getAngle() + 90) % 360);
+				case R2:
+					newAngle = newAngle + (pair.getLeft().getAngle());
+				case R3:
+					newAngle = newAngle + (pair.getLeft().getAngle());
+					R3counter++;
+					newPositionX = newPositionX + (pair.getLeft().getPosition().getCoordinateX() - fish.getPosition().getCoordinateX());
+					newPositionY = newPositionY + (pair.getLeft().getPosition().getCoordinateY() - fish.getPosition().getCoordinateY());
+				break;
+			}
+			fish.setAngle( newAngle / neighbourFishes.size());
+			if (R3counter > 1) {
+				fish.setPosition(new Position (newPositionX / R3counter, newPositionY / R3counter));
+			}
+			
+			this.fishes[fish.getPosition().getCoordinateX()][fish.getPosition().getCoordinateY()] = fish;
+		}
+		}
 		
 	}
 	
-	private ArrayList<Pair<Fish, Radius>> searchInR1(Fish fish, int FreeCapacity) {
+	private ArrayList<Pair<Fish, Radius>> searchInR1(Fish fish, int freeCapacity) {
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
 		//TODO
 		
 		//TODO reduceToFour
+		if (neighbourFishes.size() > freeCapacity) {
+			
+		}
 		
 		return neighbourFishes;
 	}
 	
-	private ArrayList<Pair<Fish, Radius>> searchInR3(Fish fish, int FreeCapacity) {
+	private ArrayList<Pair<Fish, Radius>> searchInR3(Fish fish, int freeCapacity) {
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
 		//TODO
 		
 		//TODO reduceToFour
-		
+		if (neighbourFishes.size() > freeCapacity) {
+			
+		}
 		return neighbourFishes;
 	}
 	
-	private ArrayList<Pair<Fish, Radius>> searchInR2(Fish fish, int FreeCapacity) {
+	private ArrayList<Pair<Fish, Radius>> searchInR2(Fish fish, int freeCapacity) {
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
 		//TODO
 		
 		//TODO reduceToFour
-		
+		if (neighbourFishes.size() > freeCapacity) {
+			
+		}
 		return neighbourFishes;
 	}
 
