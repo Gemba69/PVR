@@ -48,12 +48,12 @@ public class ViewControlerWindow extends Application {
 	primaryStage.setTitle("PVR - Simulation");
 	primaryStage.show();
 
-    Label fNameLbl = new Label("Iterationen");
-    TextField fNameFld = new TextField();
-    Label lNameLbl = new Label("Zeitdauer");
-    TextField lNameFld = new TextField();
-    Label Fishlabel = new Label("Anzahl der Fische");
-    TextField fishtext = new TextField();
+    Label iterationlabel = new Label("Iterationen");
+    TextField iterationfield = new TextField();
+    Label timelabel = new Label("Zeitdauer");
+    TextField timefield = new TextField();
+    Label fishlabel = new Label("Anzahl der Fische");
+    TextField fishfield = new TextField();
 
     Button saveButt = new Button("Start");
     Button resetButt = new Button("Reset");
@@ -63,33 +63,37 @@ public class ViewControlerWindow extends Application {
     Button leer2 = new Button("Leer2");
     Button leer3 = new Button("Leer3");
 
-    // First name label
-    GridPane.setHalignment(fNameLbl, HPos.RIGHT);
-    gridpane.add(fNameLbl, 0, 2);
+    // Iterationlabel
+    GridPane.setHalignment(iterationlabel, HPos.RIGHT);
+    gridpane.add(iterationlabel, 0, 2);
 
-    // Last name label
-    GridPane.setHalignment(lNameLbl, HPos.RIGHT);
-    gridpane.add(lNameLbl, 0, 3);
+    // Timelabel
+    GridPane.setHalignment(timelabel, HPos.RIGHT);
+    gridpane.add(timelabel, 0, 3);
     
-    // Fish Counter
-    GridPane.setHalignment(Fishlabel, HPos.RIGHT);
-    gridpane.add(Fishlabel, 0, 4);
+    // Fishlabel
+    GridPane.setHalignment(fishlabel, HPos.RIGHT);
+    gridpane.add(fishlabel, 0, 4);
     
-    // First name field
-    GridPane.setHalignment(fNameFld, HPos.LEFT);
-    gridpane.add(fNameFld, 1, 2);
+    // Iterationfield
+    GridPane.setHalignment(iterationfield, HPos.LEFT);
+    gridpane.add(iterationfield, 1, 2);
+    iterationfield.setText("1");
+    iterationfield.getText();
 
-    // Last name field
-    GridPane.setHalignment(lNameFld, HPos.LEFT);
-    gridpane.add(lNameFld, 1, 3);
+    // Timefield
+    GridPane.setHalignment(timefield, HPos.LEFT);
+    gridpane.add(timefield, 1, 3);
+    timefield.setText("100");
+    timefield.getText();
     
-    // LFishtext
-    GridPane.setHalignment(fishtext, HPos.LEFT);
-    gridpane.add(fishtext, 1, 4);
-    fishtext.setText("100");
-    fishtext.getText();
+    // Fishfield
+    GridPane.setHalignment(fishfield, HPos.LEFT);
+    gridpane.add(fishfield, 1, 4);
+    fishfield.setText("100");
+    fishfield.getText();
 
-    // Start button
+    // StartButton
     GridPane.setHalignment(saveButt, HPos.RIGHT);
     gridpane.add(saveButt, 2, 4);
     
@@ -110,19 +114,19 @@ public class ViewControlerWindow extends Application {
     gridpane.add(visButt, 1, 9);
     visButt.setMinSize(105, 20);
     
-    // Button leer1
+    // ButtonLeer1
     GridPane.setHalignment(leer1, HPos.LEFT);
     gridpane.add(leer1, 2, 7);
     leer1.setMinSize(105, 20);
     leer1.setAlignment(Pos.BASELINE_CENTER);
     
-    // Button leer2
+    // ButtonLeer2
     GridPane.setHalignment(leer2, HPos.LEFT);
     gridpane.add(leer2, 2, 8);
     leer2.setMinSize(105, 20);
     leer2.setAlignment(Pos.BASELINE_CENTER);
     
-    // Button leer3
+    // ButtonLeer3
     GridPane.setHalignment(leer3, HPos.LEFT);
     gridpane.add(leer3, 2, 9);
     leer3.setMinSize(105, 20);
