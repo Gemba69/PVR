@@ -2,7 +2,7 @@ package de.pvr.fish.simulation.model;
 
 import java.util.Objects;
 
-import de.pvr.fish.simulation.config.FishConstants;
+import de.pvr.fish.simulation.config.FishParameter;
 
 public class Position {
 
@@ -33,7 +33,7 @@ public class Position {
 	}
 	
 	public void nextPosition() {
-		if (FishConstants.FIELD_LENGTH - 1 > this.coordinateY) {
+		if (FishParameter.FIELD_LENGTH - 1 > this.coordinateY) {
 			this.coordinateY++;
 		} else {
 			this.coordinateY = 0;
@@ -81,12 +81,12 @@ public class Position {
 	
 	public Position getRadiusEndPosition(int radius) {
 		int positionX = this.coordinateX + radius;
-		if (positionX > FishConstants.FIELD_LENGTH) {
-			positionX = FishConstants.FIELD_LENGTH;
+		if (positionX > FishParameter.FIELD_LENGTH) {
+			positionX = FishParameter.FIELD_LENGTH;
 		}
 		int positionY = this.coordinateY + radius;
-		if (positionY > FishConstants.FIELD_HEIGHT - 1) {
-			positionY = FishConstants.FIELD_HEIGHT - 1;
+		if (positionY > FishParameter.FIELD_HEIGHT - 1) {
+			positionY = FishParameter.FIELD_HEIGHT - 1;
 		}
 		return new Position(positionX, positionY);
 	}

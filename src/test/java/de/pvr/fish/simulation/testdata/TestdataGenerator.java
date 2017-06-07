@@ -1,4 +1,4 @@
-package de.pvr.fish.simulaton.testdata;
+package de.pvr.fish.simulation.testdata;
 
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;

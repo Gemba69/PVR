@@ -1,13 +1,11 @@
 package de.pvr.fish.simulation.config;
 
-public class FishConstants {
+public class FishParameter {
 
-	public static int THREADS = 3;
+	public static int THREADS = 2;
 	
 	public static int NUMBER_FISH = 10;
-	
-	public static int LENGTH_SQUARE = 5;
-	public static int NUMBER_SQUARES;
+
 	
 	public static int FIELD_LENGTH = 1000;
 	public static int FIELD_HEIGHT = 1000;

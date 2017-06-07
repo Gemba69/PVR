@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.algorithm.task.IterationTask;
-import de.pvr.fish.simulation.config.FishConstants;
+import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
 
@@ -17,7 +17,6 @@ public class Field {
 	private Fish[][] fishes;
 	private int length;
 	private int height;
-	private int numberOfSquares;
 	
 	private ExecutorService executorService;
 	private ArrayList<IterationTask> tasks;
@@ -30,7 +29,7 @@ public class Field {
 		this.height = height;
 		fishes = new Fish[length][height];
 		
-		this.executorService = Executors.newFixedThreadPool(FishConstants.THREADS);
+		this.executorService = Executors.newFixedThreadPool(FishParameter.THREADS);
 		this.tasks = new ArrayList<IterationTask>();
 		
 	}
@@ -70,7 +69,7 @@ public class Field {
 			for( int j = 0; j < this.height - 1; j++) {
 				if (this.fishes[i][j] != null) {
 					fishcounter++;
-					if (fishcounter%(FishConstants.NUMBER_FISH/FishConstants.THREADS) == 0) {
+					if (fishcounter%(FishParameter.NUMBER_FISH/FishParameter.THREADS) == 0) {
 						borderPositions.add(new Position(i, j));
 						//FIXME: Ranbedingung, wenn Fischanzahl durch Threads nicht glatt durchgeht bzw, wenn es als letztes keine Zahl gibt
 					}
@@ -78,6 +77,50 @@ public class Field {
 			}
 		}
 		return borderPositions;
+	}
+
+	public Fish[][] getFishes() {
+		return fishes;
+	}
+
+	public void setFishes(Fish[][] fishes) {
+		this.fishes = fishes;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public ExecutorService getExecutorService() {
+		return executorService;
+	}
+
+	public void setExecutorService(ExecutorService executorService) {
+		this.executorService = executorService;
+	}
+
+	public ArrayList<IterationTask> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(ArrayList<IterationTask> tasks) {
+		this.tasks = tasks;
+	}
+
+	public static Logger getLog() {
+		return LOG;
 	}
 	
 	
