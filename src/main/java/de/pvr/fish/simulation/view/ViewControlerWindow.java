@@ -19,121 +19,167 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ViewControlerWindow extends Application {
-  public static void main(String[] args) {
-    Application.launch(args);
-  }
+	
+	private GridPane topGrid;
+	private GridPane bottomGrid;
+	
+	public static void main(String[] args) {
+		Application.launch(args);
+	}
 
-  @Override
-  public void start(Stage primaryStage) {
+	@Override
+	public void start(Stage primaryStage) {
 
 	
-    BorderPane root = new BorderPane();
-    Scene scene = new Scene(root, 500, 500, Color.WHITE);
-    primaryStage.setScene(scene);
+		
+		BorderPane root = new BorderPane();
+		Scene scene = new Scene(root, 700, 700, Color.WHITE);
+		primaryStage.setScene(scene);
+		
+		//TopGrid
+		topGrid  = new GridPane();
+		topGrid.setAlignment(Pos.TOP_LEFT);
+	//	GridPane gridpane = new GridPane();
+		topGrid.setPadding(new Insets(5));
+		topGrid.setHgap(10);
+		topGrid.setVgap(10);
+		topGrid.setPadding(new Insets(25, 25, 25, 25));
+		topGrid.setStyle("-fx-background-color: white");
+		
+		//Titel
+		Text scenetitle = new Text("Willkommen zur Simulation ");
+		scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+		topGrid.add(scenetitle, 1, 0);
+		
+		//Spalten
+		ColumnConstraints column1 = new ColumnConstraints(120);
+		ColumnConstraints column2 = new ColumnConstraints(120, 150, 110);
+		ColumnConstraints column3 = new ColumnConstraints(105);
+		ColumnConstraints column4 = new ColumnConstraints(120, 100, 100);
+		column2.setHgrow(Priority.ALWAYS);
+		topGrid.getColumnConstraints().addAll(column1, column2, column3, column4);
 
-    GridPane gridpane = new GridPane();
-    gridpane.setPadding(new Insets(5));
-    gridpane.setHgap(10);
-    gridpane.setVgap(10);
-    gridpane.setPadding(new Insets(25, 25, 25, 25));
-    Text scenetitle = new Text("Willkommen zur Simulation ");
-    scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-    gridpane.add(scenetitle, 1,0);
-    ColumnConstraints column1 = new ColumnConstraints(150);
-    ColumnConstraints column2 = new ColumnConstraints(50, 150, 110);
-    ColumnConstraints column3 = new ColumnConstraints(50);
-    column2.setHgrow(Priority.ALWAYS);
-    gridpane.getColumnConstraints().addAll(column1, column2, column3);
-    
-	primaryStage.setTitle("PVR - Simulation");
-	primaryStage.show();
 
-    Label iterationlabel = new Label("Iterationen");
-    TextField iterationfield = new TextField();
-    Label timelabel = new Label("Zeitdauer");
-    TextField timefield = new TextField();
-    Label fishlabel = new Label("Anzahl der Fische");
-    TextField fishfield = new TextField();
+		//Fenstertitel
+		primaryStage.setTitle("PVR - Simulation");
+		primaryStage.show();
 
-    Button saveButt = new Button("Start");
-    Button resetButt = new Button("Reset");
-    Button messButt = new Button("Messungen");
-    Button visButt = new Button("Visualisierung");
-    Button leer1 = new Button("Leer1");
-    Button leer2 = new Button("Leer2");
-    Button leer3 = new Button("Leer3");
+		//Label, Buttons, Textfields
+		Label iterationlabel = new Label("Iterationen");
+		TextField iterationfield = new TextField();
+		Label threads = new Label("Anzahl der Threads");
+		TextField threadscount = new TextField();
+		Label fishlabel = new Label("Anzahl der Fische");
+		TextField fishfield = new TextField();
 
-    // Iterationlabel
-    GridPane.setHalignment(iterationlabel, HPos.RIGHT);
-    gridpane.add(iterationlabel, 0, 2);
+		
+		Button saveButt = new Button("Start");
+		Button resetButt = new Button("Reset");
+		Button messButt = new Button("Messungen");
+		Button visButt = new Button("Visualisierung");
+		Button leer1 = new Button("Leer1");
+		Button leer2 = new Button("Leer2");
+		Button leer3 = new Button("Leer3");
+		Button Aq = new Button("Aquarium");
 
-    // Timelabel
-    GridPane.setHalignment(timelabel, HPos.RIGHT);
-    gridpane.add(timelabel, 0, 3);
-    
-    // Fishlabel
-    GridPane.setHalignment(fishlabel, HPos.RIGHT);
-    gridpane.add(fishlabel, 0, 4);
-    
-    // Iterationfield
-    GridPane.setHalignment(iterationfield, HPos.LEFT);
-    gridpane.add(iterationfield, 1, 2);
-    iterationfield.setText("1");
-    iterationfield.getText();
 
-    // Timefield
-    GridPane.setHalignment(timefield, HPos.LEFT);
-    gridpane.add(timefield, 1, 3);
-    timefield.setText("100");
-    timefield.getText();
-    
-    // Fishfield
-    GridPane.setHalignment(fishfield, HPos.LEFT);
-    gridpane.add(fishfield, 1, 4);
-    fishfield.setText("100");
-    fishfield.getText();
+		// Iterationlabel
+		GridPane.setHalignment(iterationlabel, HPos.RIGHT);
+		topGrid.add(iterationlabel, 0, 2);
 
-    // StartButton
-    GridPane.setHalignment(saveButt, HPos.RIGHT);
-    gridpane.add(saveButt, 2, 4);
-    
-    // ResetButton
-    GridPane.setHalignment(resetButt, HPos.LEFT);
-    gridpane.add(resetButt, 1, 7);
-    resetButt.setMinSize(105, 20);
-    resetButt.setAlignment(Pos.BASELINE_LEFT);
-    
-    // MessButton
-    GridPane.setHalignment(messButt, HPos.LEFT);
-    gridpane.add(messButt, 1, 8);
-    messButt.setMinSize(105, 20);
-    messButt.setAlignment(Pos.BASELINE_LEFT);
-    
-    // VisButton
-    GridPane.setHalignment(visButt, HPos.LEFT);
-    gridpane.add(visButt, 1, 9);
-    visButt.setMinSize(105, 20);
-    
-    // ButtonLeer1
-    GridPane.setHalignment(leer1, HPos.LEFT);
-    gridpane.add(leer1, 2, 7);
-    leer1.setMinSize(105, 20);
-    leer1.setAlignment(Pos.BASELINE_CENTER);
-    
-    // ButtonLeer2
-    GridPane.setHalignment(leer2, HPos.LEFT);
-    gridpane.add(leer2, 2, 8);
-    leer2.setMinSize(105, 20);
-    leer2.setAlignment(Pos.BASELINE_CENTER);
-    
-    // ButtonLeer3
-    GridPane.setHalignment(leer3, HPos.LEFT);
-    gridpane.add(leer3, 2, 9);
-    leer3.setMinSize(105, 20);
-    leer3.setAlignment(Pos.BASELINE_CENTER);
+		// Timelabel
+		GridPane.setHalignment(threads, HPos.RIGHT);
+		topGrid.add(threads, 0, 3);
 
-    root.setCenter(gridpane);
-    primaryStage.setScene(scene);
-    primaryStage.show();
-  }
+		// Fishlabel
+		GridPane.setHalignment(fishlabel, HPos.RIGHT);
+		topGrid.add(fishlabel, 0, 4);
+
+		// Iterationfield
+		GridPane.setHalignment(iterationfield, HPos.LEFT);
+		topGrid.add(iterationfield, 1, 2);
+		iterationfield.setText("1000");
+		iterationfield.getText();
+
+		// Timefield
+		GridPane.setHalignment(threadscount, HPos.LEFT);
+		topGrid.add(threadscount, 1, 3);
+		threadscount.setText("4");
+		threadscount.getText();
+
+		// Fishfield
+		GridPane.setHalignment(fishfield, HPos.LEFT);
+		topGrid.add(fishfield, 1, 4);
+		fishfield.setText("100");
+		fishfield.getText();
+
+		// StartButton
+		GridPane.setHalignment(saveButt, HPos.LEFT);
+		topGrid.add(saveButt, 2, 4);
+
+		// ResetButton
+		GridPane.setHalignment(resetButt, HPos.LEFT);
+		topGrid.add(resetButt, 3, 7);
+		resetButt.setMinSize(105, 20);
+		resetButt.setAlignment(Pos.BASELINE_LEFT);
+
+		// MessButton
+		GridPane.setHalignment(messButt, HPos.LEFT);
+		topGrid.add(messButt, 3, 8);
+		messButt.setMinSize(105, 20);
+		messButt.setAlignment(Pos.BASELINE_LEFT);
+
+		// VisButton
+		GridPane.setHalignment(visButt, HPos.LEFT);
+		topGrid.add(visButt, 3, 9);
+		visButt.setMinSize(105, 20);
+
+		// ButtonLeer1
+		GridPane.setHalignment(leer1, HPos.LEFT);
+		topGrid.add(leer1, 2, 7);
+		leer1.setMinSize(105, 20);
+		leer1.setAlignment(Pos.BASELINE_CENTER);
+
+		// ButtonLeer2
+		GridPane.setHalignment(leer2, HPos.LEFT);
+		topGrid.add(leer2, 2, 8);
+		leer2.setMinSize(105, 20);
+		leer2.setAlignment(Pos.BASELINE_CENTER);
+
+		// ButtonLeer3
+		GridPane.setHalignment(leer3, HPos.LEFT);
+		topGrid.add(leer3, 2, 9);
+		leer3.setMinSize(105, 20);
+		leer3.setAlignment(Pos.BASELINE_CENTER);
+		
+		
+		bottomGrid = new GridPane();
+		bottomGrid.setAlignment(Pos.BOTTOM_LEFT);
+		bottomGrid.setPadding(new Insets(5));
+		bottomGrid.setHgap(10);
+		bottomGrid.setVgap(10);
+		bottomGrid.setPadding(new Insets(25, 25, 25, 25));
+		bottomGrid.setStyle("-fx-background-color: grey");
+		ColumnConstraints column5 = new ColumnConstraints(150);
+		ColumnConstraints column6 = new ColumnConstraints(50, 150, 110);
+		ColumnConstraints column7 = new ColumnConstraints(50);
+		ColumnConstraints column8 = new ColumnConstraints(120, 100, 100);
+		bottomGrid.getColumnConstraints().addAll(column5, column6, column7, column8);
+		
+		// Aquarium
+		GridPane.setHalignment(Aq, HPos.CENTER);
+		bottomGrid.add(Aq, 2, 2);
+		Aq.setMinSize(600, 300);
+		Aq.setAlignment(Pos.BASELINE_CENTER);
+		
+	
+	
+		
+		//Anzeigen des Panes
+		root.setTop(topGrid);
+		root.setBottom(bottomGrid);
+		primaryStage.setScene(scene);
+		primaryStage.setResizable(false);
+		primaryStage.show();
+	}
 }
