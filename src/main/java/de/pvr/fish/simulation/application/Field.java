@@ -1,4 +1,4 @@
-package de.pvr.sosh.simulation.application;
+package de.pvr.fish.simulation.application;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -8,7 +8,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.algorithm.task.IterationTask;
-import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
 
@@ -18,18 +17,23 @@ public class Field {
 	private int length;
 	private int height;
 	
+	private int threads;
+	private int fishNumber;
+	
 	private ExecutorService executorService;
 	private ArrayList<IterationTask> tasks;
 	
 	private static final Logger LOG = LogManager.getLogger(Field.class);
 	
 	
-	public Field(int length, int height) {
+	public Field(int length, int height, int fishNumber, int threads) {
 		this.length = length;
 		this.height = height;
+		this.fishNumber = fishNumber;
+		this.threads = threads;
 		fishes = new Fish[length][height];
 		
-		this.executorService = Executors.newFixedThreadPool(FishParameter.THREADS);
+		this.executorService = Executors.newFixedThreadPool(threads);
 		this.tasks = new ArrayList<IterationTask>();
 		
 	}
@@ -69,7 +73,7 @@ public class Field {
 			for( int j = 0; j < this.height - 1; j++) {
 				if (this.fishes[i][j] != null) {
 					fishcounter++;
-					if (fishcounter%(FishParameter.NUMBER_FISH/FishParameter.THREADS) == 0) {
+					if (fishcounter%(this.fishNumber/this.threads) == 0) {
 						borderPositions.add(new Position(i, j));
 						//FIXME: Ranbedingung, wenn Fischanzahl durch Threads nicht glatt durchgeht bzw, wenn es als letztes keine Zahl gibt
 					}
@@ -122,10 +126,20 @@ public class Field {
 	public static Logger getLog() {
 		return LOG;
 	}
-	
-	
 
+	public int getThreads() {
+		return threads;
+	}
 
-	
-	
+	public void setThreads(int threads) {
+		this.threads = threads;
+	}
+
+	public int getFishNumber() {
+		return fishNumber;
+	}
+
+	public void setFishNumber(int fishNumber) {
+		this.fishNumber = fishNumber;
+	}
 }

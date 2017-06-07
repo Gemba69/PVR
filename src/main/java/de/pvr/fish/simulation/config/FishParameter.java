@@ -1,15 +1,18 @@
 package de.pvr.fish.simulation.config;
 
 public class FishParameter {
+	
+	public static int ITERATIONS = 5;
 
 	public static int THREADS = 2;
 	
 	public static int NUMBER_FISH = 10;
 
-	
 	public static int FIELD_LENGTH = 1000;
 	public static int FIELD_HEIGHT = 1000;
+
 	
+	//TODO Parameter müssen auch flexibel gesetzt werden
 	public static int NUMBER_OF_NEIGHBOURS = 4;
 	
 	public static int DEATH_ANGLE = 30;

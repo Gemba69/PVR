@@ -12,13 +12,13 @@ public class TestPosition {
 		Position targetPosition = new Position (100, 101);
 		p.nextPosition();
 		
-		assertEquals(p, targetPosition);
+		assertEquals(targetPosition, p);
 
 		p = new Position(100, 999);
 		targetPosition = new Position(101, 0);
 		p.nextPosition();
 		
-		assertEquals(p, targetPosition);
+		assertEquals(targetPosition, p);
 		
 	}
 	
@@ -28,13 +28,13 @@ public class TestPosition {
 		Position targetPosition = new Position (98, 98);
 		Position startPosition = p.getRadiusStartPosition(2);
 		
-		assertEquals(startPosition, targetPosition);
+		assertEquals(targetPosition, startPosition);
 
 		p = new Position(100, 0);
 		targetPosition = new Position(98, 0);
 		startPosition = p.getRadiusStartPosition(2);
 		
-		assertEquals(startPosition, targetPosition);
+		assertEquals(targetPosition, startPosition);
 	}
 	
 	@Test
@@ -43,13 +43,13 @@ public class TestPosition {
 		Position targetPosition = new Position (102, 102);
 		Position endPosition = p.getRadiusEndPosition(2);
 		
-		assertEquals(endPosition, targetPosition);
+		assertEquals(targetPosition, endPosition);
 
 		p = new Position(100, 999);
 		targetPosition = new Position(102, 999);
 		 endPosition = p.getRadiusEndPosition(2);
 		
-		assertEquals(endPosition, targetPosition);
+			assertEquals(targetPosition, endPosition);
 	}
 	
 	

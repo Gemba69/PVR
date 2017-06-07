@@ -97,58 +97,30 @@ public class IterationTask implements Callable<Void>{
 	}
 	
 	private ArrayList<Pair<Fish, Radius>> searchInR1(Fish fish, int freeCapacity) {
-		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
-		Position startPosition = fish.getPosition().getRadiusStartPosition(FishParameter.RADIUS1 * FishParameter.FISH_BODY_LENGTH);
-		Position endPosition =  fish.getPosition().getRadiusEndPosition(FishParameter.RADIUS1 * FishParameter.FISH_BODY_LENGTH);
-		
-		for (int i = startPosition.getCoordinateX(); i < endPosition.getCoordinateX(); i++) {
-			for ( int j = startPosition.getCoordinateY(); j < endPosition.getCoordinateY(); j++) {
-				if (fishes[i][j] != null) {
-					neighbourFishes.add(Pair.of(fishes[i][j], Radius.R1));
-				}
-			}
-		}
-		//TODO Einschränkung im Totenwinkel
-		
-		//TODO reduceToFour
-		if (neighbourFishes.size() > freeCapacity) {
-			
-		}
-		
-		return neighbourFishes;
+		return searchInSpecificRadius(fish, freeCapacity, FishParameter.RADIUS1, Radius.R1);
 	}
 	
 	private ArrayList<Pair<Fish, Radius>> searchInR2(Fish fish, int freeCapacity) {
-		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
-		Position startPosition = fish.getPosition().getRadiusStartPosition(FishParameter.RADIUS2 * FishParameter.FISH_BODY_LENGTH);
-		Position endPosition =  fish.getPosition().getRadiusEndPosition(FishParameter.RADIUS2 * FishParameter.FISH_BODY_LENGTH);
-		
-		for (int i = startPosition.getCoordinateX(); i < endPosition.getCoordinateX(); i++) {
-			for ( int j = startPosition.getCoordinateY(); j < endPosition.getCoordinateY(); j++) {
-				if (fishes[i][j] != null) {
-					neighbourFishes.add(Pair.of(fishes[i][j], Radius.R1));
-				}
-			}
-		}
-		//TODO Einschränkung im Totenwinkel
-		
-		//TODO reduceToFour
-		if (neighbourFishes.size() > freeCapacity) {
-			
-		}
-		
-		return neighbourFishes;
+		return searchInSpecificRadius(fish, freeCapacity, FishParameter.RADIUS2, Radius.R2);
 	}
 	
 	private ArrayList<Pair<Fish, Radius>> searchInR3(Fish fish, int freeCapacity) {
+		return searchInSpecificRadius(fish, freeCapacity, FishParameter.RADIUS3, Radius.R3);
+	}
+	
+	private ArrayList<Pair<Fish, Radius>> searchInSpecificRadius(Fish fish, int freeCapacity, int radiusLength, Radius radius) {
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
-		Position startPosition = fish.getPosition().getRadiusStartPosition(FishParameter.RADIUS3 * FishParameter.FISH_BODY_LENGTH);
-		Position endPosition =  fish.getPosition().getRadiusEndPosition(FishParameter.RADIUS3 * FishParameter.FISH_BODY_LENGTH);
+		Position startPosition = fish.getPosition().getRadiusStartPosition(radiusLength * FishParameter.FISH_BODY_LENGTH);
+		Position endPosition =  fish.getPosition().getRadiusEndPosition(radiusLength * FishParameter.FISH_BODY_LENGTH);
 		
+		Fish potencialNeighbour;
 		for (int i = startPosition.getCoordinateX(); i < endPosition.getCoordinateX(); i++) {
 			for ( int j = startPosition.getCoordinateY(); j < endPosition.getCoordinateY(); j++) {
 				if (fishes[i][j] != null) {
-					neighbourFishes.add(Pair.of(fishes[i][j], Radius.R1));
+					potencialNeighbour = fishes[i][j];
+					if (!neighbourFishes.contains(potencialNeighbour) && potencialNeighbour != fish) {
+						neighbourFishes.add(Pair.of(fishes[i][j], radius));
+					}					
 				}
 			}
 		}

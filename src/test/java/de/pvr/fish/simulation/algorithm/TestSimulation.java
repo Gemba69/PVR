@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import de.pvr.fish.simulation.application.Field;
 import de.pvr.fish.simulation.testdata.TestdataGenerator;
-import de.pvr.sosh.simulation.application.Field;
 
 public class TestSimulation {
 

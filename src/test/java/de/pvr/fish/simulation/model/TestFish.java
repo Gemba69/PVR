@@ -13,18 +13,18 @@ public class TestFish {
 		int targetAngel = 270;
 		fish.turnAround();
 		
-		assertEquals(fish.getAngle(), targetAngel);
+		assertEquals(targetAngel, fish.getAngle() );
 		
 		targetAngel = 90;
 		fish.turnAround();
 		
-		assertEquals(fish.getAngle(), targetAngel);
+		assertEquals(targetAngel, fish.getAngle() );
 		
 		targetAngel = 0;
 		fish.setAngle(180);
 		fish.turnAround();
 		
-		assertEquals(fish.getAngle(), targetAngel);
+		assertEquals(targetAngel, fish.getAngle() );
 	}
 
 }
