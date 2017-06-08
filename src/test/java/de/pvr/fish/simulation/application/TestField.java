@@ -30,7 +30,7 @@ public class TestField {
 	@Test
 	public void testAddNewFishToField() {
 		Field field = new Field(10, 10, 10, 2);
-		Fish fish = new Fish(90, new Position(8, 8));	
+		Fish fish = new Fish(new Position(8, 8), new Position(10, 8));	
 		field.addNewFishToField(fish);
 		
 		Fish[][] targetArray = new Fish[10][10];

@@ -1,5 +1,7 @@
 package de.pvr.fish.simulation.application;
 
+import java.util.Vector;
+
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
@@ -39,4 +41,5 @@ public class Application {
 	private static Fish createRandomFish(int fieldLength, int fieldHeight) {
 		return RandomGenerator.getRandomFish(fieldLength, fieldHeight);
 	}
+
 }

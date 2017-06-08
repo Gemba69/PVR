@@ -91,4 +91,34 @@ public class Position {
 		return new Position(positionX, positionY);
 	}
 	
+	public void addPosition(Position p) {
+		this.coordinateX += p.getCoordinateX();
+		this.coordinateY += p.getCoordinateY();
+	}
+	
+	public int getAngle(Position target) {
+	    //int angle = (int) Math.toDegrees(Math.atan2(target.getCoordinateY() - this.getCoordinateY(), target.getCoordinateX() - this.getCoordinateX()));
+		double angle2 = Math.atan2(target.coordinateY - this.coordinateY, target.coordinateX- this.coordinateX);
+		
+		int angle = (int) Math.toDegrees(angle2);
+
+		angle = (angle + 180)%360;
+
+	    return angle;
+	}
+	
+	public Position getDiffBetweenPositions(Position target) {
+		return new Position(target.coordinateX - this.coordinateX, target.coordinateY - this.coordinateY);
+	}
+	
+	public void addSpecificAngle(int angle) {
+		angle = angle * -1;
+		int coordX = (int) (this.coordinateX * Math.cos(Math.toRadians(angle)) + this.coordinateY * - Math.sin(Math.toRadians(angle)));
+		int coordY = (int) (this.coordinateX * Math.sin(Math.toRadians(angle)) + this.coordinateY * Math.cos(Math.toRadians(angle)));
+		
+		this.coordinateX = coordX;
+		this.coordinateY = coordY;
+	}
+
+	
 }

@@ -52,6 +52,72 @@ public class TestPosition {
 			assertEquals(targetPosition, endPosition);
 	}
 	
+	@Test
+	public void testAddPosition() {
+		Position p = new Position(100, 100);
+		Position addPosition = new Position(3, 3);
+		Position targetPosition = new Position (103, 103);
+		
+		p.addPosition(addPosition);
+		
+		assertEquals(targetPosition, p);
+	}
+	
+	@Test
+	public void testGetAngle() {
+		Position p = new Position(100, 100);
+		Position targetPosition = new Position (99, 101);
+		
+		assertEquals(315, p.getAngle(targetPosition));
+		
+		targetPosition = new Position (98, 98);
+		
+		assertEquals(45, p.getAngle(targetPosition));
+		
+		targetPosition = new Position (102, 98);
+		
+		assertEquals(135, p.getAngle(targetPosition));
+		
+		targetPosition = new Position (98, 100);
+		
+		assertEquals(0, p.getAngle(targetPosition));
+		
+		targetPosition = new Position (100, 98);
+		
+		assertEquals(90, p.getAngle(targetPosition));
+	}
+	
+	@Test
+	public void testGetDiffBetweenPositions() {
+		Position p = new Position(100, 100);
+		Position p2 = new Position(102, 102);
+		Position targetPosition = new Position (2, 2);
+		
+		assertEquals(p.getDiffBetweenPositions(p2), targetPosition);
+	}
+	
+	@Test
+	public void testAddSpecificAngle() {
+		Position p = new Position(2, 2);
+		Position targetPosition = new Position (2, 0);
+		
+		p.addSpecificAngle(45);
+		
+		assertEquals(targetPosition, p);
+		
+		p = new Position(2, 0);
+		targetPosition = new Position(-2, 0);
+		p.addSpecificAngle(180);
+		
+		assertEquals(targetPosition, p);
+		
+		p = new Position(-2, 0);
+		targetPosition = new Position(0, 2);
+		p.addSpecificAngle(90);
+		
+		assertEquals(targetPosition, p);
+	}
+	
 	
 	
 }

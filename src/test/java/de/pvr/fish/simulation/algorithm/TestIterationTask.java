@@ -40,7 +40,7 @@ public class TestIterationTask {
 		
 		IterationTask iterationTask = new IterationTask(field.getFishes(), new Position(0, 0), new Position(0, 0));
 		Fish fish = field.getFishes()[100][100];
-		Fish targetFish = new Fish(99, new Position (101, 101));
+		Fish targetFish = new Fish(new Position (101, 101), new Position(103, 103));
 
 		//iterationTask.setToNewPlace(fish, iterationTask.findNeighbours(fish));
 		

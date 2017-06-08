@@ -6,11 +6,11 @@ public class Fish {
 
 	
 	private Position position;
-	private int angle;
+	private Position nextPosition;
 	
-	public Fish (int angle, Position position) {
-		this.angle = angle;
+	public Fish (Position position, Position nextPosition) {
 		this.position = position;
+		this.nextPosition = nextPosition;
 	}
 
 	public Position getPosition() {
@@ -20,17 +20,32 @@ public class Fish {
 	public void setPosition(Position position) {
 		this.position = position;
 	}
-
-	public int getAngle() {
-		return angle;
+	
+	public Position getNextPosition() {
+		return this.nextPosition;
 	}
-
-	public void setAngle(int angle) {
-		this.angle = angle;
+	
+	public void setNextPosition(Position nextPosition) {
+		this.nextPosition = nextPosition;
 	}
 	
 	public void turnAround() {
-		this.angle = (this.angle + 180) % 360;
+		turnAt(-180);
+	}
+	
+	public void turnAt(int angle) {
+		angle *= -1;
+		Position p = this.position.getDiffBetweenPositions(this.nextPosition);
+		Position newNextPosition = new Position(this.position.getCoordinateX(), this.position.getCoordinateY());
+		
+		p.addSpecificAngle(angle);
+		newNextPosition.addPosition(p);
+		
+		this.nextPosition = newNextPosition;
+	}
+	
+	public int getAngle() {
+		return this.position.getAngle(this.nextPosition);
 	}
 	
     @Override
@@ -38,7 +53,7 @@ public class Fish {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Fish fish = (Fish) o;
-        if (this.angle == fish.angle && this.position.getCoordinateX() == fish.position.getCoordinateX() && this.position.getCoordinateY() == fish.position.getCoordinateY()) {
+        if (this.position.getCoordinateX() == fish.position.getCoordinateX() && this.position.getCoordinateY() == fish.position.getCoordinateY()) {
         	return true;
         } else {
         	return false;
@@ -47,7 +62,7 @@ public class Fish {
     
     @Override
     public int hashCode() {
-        return Objects.hash(this.position.getCoordinateX() + this.position.getCoordinateY() + this.angle);
+        return Objects.hash(this.position.getCoordinateX() + this.position.getCoordinateY() + this.nextPosition.getCoordinateX() + this.nextPosition.getCoordinateY());
     }
 
     @Override
@@ -55,7 +70,9 @@ public class Fish {
         return "Fish{" +
                 "coordinateX=" + this.position.getCoordinateX() +
                 ", coordinateY=" + this.position.getCoordinateY() +
-                ", angle=" + this.angle +
+                ", nextCoordinateX=" + this.nextPosition.getCoordinateX() +
+                ", nextCoordinateY=" + this.nextPosition.getCoordinateY() +
                 "}";
     }
+    
 }

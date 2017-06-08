@@ -9,7 +9,9 @@ public class TestdataGenerator {
 
 	
 	public static Fish generateRandomFish() {
-		Fish fish = new Fish(RandomGenerator.getRandomAngle(), RandomGenerator.getRandomPosition());
+		Position p = RandomGenerator.getRandomPosition();
+		
+		Fish fish = new Fish(p, new Position(p.getCoordinateX() + RandomGenerator.getRandomRangeNumber(), p.getCoordinateY() + RandomGenerator.getRandomRangeNumber() ));
 		return fish;
 	}
 	
@@ -34,16 +36,16 @@ public class TestdataGenerator {
 	public static Field getFieldWithSpecific10Fishes() {
 		Field field = getEmptyField();
 		
-		field.addNewFishToField(new Fish(180, new Position(100,100)));
-		field.addNewFishToField(new Fish(180, new Position(102,102)));
-		field.addNewFishToField(new Fish(0, new Position(104,104)));
-		field.addNewFishToField(new Fish(90, new Position(101,102)));
-		field.addNewFishToField(new Fish(270, new Position(10,10)));
-		field.addNewFishToField(new Fish(180, new Position(105,103)));
-		field.addNewFishToField(new Fish(0, new Position(103,107)));
-		field.addNewFishToField(new Fish(90, new Position(99,99)));
-		field.addNewFishToField(new Fish(90, new Position(100,102)));
-		field.addNewFishToField(new Fish(180, new Position(500,500))); //far away
+		field.addNewFishToField(new Fish(new Position(100,100), new Position(100, 102)));
+		field.addNewFishToField(new Fish(new Position(102,102), new Position(100, 102)));
+		field.addNewFishToField(new Fish(new Position(104,104), new Position(103, 102)));
+		field.addNewFishToField(new Fish(new Position(101,102), new Position(100, 102)));
+		field.addNewFishToField(new Fish(new Position(10,10), new Position(12, 12)));
+		field.addNewFishToField(new Fish(new Position(105,103), new Position(105, 102)));
+		field.addNewFishToField(new Fish(new Position(103,107), new Position(103, 106)));
+		field.addNewFishToField(new Fish(new Position(99,99), new Position(100, 102)));
+		field.addNewFishToField(new Fish(new Position(100,102), new Position(101, 102)));
+		field.addNewFishToField(new Fish(new Position(500,500), new Position(502, 502))); //far away
 		
 		return field;
 	}

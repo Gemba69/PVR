@@ -7,10 +7,10 @@ public class RandomGenerator {
 
 	
 	public static int getRandomCoordinate() {
-		return getRandomCoordinate(1000);
+		return getRandomNumber(1000);
 	}
 	
-	public static int getRandomCoordinate(int area) {
+	public static int getRandomNumber(int area) {
 		return (int) (Math.random() * area + 1);
 	}
 	
@@ -27,6 +27,22 @@ public class RandomGenerator {
 	}
 	
 	public static Fish getRandomFish(int length, int height) {
-		return new Fish(getRandomAngle(), getRandomPosition(length, height));
+		return new Fish(getRandomPosition(length, height), getRandomPosition(length + 2, height + 2));
+	}
+	
+	public static int getRandomSpeed() {
+		return getRandomNumber(3);
+	}
+	
+	public static int getRandomSpeed(int maxSpeed) {
+		return getRandomNumber(maxSpeed);
+	}
+	
+	public static int getRandomRangeNumber() {
+		return getRandomRangeNumber(3); //FIXME
+	}
+	
+	public static int getRandomRangeNumber(int number) {
+		return getRandomNumber(2 * number) - number;
 	}
 }
