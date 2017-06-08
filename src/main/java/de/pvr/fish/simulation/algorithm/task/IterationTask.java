@@ -10,6 +10,7 @@ import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
 import de.pvr.fish.simulation.util.Radius;
+import de.pvr.fish.simulation.util.RandomGenerator;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -63,7 +64,7 @@ public class IterationTask implements Callable<Void>{
 	
 	public void setToNewPlace(Fish fish, ArrayList<Pair<Fish, Radius>> neighbourFishes) {
 		if (neighbourFishes.isEmpty()) {
-			fish.turnAround();
+			fish.turnAt(RandomGenerator.getRandomAngle());
 		} else {
 			this.fishes[fish.getPosition().getCoordinateX()][fish.getPosition().getCoordinateY()] = null;
 			
@@ -116,7 +117,7 @@ public class IterationTask implements Callable<Void>{
 			for ( int j = startPosition.getCoordinateY(); j < endPosition.getCoordinateY(); j++) {
 				if (fishes[i][j] != null) {
 					potencialNeighbour = fishes[i][j];
-					if (!neighbourFishes.contains(potencialNeighbour) && potencialNeighbour != fish) {
+					if (potencialNeighbour != fish && fish.getPosition().getDiffBetweenPositions(potencialNeighbour.getPosition()).getLength() > minRadusLength && fish.isInDeathAngle(potencialNeighbour.getPosition())) {
 						neighbourFishes.add(Pair.of(fishes[i][j], radius));
 					}					
 				}
@@ -130,6 +131,10 @@ public class IterationTask implements Callable<Void>{
 		}
 		
 		return neighbourFishes;
+	}
+	
+	private void setNewSpeed() {
+		
 	}
 
 }

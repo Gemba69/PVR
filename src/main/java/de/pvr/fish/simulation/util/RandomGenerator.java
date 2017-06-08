@@ -39,7 +39,7 @@ public class RandomGenerator {
 	}
 	
 	public static int getRandomRangeNumber() {
-		return getRandomRangeNumber(3); //FIXME
+		return getRandomRangeNumber(3);
 	}
 	
 	public static int getRandomRangeNumber(int number) {

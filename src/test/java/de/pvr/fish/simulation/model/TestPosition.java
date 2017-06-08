@@ -118,6 +118,23 @@ public class TestPosition {
 		assertEquals(targetPosition, p);
 	}
 	
-	
+	@Test
+	public void testGetLength() {
+		Position p = new Position (2, 3);
+		
+		assertEquals(3, p.getLength());
+		
+		p = new Position (2, 2);
+		
+		assertEquals(2, p.getLength());
+		
+		p = new Position (3, 2);
+		
+		assertEquals(3, p.getLength());
+		
+		p = new Position (-3, -2);
+		//FIXME to double and phytagoras
+		assertEquals(3, p.getLength());
+	}
 	
 }

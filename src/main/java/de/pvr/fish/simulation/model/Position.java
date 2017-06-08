@@ -120,5 +120,8 @@ public class Position {
 		this.coordinateY = coordY;
 	}
 
+	public int getLength() {
+		return Math.max(Math.abs(coordinateX), Math.abs(coordinateY));
+	}
 	
 }

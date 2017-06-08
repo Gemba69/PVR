@@ -2,6 +2,8 @@ package de.pvr.fish.simulation.model;
 
 import java.util.Objects;
 
+import de.pvr.fish.simulation.config.FishParameter;
+
 public class Fish {
 
 	
@@ -42,6 +44,17 @@ public class Fish {
 		newNextPosition.addPosition(p);
 		
 		this.nextPosition = newNextPosition;
+	}
+	
+	public boolean isInDeathAngle(Position positon) {
+		//TODO implement this method
+		int angleBetween = this.position.getAngle(positon);
+		
+		if (getAngle() - Math.abs(angleBetween) > 180 + FishParameter.DEATH_ANGLE / 2 || getAngle() - Math.abs(angleBetween) < 180 - FishParameter.DEATH_ANGLE / 2 ) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	public int getAngle() {

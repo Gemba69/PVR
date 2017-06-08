@@ -58,5 +58,14 @@ public class TestFish {
 		
 		assertEquals(270, fish.getAngle());
 	}
+	
+	@Test
+	public void testIsInDeathAngle() {
+		Fish fish = new Fish(new Position(100, 100), new Position(100, 102));
+		
+		assertEquals(true, fish.isInDeathAngle(new Position(100, 98)));
+		
+		assertEquals(false, fish.isInDeathAngle(new Position(103, 103)));
+	}
 
 }
