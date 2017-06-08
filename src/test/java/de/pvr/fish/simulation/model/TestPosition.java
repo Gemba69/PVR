@@ -133,7 +133,6 @@ public class TestPosition {
 		assertEquals(3.6, p.getLength(), 0.1);
 		
 		p = new Position (-3, -2);
-		//FIXME to double and phytagoras
 		assertEquals(3.6, p.getLength(), 0.1);
 	}
 	

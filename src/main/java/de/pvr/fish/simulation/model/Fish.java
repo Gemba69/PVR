@@ -47,7 +47,6 @@ public class Fish {
 	}
 	
 	public boolean isInDeathAngle(Position positon) {
-		//TODO implement this method
 		int angleBetween = this.position.getAngle(positon);
 		
 		if (getAngle() - Math.abs(angleBetween) > 180 + FishParameter.DEATH_ANGLE / 2 || getAngle() - Math.abs(angleBetween) < 180 - FishParameter.DEATH_ANGLE / 2 ) {

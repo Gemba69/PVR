@@ -88,8 +88,8 @@ public class IterationTask implements Callable<Void>{
 			//fish.setNextPosition(fish.);
 			fish.turnAt(newAngle);
 			//this.fishes[fish.getPosition().getCoordinateX()][fish.getPosition().getCoordinateY()] = fish;
-			//TODO fish wirklich auf neue Position legen
-			//TODO Speed
+			//TODO 2 fish wirklich auf neue Position legen
+			//TODO 2 Speed
 		}
 		}
 		
@@ -126,7 +126,7 @@ public class IterationTask implements Callable<Void>{
 		
 		while (neighbourFishes.size() > freeCapacity) {
 			neighbourFishes.remove(0);
-			//TODO eleganter machen
+			//TODO 2 eleganter machen
 		}
 		
 		return neighbourFishes;
