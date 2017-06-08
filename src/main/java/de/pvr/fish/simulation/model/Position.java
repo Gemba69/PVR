@@ -33,12 +33,13 @@ public class Position {
 	}
 	
 	public void nextPosition() {
-		if (FishParameter.FIELD_LENGTH - 1 > this.coordinateY) {
+		if (FishParameter.FIELD_HEIGHT - 1 > this.coordinateY) {
 			this.coordinateY++;
 		} else {
-			this.coordinateY = 0;
-			this.coordinateX++;
-			//TODO Randbedingung Ende des Feldes - auch weiter unten die beiden und als Testabdeckung
+			if (FishParameter.FIELD_LENGTH - 1 > this.coordinateX) {
+				this.coordinateY = 0;
+				this.coordinateX++;
+			}
 		}
 	}
 	
@@ -71,18 +72,22 @@ public class Position {
 		int positionX = (int) (this.coordinateX - radius);
 		if (positionX < 0) {
 			positionX = 0;
+		} else if (positionX > FishParameter.FIELD_LENGTH - 1) {
+			positionX = FishParameter.FIELD_LENGTH - 1;
 		}
 		int positionY = (int) (this.coordinateY - radius);
 		if (positionY < 0) {
 			positionY = 0;
+		}	else if (positionY > FishParameter.FIELD_HEIGHT - 1) {
+			positionY = FishParameter.FIELD_HEIGHT - 1;
 		}
 		return new Position(positionX, positionY);
 	}
 	
 	public Position getRadiusEndPosition(double radius) {
 		int positionX = (int) (this.coordinateX + radius);
-		if (positionX > FishParameter.FIELD_LENGTH) {
-			positionX = FishParameter.FIELD_LENGTH;
+		if (positionX > FishParameter.FIELD_LENGTH - 1) {
+			positionX = FishParameter.FIELD_LENGTH - 1;
 		}
 		int positionY = (int) (this.coordinateY + radius);
 		if (positionY > FishParameter.FIELD_HEIGHT - 1) {

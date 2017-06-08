@@ -2,7 +2,7 @@ package de.pvr.fish.simulation.util;
 
 public class StopWatch {
 
-	//TODO 3implement this class
+	//TODO 3 implement this class
 	
 	public void startWatch(WatchArea watchArea) {
 		

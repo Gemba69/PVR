@@ -24,7 +24,9 @@ public class TestdataGenerator {
 		Field field = getEmptyField();
 		
 		for (int i = 0; i < maxFishes; i++) {
-			field.addNewFishToField(generateRandomFish());
+			if (!field.addNewFishToField(generateRandomFish())) {
+				i--;
+			};
 		}	
 		return field;
 	}

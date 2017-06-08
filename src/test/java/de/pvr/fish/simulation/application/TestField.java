@@ -31,7 +31,7 @@ public class TestField {
 	public void testAddNewFishToField() {
 		Field field = new Field(10, 10, 10, 2);
 		Fish fish = new Fish(new Position(8, 8), new Position(10, 8));	
-		field.addNewFishToField(fish);
+		assertTrue(field.addNewFishToField(fish));
 		
 		Fish[][] targetArray = new Fish[10][10];
 		targetArray[8][8] = fish;
@@ -39,7 +39,7 @@ public class TestField {
 		
 		assertArrayEquals(targetArray, field.getFishes());
 		
-		//TODO: implement function if fish is already on this position
+		assertFalse(field.addNewFishToField(fish));
 	}
 	
 	

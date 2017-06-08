@@ -38,8 +38,12 @@ public class Field {
 		
 	}
 	
-	public void addNewFishToField(Fish fish) {
-		this.fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateY()] = fish;
+	public boolean addNewFishToField(Fish fish) {
+		if (this.fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateY()] == null) {
+			this.fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateY()] = fish;
+			return true;
+		}
+		return false;
 	}
 	
 	public void nextInteration() {
@@ -73,9 +77,11 @@ public class Field {
 			for( int j = 0; j < this.height - 1; j++) {
 				if (this.fishes[i][j] != null) {
 					fishcounter++;
-					if (fishcounter%(this.fishNumber/this.threads) == 0) {
+					if (fishcounter%((int)this.fishNumber/this.threads) == 0 || fishcounter == this.fishNumber) {
 						borderPositions.add(new Position(i, j));
-						//FIXME: Ranbedingung, wenn Fischanzahl durch Threads nicht glatt durchgeht bzw, wenn es als letztes keine Zahl gibt
+					}
+					if (fishcounter == this.fishNumber) {
+						
 					}
 				}
 			}
