@@ -117,17 +117,16 @@ public class IterationTask implements Callable<Void>{
 			for ( int j = startPosition.getCoordinateY(); j < endPosition.getCoordinateY(); j++) {
 				if (fishes[i][j] != null) {
 					potencialNeighbour = fishes[i][j];
-					if (potencialNeighbour != fish && fish.getPosition().getDiffBetweenPositions(potencialNeighbour.getPosition()).getLength() > minRadusLength && fish.isInDeathAngle(potencialNeighbour.getPosition())) {
+					if (potencialNeighbour != fish && fish.getPosition().getDiffBetweenPositions(potencialNeighbour.getPosition()).getLength() >= minRadusLength && !fish.isInDeathAngle(potencialNeighbour.getPosition())) {
 						neighbourFishes.add(Pair.of(fishes[i][j], radius));
 					}					
 				}
 			}
 		}
-		//TODO Einschränkung im Totenwinkel -> Wenn Fish nicht einen bestimmten Winkel zum anderen hat
 		
-		//TODO reduceToFour (Länge sortieren - anderer Ansatz?
-		if (neighbourFishes.size() > freeCapacity) {
-			
+		while (neighbourFishes.size() > freeCapacity) {
+			neighbourFishes.remove(0);
+			//TODO eleganter machen
 		}
 		
 		return neighbourFishes;

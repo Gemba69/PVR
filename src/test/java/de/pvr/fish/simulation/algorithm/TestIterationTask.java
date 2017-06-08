@@ -26,11 +26,11 @@ public class TestIterationTask {
 		
 		ArrayList<Pair<Fish, Radius>> targetNeighbourhood = new ArrayList<Pair<Fish, Radius>>();
 		targetNeighbourhood.add(Pair.of(field.getFishes()[99][99], Radius.R1));
-		targetNeighbourhood.add(Pair.of(field.getFishes()[100][102], Radius.R1));
+		targetNeighbourhood.add(Pair.of(field.getFishes()[100][102], Radius.R2));
 		targetNeighbourhood.add(Pair.of(field.getFishes()[101][102], Radius.R2));
 		targetNeighbourhood.add(Pair.of(field.getFishes()[102][102], Radius.R2));
 		
-		//assertEquals(targetNeighbourhood, neighbourhood);
+		assertEquals(targetNeighbourhood, neighbourhood);
 	}
 	
 	@Test
