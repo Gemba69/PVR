@@ -39,7 +39,7 @@ public class Field {
 	}
 	
 	public void addNewFishToField(Fish fish) {
-		this.fishes[fish.getPosition().getCoordinateX()][fish.getPosition().getCoordinateY()] = fish;
+		this.fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateY()] = fish;
 	}
 	
 	public void nextInteration() {

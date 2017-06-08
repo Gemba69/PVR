@@ -27,8 +27,8 @@ public class Application {
 		Fish fish;
 		for (int i = 0; i > fishNumber; i++) {
 			fish = createRandomFish(fieldLength, fieldHeight);
-			if (fishes[fish.getPosition().getCoordinateX()][fish.getPosition().getCoordinateX()] == null) {
-				fishes[fish.getPosition().getCoordinateX()][fish.getPosition().getCoordinateX()] = fish;
+			if (fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] == null) {
+				fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] = fish;
 			} else {
 				i--;
 			}

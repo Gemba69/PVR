@@ -7,16 +7,16 @@ import de.pvr.fish.simulation.config.FishParameter;
 public class Position {
 
 	
-	private int coordinateX;
-	private int coordinateY;
+	private double coordinateX;
+	private double coordinateY;
 	
-	public Position (int coordinateX, int coordinateY) {
+	public Position (double coordinateX, double coordinateY) {
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
 	}
 	
 	
-	public int getCoordinateX() {
+	public double getCoordinateX() {
 		return this.coordinateX;
 	}
 	
@@ -24,7 +24,7 @@ public class Position {
 		this.coordinateX = coordinateX;
 	}
 	
-	public int getCoordinateY() {
+	public double getCoordinateY() {
 		return this.coordinateY;
 	}
 	
@@ -67,24 +67,24 @@ public class Position {
                 "}";
     }
 	
-	public Position getRadiusStartPosition(int radius) {
-		int positionX = this.coordinateX - radius;
+	public Position getRadiusStartPosition(double radius) {
+		int positionX = (int) (this.coordinateX - radius);
 		if (positionX < 0) {
 			positionX = 0;
 		}
-		int positionY = this.coordinateY - radius;
+		int positionY = (int) (this.coordinateY - radius);
 		if (positionY < 0) {
 			positionY = 0;
 		}
 		return new Position(positionX, positionY);
 	}
 	
-	public Position getRadiusEndPosition(int radius) {
-		int positionX = this.coordinateX + radius;
+	public Position getRadiusEndPosition(double radius) {
+		int positionX = (int) (this.coordinateX + radius);
 		if (positionX > FishParameter.FIELD_LENGTH) {
 			positionX = FishParameter.FIELD_LENGTH;
 		}
-		int positionY = this.coordinateY + radius;
+		int positionY = (int) (this.coordinateY + radius);
 		if (positionY > FishParameter.FIELD_HEIGHT - 1) {
 			positionY = FishParameter.FIELD_HEIGHT - 1;
 		}
@@ -119,9 +119,9 @@ public class Position {
 		this.coordinateX = coordX;
 		this.coordinateY = coordY;
 	}
-
-	public int getLength() {
-		return Math.max(Math.abs(coordinateX), Math.abs(coordinateY));
+	
+	public double getLength() {
+		return Math.sqrt(Math.abs(coordinateX) * Math.abs(coordinateX) + Math.abs(coordinateY * Math.abs(coordinateY)));
 	}
 	
 }

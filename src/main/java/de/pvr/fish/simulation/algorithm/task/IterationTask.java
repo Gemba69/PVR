@@ -33,8 +33,8 @@ public class IterationTask implements Callable<Void>{
 	@Override
 	public Void call() throws Exception {
 		LOG.info("Starting with Task iteration");
-		for (int i = startPosition.getCoordinateX() ; i < endPosition.getCoordinateX(); i++) {
-			for (int j = startPosition.getCoordinateY() ; j < endPosition.getCoordinateY(); i++) {
+		for ( int i = (int) startPosition.getCoordinateX() ; i < endPosition.getCoordinateX(); i++) {
+			for (int j = (int) startPosition.getCoordinateY() ; j < endPosition.getCoordinateY(); i++) {
 				if (fishes[i][j] != null) {
 					Fish fish = fishes[i][j];
 					setToNewPlace(fish, findNeighbours(fish));
@@ -66,7 +66,7 @@ public class IterationTask implements Callable<Void>{
 		if (neighbourFishes.isEmpty()) {
 			fish.turnAt(RandomGenerator.getRandomAngle());
 		} else {
-			this.fishes[fish.getPosition().getCoordinateX()][fish.getPosition().getCoordinateY()] = null;
+			this.fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateY()] = null;
 			
 			int newAngle = 0;
 			int newPositionX = 0;
@@ -113,8 +113,8 @@ public class IterationTask implements Callable<Void>{
 		Position endPosition =  fish.getPosition().getRadiusEndPosition(radiusLength * FishParameter.FISH_BODY_LENGTH);
 		
 		Fish potencialNeighbour;
-		for (int i = startPosition.getCoordinateX(); i < endPosition.getCoordinateX(); i++) {
-			for ( int j = startPosition.getCoordinateY(); j < endPosition.getCoordinateY(); j++) {
+		for (int i = (int) startPosition.getCoordinateX(); i < endPosition.getCoordinateX(); i++) {
+			for ( int j = (int) startPosition.getCoordinateY(); j < endPosition.getCoordinateY(); j++) {
 				if (fishes[i][j] != null) {
 					potencialNeighbour = fishes[i][j];
 					if (potencialNeighbour != fish && fish.getPosition().getDiffBetweenPositions(potencialNeighbour.getPosition()).getLength() >= minRadusLength && !fish.isInDeathAngle(potencialNeighbour.getPosition())) {

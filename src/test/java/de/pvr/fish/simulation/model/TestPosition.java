@@ -122,19 +122,19 @@ public class TestPosition {
 	public void testGetLength() {
 		Position p = new Position (2, 3);
 		
-		assertEquals(3, p.getLength());
+		assertEquals(3.6, p.getLength(), 0.1);
 		
 		p = new Position (2, 2);
 		
-		assertEquals(2, p.getLength());
+		assertEquals(2.8, p.getLength(), 0.1);
 		
 		p = new Position (3, 2);
 		
-		assertEquals(3, p.getLength());
+		assertEquals(3.6, p.getLength(), 0.1);
 		
 		p = new Position (-3, -2);
 		//FIXME to double and phytagoras
-		assertEquals(3, p.getLength());
+		assertEquals(3.6, p.getLength(), 0.1);
 	}
 	
 }
