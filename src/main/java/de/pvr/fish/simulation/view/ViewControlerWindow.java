@@ -1,7 +1,10 @@
 package de.pvr.fish.simulation.view;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,11 +12,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -33,8 +40,31 @@ public class ViewControlerWindow extends Application {
 	public void start(Stage primaryStage) {
 
 		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root, 700, 700, Color.WHITE);
-		primaryStage.setScene(scene);
+		Scene scene = new Scene(root, 700, 800, Color.WHITE);
+
+		MenuBar menuBar = new MenuBar();
+		menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
+		root.setTop(menuBar);
+
+		Menu fileMenu = new Menu("File");
+		MenuItem exitMenuItem = new MenuItem("Exit");
+		fileMenu.getItems().add(exitMenuItem);
+		exitMenuItem.setOnAction(actionEvent -> Platform.exit());
+
+		Menu Visualisierung = new Menu("Visualisierung");
+		MenuItem Fischschwarm = new MenuItem("Fischschwarm");
+		Visualisierung.getItems().add(Fischschwarm);
+		Fischschwarm.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent t) {
+				Stage stage = new Stage();
+				Scene scene = new Scene(new VBox());
+				stage.setTitle("Aquarium");
+				stage.setScene(scene);
+				stage.show();
+			}
+		});
+
+		menuBar.getMenus().addAll(fileMenu, Visualisierung);
 
 		// TopGrid
 		topGrid = new GridPane();
@@ -64,164 +94,164 @@ public class ViewControlerWindow extends Application {
 		primaryStage.show();
 
 		// Label, Buttons, Textfields
-		Label iterationlabel = new Label("Iterationen:");
-		TextField iterationfield = new TextField();
+		Label iterationLabel = new Label("Iterationen:");
+		TextField iterationField = new TextField();
 		Label threads = new Label("Anzahl der Threads:");
-		TextField threadscount = new TextField();
-		Label fishlabel = new Label("Anzahl der Fische:");
-		TextField fishfield = new TextField();
+		TextField threadCount = new TextField();
+		Label fishLabel = new Label("Anzahl der Fische:");
+		TextField fishField = new TextField();
 
-		Button saveButt = new Button("Start");
-		Button resetButt = new Button("Reset");
-		Button messButt = new Button("Messungen");
-		Button visButt = new Button("Visualisierung");
-		Button leer1 = new Button("Feldgröße");
-		Button leer2 = new Button("600x600");
-		Button leer3 = new Button("1000x1000");
-		Button Aq = new Button("Aquarium");
-		Label squarelabel = new Label("Square's");
-		ChoiceBox squarelength = new ChoiceBox();
-		ChoiceBox squarenumber = new ChoiceBox();
+		Button startButton = new Button("Start");
+		Button resetButton = new Button("Reset");
+		Button messButton = new Button("Messungen");
+		Button visButton = new Button("Visualisierung");
+		Button fieldSize = new Button("Feldgröße");
+		Button size600 = new Button("600x600");
+		Button size1000 = new Button("1000x1000");
+		Button fishTankLabel = new Button("Aquarium");
+		Label squareLabel = new Label("Square's");
+		ChoiceBox squareLength = new ChoiceBox();
+		ChoiceBox squareNumber = new ChoiceBox();
 
-		ChoiceBox deadangle = new ChoiceBox();
-		ChoiceBox neibor = new ChoiceBox();
-		ChoiceBox fishlength = new ChoiceBox();
-		Label deadanglelabel = new Label("Größe des toten Winkels:");
-		Label neiborlabel = new Label("Anzahl der Nachbarn:");
-		Label fishlengthlabel = new Label("Länge des Fisches:");
+		ChoiceBox deadAngle = new ChoiceBox();
+		ChoiceBox neighbor = new ChoiceBox();
+		ChoiceBox fishLength = new ChoiceBox();
+		Label deadAngleLabel = new Label("Größe des toten Winkels:");
+		Label neighborLabel = new Label("Anzahl der Nachbarn:");
+		Label fishLengthLabel = new Label("Länge des Fisches:");
 
 		// final ChoiceBox<String> toterwinkel = new
 		// ChoiceBox<>(FXCollections.observableArrayList("First", "Second",
 		// "Third"));
 
 		// Iterationlabel
-		GridPane.setHalignment(iterationlabel, HPos.RIGHT);
-		topGrid.add(iterationlabel, 0, 2);
+		GridPane.setHalignment(iterationLabel, HPos.RIGHT);
+		topGrid.add(iterationLabel, 0, 2);
 
 		// Timelabel
 		GridPane.setHalignment(threads, HPos.RIGHT);
 		topGrid.add(threads, 0, 3);
 
 		// Fishlabel
-		GridPane.setHalignment(fishlabel, HPos.RIGHT);
-		topGrid.add(fishlabel, 0, 4);
+		GridPane.setHalignment(fishLabel, HPos.RIGHT);
+		topGrid.add(fishLabel, 0, 4);
 
 		// Iterationfield
-		GridPane.setHalignment(iterationfield, HPos.LEFT);
-		topGrid.add(iterationfield, 1, 2);
-		iterationfield.setText("1000");
-		iterationfield.getText();
+		GridPane.setHalignment(iterationField, HPos.LEFT);
+		topGrid.add(iterationField, 1, 2);
+		iterationField.setText("1000");
+		iterationField.getText();
 
 		// Timefield
-		GridPane.setHalignment(threadscount, HPos.LEFT);
-		topGrid.add(threadscount, 1, 3);
-		threadscount.setText("4");
-		threadscount.getText();
+		GridPane.setHalignment(threadCount, HPos.LEFT);
+		topGrid.add(threadCount, 1, 3);
+		threadCount.setText("4");
+		threadCount.getText();
 
 		// Fishfield
-		GridPane.setHalignment(fishfield, HPos.LEFT);
-		topGrid.add(fishfield, 1, 4);
-		fishfield.setText("100");
-		fishfield.getText();
+		GridPane.setHalignment(fishField, HPos.LEFT);
+		topGrid.add(fishField, 1, 4);
+		fishField.setText("100");
+		fishField.getText();
 
 		// StartButton
-		GridPane.setHalignment(saveButt, HPos.LEFT);
-		topGrid.add(saveButt, 2, 4);
+		GridPane.setHalignment(startButton, HPos.LEFT);
+		topGrid.add(startButton, 2, 4);
 
 		// ResetButton
-		GridPane.setHalignment(resetButt, HPos.CENTER);
-		topGrid.add(resetButt, 3, 2);
-		resetButt.setMinSize(105, 20);
-		resetButt.setAlignment(Pos.BASELINE_CENTER);
+		GridPane.setHalignment(resetButton, HPos.CENTER);
+		topGrid.add(resetButton, 3, 2);
+		resetButton.setMinSize(105, 20);
+		resetButton.setAlignment(Pos.BASELINE_CENTER);
 
 		// MessButton
-		GridPane.setHalignment(messButt, HPos.CENTER);
-		topGrid.add(messButt, 3, 3);
-		messButt.setMinSize(105, 20);
-		messButt.setAlignment(Pos.BASELINE_CENTER);
+		GridPane.setHalignment(messButton, HPos.CENTER);
+		topGrid.add(messButton, 3, 3);
+		messButton.setMinSize(105, 20);
+		messButton.setAlignment(Pos.BASELINE_CENTER);
 
 		// VisButton
-		GridPane.setHalignment(visButt, HPos.CENTER);
-		topGrid.add(visButt, 3, 4);
-		visButt.setMinSize(105, 20);
+		GridPane.setHalignment(visButton, HPos.CENTER);
+		topGrid.add(visButton, 3, 4);
+		visButton.setMinSize(105, 20);
 
 		// ButtonLeer1
-		GridPane.setHalignment(leer1, HPos.LEFT);
-		topGrid.add(leer1, 2, 7);
-		leer1.setMinSize(105, 20);
-		leer1.setAlignment(Pos.BASELINE_CENTER);
+		GridPane.setHalignment(fieldSize, HPos.LEFT);
+		topGrid.add(fieldSize, 2, 7);
+		fieldSize.setMinSize(105, 20);
+		fieldSize.setAlignment(Pos.BASELINE_CENTER);
 
 		// ButtonLeer2
-		GridPane.setHalignment(leer2, HPos.LEFT);
-		topGrid.add(leer2, 2, 8);
-		leer2.setMinSize(105, 20);
-		leer2.setAlignment(Pos.BASELINE_CENTER);
+		GridPane.setHalignment(size600, HPos.LEFT);
+		topGrid.add(size600, 2, 8);
+		size600.setMinSize(105, 20);
+		size600.setAlignment(Pos.BASELINE_CENTER);
 
 		// ButtonLeer3
-		GridPane.setHalignment(leer3, HPos.LEFT);
-		topGrid.add(leer3, 2, 9);
-		leer3.setMinSize(105, 20);
-		leer3.setAlignment(Pos.BASELINE_CENTER);
+		GridPane.setHalignment(size1000, HPos.LEFT);
+		topGrid.add(size1000, 2, 9);
+		size1000.setMinSize(105, 20);
+		size1000.setAlignment(Pos.BASELINE_CENTER);
 
 		// Death Angle Choice
-		deadangle.getItems().add("20");
-		deadangle.getItems().add("30");
-		deadangle.getItems().add("40");
-		deadangle.getItems().add("50");
-		GridPane.setHalignment(deadangle, HPos.LEFT);
-		topGrid.add(deadangle, 1, 7);
-		deadangle.setMinSize(60, 20);
-		deadangle.getSelectionModel().select(1);
+		deadAngle.getItems().add("20");
+		deadAngle.getItems().add("30");
+		deadAngle.getItems().add("40");
+		deadAngle.getItems().add("50");
+		GridPane.setHalignment(deadAngle, HPos.LEFT);
+		topGrid.add(deadAngle, 1, 7);
+		deadAngle.setMinSize(60, 20);
+		deadAngle.getSelectionModel().select(1);
 		// Reading the selected Value
-		String deadanglestring = (String) deadangle.getValue();
-		GridPane.setHalignment(deadanglelabel, HPos.RIGHT);
-		topGrid.add(deadanglelabel, 0, 7);
+		// String deadanglestring = (String) deadAngle.getValue();
+		GridPane.setHalignment(deadAngleLabel, HPos.RIGHT);
+		topGrid.add(deadAngleLabel, 0, 7);
 
 		// Neibor Choice
-		neibor.getItems().add("3");
-		neibor.getItems().add("4");
-		neibor.getItems().add("5");
-		GridPane.setHalignment(neibor, HPos.LEFT);
-		topGrid.add(neibor, 1, 8);
-		neibor.setMinSize(60, 20);
-		neibor.getSelectionModel().select(1);
-		String neiborstring = (String) neibor.getValue();
-		GridPane.setHalignment(neiborlabel, HPos.RIGHT);
-		topGrid.add(neiborlabel, 0, 8);
+		neighbor.getItems().add("3");
+		neighbor.getItems().add("4");
+		neighbor.getItems().add("5");
+		GridPane.setHalignment(neighbor, HPos.LEFT);
+		topGrid.add(neighbor, 1, 8);
+		neighbor.setMinSize(60, 20);
+		neighbor.getSelectionModel().select(1);
+		// String neiborstring = (String) neighbor.getValue();
+		GridPane.setHalignment(neighborLabel, HPos.RIGHT);
+		topGrid.add(neighborLabel, 0, 8);
 
 		// Fish length Choice
-		fishlength.getItems().add("1");
-		fishlength.getItems().add("2");
-		fishlength.getItems().add("3");
-		GridPane.setHalignment(fishlength, HPos.LEFT);
-		topGrid.add(fishlength, 1, 9);
-		fishlength.setMinSize(60, 20);
-		fishlength.getSelectionModel().select(0);
-		String fishlengthstring = (String) fishlength.getValue();
-		GridPane.setHalignment(fishlengthlabel, HPos.RIGHT);
-		topGrid.add(fishlengthlabel, 0, 9);
+		fishLength.getItems().add("1");
+		fishLength.getItems().add("2");
+		fishLength.getItems().add("3");
+		GridPane.setHalignment(fishLength, HPos.LEFT);
+		topGrid.add(fishLength, 1, 9);
+		fishLength.setMinSize(60, 20);
+		fishLength.getSelectionModel().select(0);
+		// String fishlengthstring = (String) fishLength.getValue();
+		GridPane.setHalignment(fishLengthLabel, HPos.RIGHT);
+		topGrid.add(fishLengthLabel, 0, 9);
 
 		// Square length Choice + label
-		squarelength.getItems().add("1");
-		squarelength.getItems().add("2");
-		squarelength.getItems().add("3");
-		GridPane.setHalignment(squarelength, HPos.RIGHT);
-		topGrid.add(squarelength, 3, 8);
-		squarelength.setMinSize(60, 20);
-		squarelength.getSelectionModel().select(2);
-		String squarelengthstring = (String) squarelength.getValue();
-		GridPane.setHalignment(squarelabel, HPos.RIGHT);
-		topGrid.add(squarelabel, 3, 7);
+		squareLength.getItems().add("1");
+		squareLength.getItems().add("2");
+		squareLength.getItems().add("3");
+		GridPane.setHalignment(squareLength, HPos.RIGHT);
+		topGrid.add(squareLength, 3, 8);
+		squareLength.setMinSize(60, 20);
+		squareLength.getSelectionModel().select(2);
+		// String squarelengthstring = (String) squareLength.getValue();
+		GridPane.setHalignment(squareLabel, HPos.RIGHT);
+		topGrid.add(squareLabel, 3, 7);
 
 		// Square length Choice 3/9next
-		squarenumber.getItems().add("1");
-		squarenumber.getItems().add("2");
-		squarenumber.getItems().add("3");
-		GridPane.setHalignment(squarenumber, HPos.RIGHT);
-		topGrid.add(squarenumber, 3, 9);
-		squarenumber.setMinSize(60, 20);
-		squarenumber.getSelectionModel().select(2);
-		String squarenumberstring = (String) squarenumber.getValue();
+		squareNumber.getItems().add("1");
+		squareNumber.getItems().add("2");
+		squareNumber.getItems().add("3");
+		GridPane.setHalignment(squareNumber, HPos.RIGHT);
+		topGrid.add(squareNumber, 3, 9);
+		squareNumber.setMinSize(60, 20);
+		squareNumber.getSelectionModel().select(2);
+		// String squarenumberstring = (String) squareNumber.getValue();
 
 		bottomGrid = new GridPane();
 		bottomGrid.setAlignment(Pos.BOTTOM_LEFT);
@@ -237,13 +267,14 @@ public class ViewControlerWindow extends Application {
 		bottomGrid.getColumnConstraints().addAll(column5, column6, column7, column8);
 
 		// Aquarium
-		GridPane.setHalignment(Aq, HPos.CENTER);
-		bottomGrid.add(Aq, 2, 2);
-		Aq.setMinSize(600, 300);
-		Aq.setAlignment(Pos.BASELINE_CENTER);
+		GridPane.setHalignment(fishTankLabel, HPos.CENTER);
+		bottomGrid.add(fishTankLabel, 2, 2);
+		fishTankLabel.setMinSize(600, 300);
+		fishTankLabel.setAlignment(Pos.BASELINE_CENTER);
 
 		// Anzeigen des Panes
-		root.setTop(topGrid);
+		root.setTop(menuBar);
+		root.setCenter(topGrid);
 		root.setBottom(bottomGrid);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
