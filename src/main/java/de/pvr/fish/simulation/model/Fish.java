@@ -79,6 +79,10 @@ public class Fish {
 		goToNextPosition(getNewSpeed());
 	}
 	
+	public Position getDiffPosition() {
+		return this.position.getDiffBetweenPositions(nextPosition);
+	}
+	
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

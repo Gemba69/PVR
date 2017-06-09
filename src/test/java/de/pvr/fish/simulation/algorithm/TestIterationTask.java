@@ -45,7 +45,7 @@ public class TestIterationTask {
 		//iterationTask.setToNewPlace(fish, iterationTask.findNeighbours(fish));
 		
 		//assertEquals(targetFish, fish);
-		
+		//FIXME Datenstruktur und testen der neuen Positionen
 	}
 	
 	@Test
@@ -60,6 +60,6 @@ public class TestIterationTask {
 		neighbourFishes.add(Pair.of(field.getFishes()[101][102], Radius.R2));
 		neighbourFishes.add(Pair.of(field.getFishes()[102][102], Radius.R2));
 		
-		assertEquals(7 , iterationTask.calculateNewAngle(fish, neighbourFishes));
+		assertEquals(28 , iterationTask.calculateNewAngle(fish, neighbourFishes));
 	}
 }

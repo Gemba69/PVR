@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
+import de.pvr.fish.simulation.util.CommonUtil;
 import de.pvr.fish.simulation.util.Radius;
 import de.pvr.fish.simulation.util.RandomGenerator;
 
@@ -65,11 +66,7 @@ public class IterationTask implements Callable<Void>{
 	public void setToNewPlace(Fish fish, ArrayList<Pair<Fish, Radius>> neighbourFishes) {
 
 			fish.turnAt(calculateNewAngle(fish, neighbourFishes));
-			
-			
-			//this.fishes[fish.getPosition().getCoordinateX()][fish.getPosition().getCoordinateY()] = fish;
 			//TODO 2 fish wirklich auf neue Position legen
-			//TODO 2 Speed
 			fish.getNextPosition();
 			
 	}
@@ -117,15 +114,14 @@ public class IterationTask implements Callable<Void>{
 				newAngle = RandomGenerator.getRandomAngle();
 			} else {
 				this.fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateY()] = null;
-				//FIXME 2 richtige Eigenschaften klarer machen
 				for (Pair<Fish, Radius> pair : neighbourFishes) {
 					switch (pair.getRight()) {
 					case R1:
-						newAngle = newAngle + ((fish.getAngle() + 90) % 360);
+						newAngle = newAngle + (CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition()) + 90);
 					case R2:
-						newAngle = newAngle + (pair.getLeft().getAngle());
+						newAngle = newAngle + (CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition()));
 					case R3:
-						newAngle = newAngle + (pair.getLeft().getAngle());
+						newAngle = newAngle + (CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getPosition().getDiffBetweenPositions(fish.getPosition())));
 					break;
 				}
 				newAngle = ( newAngle / neighbourFishes.size());
