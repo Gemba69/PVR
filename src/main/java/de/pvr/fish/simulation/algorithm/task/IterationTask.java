@@ -63,36 +63,15 @@ public class IterationTask implements Callable<Void>{
 	}
 	
 	public void setToNewPlace(Fish fish, ArrayList<Pair<Fish, Radius>> neighbourFishes) {
-		if (neighbourFishes.isEmpty()) {
-			fish.turnAt(RandomGenerator.getRandomAngle());
-		} else {
-			this.fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateY()] = null;
+
+			fish.turnAt(calculateNewAngle(fish, neighbourFishes));
 			
-			int newAngle = 0;
-			int newPositionX = 0;
-			int newPositionY = 0;
-			int R3counter = 0; 
 			
-			for (Pair<Fish, Radius> pair : neighbourFishes) {
-				switch (pair.getRight()) {
-				case R1:
-					newAngle = newAngle + ((fish.getAngle() + 90) % 360);
-				case R2:
-					newAngle = newAngle + (pair.getLeft().getAngle());
-				case R3:
-					newAngle = newAngle + (pair.getLeft().getAngle());
-					R3counter++;
-				break;
-			}
-			newAngle = ( newAngle / neighbourFishes.size());
-			//fish.setNextPosition(fish.);
-			fish.turnAt(newAngle);
 			//this.fishes[fish.getPosition().getCoordinateX()][fish.getPosition().getCoordinateY()] = fish;
 			//TODO 2 fish wirklich auf neue Position legen
 			//TODO 2 Speed
-		}
-		}
-		
+			fish.getNextPosition();
+			
 	}
 	
 	private ArrayList<Pair<Fish, Radius>> searchInR1(Fish fish, int freeCapacity) {
@@ -132,8 +111,27 @@ public class IterationTask implements Callable<Void>{
 		return neighbourFishes;
 	}
 	
-	private void setNewSpeed() {
-		
+	public int calculateNewAngle(Fish fish, ArrayList<Pair<Fish, Radius>> neighbourFishes) {
+		int newAngle = 0;
+			if (neighbourFishes.isEmpty()) {
+				newAngle = RandomGenerator.getRandomAngle();
+			} else {
+				this.fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateY()] = null;
+				//FIXME 2 richtige Eigenschaften klarer machen
+				for (Pair<Fish, Radius> pair : neighbourFishes) {
+					switch (pair.getRight()) {
+					case R1:
+						newAngle = newAngle + ((fish.getAngle() + 90) % 360);
+					case R2:
+						newAngle = newAngle + (pair.getLeft().getAngle());
+					case R3:
+						newAngle = newAngle + (pair.getLeft().getAngle());
+					break;
+				}
+				newAngle = ( newAngle / neighbourFishes.size());
+				}
+			}
+			return newAngle;
 	}
-
+	
 }

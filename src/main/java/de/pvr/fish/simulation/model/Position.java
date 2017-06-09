@@ -101,6 +101,10 @@ public class Position {
 		this.coordinateY += p.getCoordinateY();
 	}
 	
+	public void addLength(double length) {
+		this.coordinateX += length;
+	}
+	
 	public int getAngle(Position target) {
 	    //int angle = (int) Math.toDegrees(Math.atan2(target.getCoordinateY() - this.getCoordinateY(), target.getCoordinateX() - this.getCoordinateX()));
 		double angle2 = Math.atan2(target.coordinateY - this.coordinateY, target.coordinateX- this.coordinateX);

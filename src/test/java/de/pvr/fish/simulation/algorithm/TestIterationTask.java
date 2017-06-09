@@ -47,4 +47,19 @@ public class TestIterationTask {
 		//assertEquals(targetFish, fish);
 		
 	}
+	
+	@Test
+	public void testCalculateNewAngle() {
+		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
+		IterationTask iterationTask = new IterationTask(field.getFishes(), new Position(0, 0), new Position(0, 0));
+		
+		Fish fish = field.getFishes()[100][100];
+		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
+		neighbourFishes.add(Pair.of(field.getFishes()[99][99], Radius.R1));
+		neighbourFishes.add(Pair.of(field.getFishes()[100][102], Radius.R2));
+		neighbourFishes.add(Pair.of(field.getFishes()[101][102], Radius.R2));
+		neighbourFishes.add(Pair.of(field.getFishes()[102][102], Radius.R2));
+		
+		assertEquals(7 , iterationTask.calculateNewAngle(fish, neighbourFishes));
+	}
 }

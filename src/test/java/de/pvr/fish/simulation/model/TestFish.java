@@ -67,5 +67,28 @@ public class TestFish {
 		
 		assertEquals(false, fish.isInDeathAngle(new Position(103, 103)));
 	}
+	
+	@Test
+	public void testGoToNextPosition() {
+		Fish fish = new Fish(new Position(100, 100), new Position(100, 102));
+		Fish targetFish = new Fish(new Position(100, 102), new Position(100, 104));
+		fish.goToNextPosition(2);
+		assertEquals(targetFish, fish);
+		
+		fish.turnAt(45);
+		targetFish = new Fish(new Position (99, 103), new Position(97, 105));
+		fish.goToNextPosition(3);
+		assertEquals(targetFish, fish);
+	}
+	
+	@Test
+	public void testFishEquals() {
+		Fish fish = new Fish(new Position(100, 100), new Position(100, 102));
+		Fish targetFish = new Fish(new Position(100, 102), new Position(100, 104));
+		
+		assertFalse(fish.equals(targetFish));
+		targetFish = new Fish(new Position(100, 100), new Position(100, 102));
+		assertTrue(fish.equals(targetFish));
+	}
 
 }

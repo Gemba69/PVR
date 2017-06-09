@@ -3,6 +3,7 @@ package de.pvr.fish.simulation.model;
 import java.util.Objects;
 
 import de.pvr.fish.simulation.config.FishParameter;
+import de.pvr.fish.simulation.util.RandomGenerator;
 
 public class Fish {
 
@@ -60,12 +61,30 @@ public class Fish {
 		return this.position.getAngle(this.nextPosition);
 	}
 	
+	public double getNewSpeed() {
+		// TODO 2 eleganter machen
+		return RandomGenerator.getRandomSpeed(3);
+	}
+	
+	public void goToNextPosition(double speed) {
+		Position newPosition = new Position(this.nextPosition.getCoordinateX(), this.nextPosition.getCoordinateY());
+		newPosition.addLength(speed);
+		int angle = getAngle();
+		this.position = this.nextPosition;
+		this.nextPosition = newPosition;
+		turnAt(angle - 180);
+	}
+	
+	public void goToNextPosition() {
+		goToNextPosition(getNewSpeed());
+	}
+	
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Fish fish = (Fish) o;
-        if (this.position.getCoordinateX() == fish.position.getCoordinateX() && this.position.getCoordinateY() == fish.position.getCoordinateY()) {
+        if (this.position.getCoordinateX() == fish.position.getCoordinateX() && this.position.getCoordinateY() == fish.position.getCoordinateY() && this.nextPosition.getCoordinateX() == fish.nextPosition.getCoordinateX() && this.nextPosition.getCoordinateY() == fish.nextPosition.getCoordinateY()) {
         	return true;
         } else {
         	return false;

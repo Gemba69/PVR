@@ -153,4 +153,23 @@ public class TestPosition {
 		assertEquals(3.6, p.getLength(), 0.1);
 	}
 	
+	@Test
+	public void testAddLength() {
+		Position p = new Position (4, 4);
+		p.addLength(4);
+		Position targetPosition = new Position(8,4);
+		
+		assertEquals(targetPosition, p);
+		
+		p.addLength(-2);
+		targetPosition = new Position(6,4);
+		
+		assertEquals(targetPosition, p);
+		
+		p.addLength(6.6);
+		targetPosition = new Position(12.6,4);
+		
+		assertEquals(targetPosition, p);
+	}
+	
 }
