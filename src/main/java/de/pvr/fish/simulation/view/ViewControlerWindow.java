@@ -30,6 +30,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -132,6 +133,13 @@ public class ViewControlerWindow extends Application {
 		Label deadAngleLabel = new Label("Größe des toten Winkels:");
 		Label neighborLabel = new Label("Anzahl der Nachbarn:");
 		Label fishLengthLabel = new Label("Länge des Fisches:");
+		
+		Line line = new Line();
+		line.setStartX(100.0f);
+		line.setStartY(100.0f);
+		line.setEndX(200.0f);
+		line.setEndY(200.0f);
+		
 
 		// final ChoiceBox<String> toterwinkel = new
 		// ChoiceBox<>(FXCollections.observableArrayList("First", "Second",
@@ -158,13 +166,23 @@ public class ViewControlerWindow extends Application {
 		GridPane.setHalignment(threadCount, HPos.LEFT);
 		topGrid.add(threadCount, 1, 3);
 		threadCount.setText("4");
-		// threadCount.getText(fieldWindow.get);
+		//threadCount.getText(fieldWindow.get);
 
 		// Fishfield
 		GridPane.setHalignment(fishField, HPos.LEFT);
 		topGrid.add(fishField, 1, 4);
 		fishField.setText("100");
 		fishField.getText();
+		fishField.lengthProperty().addListener((observable, oldValue, newValue) -> {
+	        if(newValue.intValue() > oldValue.intValue()){
+	            char c = fishField.getText().charAt(oldValue.intValue());
+	            /** Check if the new character is the number or other's */
+	            if( c > '9' || c < '0'){
+	                /** if it's not number then just setText to previous one */
+	            	fishField.setText(fishField.getText().substring(0,fishField.getText().length()-1));
+	            }
+	        }
+	    });
 
 		// StartButton
 		GridPane.setHalignment(startButton, HPos.LEFT);
@@ -172,7 +190,7 @@ public class ViewControlerWindow extends Application {
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				fieldWindow(600, 600, Integer.parseInt(fishField.getText()), 2, 10, 4, 30, 2, 4, 6, 1);
+				fieldWindow(600, 600, Integer.parseInt(fishField.getText()), Integer.parseInt(threadCount.getText()), 10, 4, 30, 2, 4, 6, 1);
 				// fishLabel.setText("Accepted");
 			}
 		});
@@ -302,6 +320,17 @@ public class ViewControlerWindow extends Application {
 		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
+	
+	/* public boolean checkParamter(){
+		if (fishField.getText() && ());
+		return false;
+		
+		
+	} */
+	public static boolean isNumeric(String str)
+	{
+	  return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+	}
 
 	// 01 0+0 1+1
 	private void drawFish(double d, double e, double f, double g) {
@@ -310,13 +339,6 @@ public class ViewControlerWindow extends Application {
 
 	}
 
-	private void moveFish(int x, int y) {
-		int[] CoordinateX;
-		int[] CoordinateY;
-
-		bottomCanvas.setTranslateX(x);
-		bottomCanvas.setTranslateY(y);
-	}
 
 	public void fieldWindow(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
 			int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
