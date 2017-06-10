@@ -23,7 +23,7 @@ public class SetNewPositionTask extends FishTask{
 
 	@Override
 	public Void call() throws Exception {
-		LOG.info("Starting with Task NewPositionTask");
+		LOG.info("Starting with SetNewPosition Task from " + this.startPosition + " to " + this.endPosition);
 		Fish fish;
 		for ( int i = (int) startPosition.getCoordinateX() ; i < endPosition.getCoordinateX(); i++) {
 			for (int j = (int) startPosition.getCoordinateY() ; j < endPosition.getCoordinateY(); i++) {

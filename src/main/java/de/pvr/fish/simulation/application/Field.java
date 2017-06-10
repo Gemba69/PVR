@@ -24,7 +24,6 @@ public class Field {
 	
 	private ExecutorService executorService;
 	private ArrayList<FishTask> tasks;
-	private ArrayList<Fish> fishList = new ArrayList<Fish>();
 	
 	private static final Logger LOG = LogManager.getLogger(Field.class);
 	
@@ -52,6 +51,7 @@ public class Field {
 	public void nextInteration() {
 		LOG.info("Starting overall Iteration");
 		
+		tasks.clear();
 		//split Task 
 		Position startPosition = new Position (0, 0);
 		ArrayList<Position> borders = splitTasks();
