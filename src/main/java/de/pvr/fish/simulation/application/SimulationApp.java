@@ -7,7 +7,7 @@ import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
 import de.pvr.fish.simulation.util.RandomGenerator;
 
-public class Application {
+public class SimulationApp {
 	
 	private int fieldLength;
 	private int fieldHeight;
@@ -16,15 +16,55 @@ public class Application {
 	private int iterations;
 
 	
+	public int getFieldLength() {
+		return fieldLength;
+	}
+
+	public void setFieldLength(int fieldLength) {
+		this.fieldLength = fieldLength;
+	}
+
+	public int getFieldHeight() {
+		return fieldHeight;
+	}
+
+	public void setFieldHeight(int fieldHeight) {
+		this.fieldHeight = fieldHeight;
+	}
+
+	public int getFishNumber() {
+		return fishNumber;
+	}
+
+	public void setFishNumber(int fishNumber) {
+		this.fishNumber = fishNumber;
+	}
+
+	public int getThreads() {
+		return threads;
+	}
+
+	public void setThreads(int threads) {
+		this.threads = threads;
+	}
+
+	public int getIterations() {
+		return iterations;
+	}
+
+	public void setIterations(int iterations) {
+		this.iterations = iterations;
+	}
+
 	public static void main(String[] args) {
 		//TODO 4 Parameter validieren
 		
-		Application app = new Application(FishParameter.FIELD_LENGTH, FishParameter.FIELD_HEIGHT, FishParameter.NUMBER_FISH, FishParameter.THREADS, FishParameter.ITERATIONS);
+		SimulationApp app = new SimulationApp(FishParameter.FIELD_LENGTH, FishParameter.FIELD_HEIGHT, FishParameter.NUMBER_FISH, FishParameter.THREADS, FishParameter.ITERATIONS);
 		
 		app.createFieldAndIterate();
 	}
 	
-	public Application(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations) {
+	public SimulationApp(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations) {
 		this.fieldLength = fieldLength;
 		this.fieldHeight = fieldHeight;
 		this.fishNumber = fishNumber;
@@ -32,7 +72,7 @@ public class Application {
 		this.iterations = iterations;
 	}
 	
-	public Application(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations, int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
+	public SimulationApp(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations, int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
 		this.fieldLength = fieldLength;
 		this.fieldHeight = fieldHeight;
 		this.fishNumber = fishNumber;
