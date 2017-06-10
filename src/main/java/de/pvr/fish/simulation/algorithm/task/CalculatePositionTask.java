@@ -32,7 +32,7 @@ public class CalculatePositionTask extends FishTask{
 			for (int j = (int) startPosition.getCoordinateY() ; j < endPosition.getCoordinateY(); i++) {
 				if (fishes[i][j] != null) {
 					Fish fish = fishes[i][j];
-					setToNewPlace(fish, findNeighbours(fish));
+					calculateNewPlace(fish, findNeighbours(fish));
 				}
 			}
 		}
@@ -57,7 +57,7 @@ public class CalculatePositionTask extends FishTask{
 		return neighbourFishes;
 	}
 	
-	public void setToNewPlace(Fish fish, ArrayList<Pair<Fish, Radius>> neighbourFishes) {
+	public void calculateNewPlace(Fish fish, ArrayList<Pair<Fish, Radius>> neighbourFishes) {
 			fish.turnAtCalc(calculateNewAngle(fish, neighbourFishes));
 			
 			
