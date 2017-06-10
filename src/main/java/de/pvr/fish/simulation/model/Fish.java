@@ -98,13 +98,13 @@ public class Fish {
 	}
 
 	public void goToNextPosition(double speed) {
+		int angle = getAngle();
 		this.position = this.calcNextPosition;
 		Position newPosition = new Position(this.position.getCoordinateX(), this.position.getCoordinateY());
 		newPosition.addLength(speed);
-		int angle = getAngle();
 		this.nextPosition = newPosition;
-		this.calcNextPosition = newPosition;
 		turnAt(angle - 180);
+		this.calcNextPosition = new Position(this.nextPosition.getCoordinateX(), this.nextPosition.getCoordinateY());;
 	}
 
 	public void goToNextPosition() {
