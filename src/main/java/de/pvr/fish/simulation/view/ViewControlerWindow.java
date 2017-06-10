@@ -1,5 +1,11 @@
 package de.pvr.fish.simulation.view;
 
+import java.util.ArrayList;
+
+import de.pvr.fish.simulation.application.Field;
+import de.pvr.fish.simulation.application.SimulationApp;
+import de.pvr.fish.simulation.model.Fish;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -9,6 +15,8 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -22,6 +30,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -30,17 +40,21 @@ import javafx.stage.Stage;
 public class ViewControlerWindow extends Application {
 
 	private GridPane topGrid;
-	private GridPane bottomGrid;
+	// private GridPane bottomGrid;
+	Canvas bottomCanvas = new Canvas(400, 400);
+	private SimulationApp fieldWindow;
+	private GraphicsContext gc = bottomCanvas.getGraphicsContext2D();
 
 	public static void main(String[] args) {
 		Application.launch(args);
+
 	}
 
 	@Override
 	public void start(Stage primaryStage) {
 
 		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root, 700, 800, Color.WHITE);
+		Scene scene = new Scene(root, 700, 900, Color.WHITE);
 
 		MenuBar menuBar = new MenuBar();
 		menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
@@ -119,6 +133,13 @@ public class ViewControlerWindow extends Application {
 		Label deadAngleLabel = new Label("Größe des toten Winkels:");
 		Label neighborLabel = new Label("Anzahl der Nachbarn:");
 		Label fishLengthLabel = new Label("Länge des Fisches:");
+		
+		Line line = new Line();
+		line.setStartX(100.0f);
+		line.setStartY(100.0f);
+		line.setEndX(200.0f);
+		line.setEndY(200.0f);
+		
 
 		// final ChoiceBox<String> toterwinkel = new
 		// ChoiceBox<>(FXCollections.observableArrayList("First", "Second",
@@ -140,24 +161,43 @@ public class ViewControlerWindow extends Application {
 		GridPane.setHalignment(iterationField, HPos.LEFT);
 		topGrid.add(iterationField, 1, 2);
 		iterationField.setText("1000");
-		iterationField.getText();
 
-		// Timefield
+		// Threadcount
 		GridPane.setHalignment(threadCount, HPos.LEFT);
 		topGrid.add(threadCount, 1, 3);
 		threadCount.setText("4");
-		threadCount.getText();
+		//threadCount.getText(fieldWindow.get);
 
 		// Fishfield
 		GridPane.setHalignment(fishField, HPos.LEFT);
 		topGrid.add(fishField, 1, 4);
 		fishField.setText("100");
 		fishField.getText();
+		fishField.lengthProperty().addListener((observable, oldValue, newValue) -> {
+	        if(newValue.intValue() > oldValue.intValue()){
+	            char c = fishField.getText().charAt(oldValue.intValue());
+	            /** Check if the new character is the number or other's */
+	            if( c > '9' || c < '0'){
+	                /** if it's not number then just setText to previous one */
+	            	fishField.setText(fishField.getText().substring(0,fishField.getText().length()-1));
+	            }
+	        }
+	    });
 
 		// StartButton
 		GridPane.setHalignment(startButton, HPos.LEFT);
 		topGrid.add(startButton, 2, 4);
-
+		startButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+<<<<<<< HEAD
+				fieldWindow(600, 600, Integer.parseInt(fishField.getText()), Integer.parseInt(threadCount.getText()), 10, 4, 30, 2, 4, 6, 1);
+=======
+				fieldWindow(600, 600, Integer.parseInt(fishField.getText()), 2, 1, 4, 30, 2, 4, 6, 2);
+>>>>>>> 632f0536e187c84995e65886965023317e6a4cef
+				// fishLabel.setText("Accepted");
+			}
+		});
 		// ResetButton
 		GridPane.setHalignment(resetButton, HPos.CENTER);
 		topGrid.add(resetButton, 3, 2);
@@ -175,19 +215,19 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(visButton, 3, 4);
 		visButton.setMinSize(105, 20);
 
-		// ButtonLeer1
+		// Fieldsize Buttonlabel
 		GridPane.setHalignment(fieldSize, HPos.LEFT);
 		topGrid.add(fieldSize, 2, 7);
 		fieldSize.setMinSize(105, 20);
 		fieldSize.setAlignment(Pos.BASELINE_CENTER);
 
-		// ButtonLeer2
+		// Size600
 		GridPane.setHalignment(size600, HPos.LEFT);
 		topGrid.add(size600, 2, 8);
 		size600.setMinSize(105, 20);
 		size600.setAlignment(Pos.BASELINE_CENTER);
 
-		// ButtonLeer3
+		// Size1000
 		GridPane.setHalignment(size1000, HPos.LEFT);
 		topGrid.add(size1000, 2, 9);
 		size1000.setMinSize(105, 20);
@@ -253,31 +293,74 @@ public class ViewControlerWindow extends Application {
 		squareNumber.getSelectionModel().select(2);
 		// String squarenumberstring = (String) squareNumber.getValue();
 
-		bottomGrid = new GridPane();
-		bottomGrid.setAlignment(Pos.BOTTOM_LEFT);
-		bottomGrid.setPadding(new Insets(5));
-		bottomGrid.setHgap(10);
-		bottomGrid.setVgap(10);
-		bottomGrid.setPadding(new Insets(25, 25, 25, 25));
-		bottomGrid.setStyle("-fx-background-color: grey");
-		ColumnConstraints column5 = new ColumnConstraints(150);
-		ColumnConstraints column6 = new ColumnConstraints(50, 150, 110);
-		ColumnConstraints column7 = new ColumnConstraints(50);
-		ColumnConstraints column8 = new ColumnConstraints(120, 100, 100);
-		bottomGrid.getColumnConstraints().addAll(column5, column6, column7, column8);
+		/*
+		 * bottomGrid = new GridPane();
+		 * bottomGrid.setAlignment(Pos.BOTTOM_LEFT); bottomGrid.setPadding(new
+		 * Insets(5)); bottomGrid.setHgap(10); bottomGrid.setVgap(10);
+		 * bottomGrid.setPadding(new Insets(25, 25, 25, 25));
+		 * bottomGrid.setStyle("-fx-background-color: grey"); ColumnConstraints
+		 * column5 = new ColumnConstraints(150); ColumnConstraints column6 = new
+		 * ColumnConstraints(50, 150, 110); ColumnConstraints column7 = new
+		 * ColumnConstraints(50); ColumnConstraints column8 = new
+		 * ColumnConstraints(120, 100, 100);
+		 * bottomGrid.getColumnConstraints().addAll(column5, column6, column7,
+		 * column8);
+		 * 
+		 * // Aquarium GridPane.setHalignment(fishTankLabel, HPos.CENTER);
+		 * bottomGrid.add(fishTankLabel, 2, 2); fishTankLabel.setMinSize(600,
+		 * 300); fishTankLabel.setAlignment(Pos.BASELINE_CENTER);
+		 */
+		Rectangle fish = new Rectangle(6, 2, Color.BLUE);
 
-		// Aquarium
-		GridPane.setHalignment(fishTankLabel, HPos.CENTER);
-		bottomGrid.add(fishTankLabel, 2, 2);
-		fishTankLabel.setMinSize(600, 300);
-		fishTankLabel.setAlignment(Pos.BASELINE_CENTER);
-
+		SequentialTransition sequTransition = new SequentialTransition();
+		// Rectangle is the node for all animations
+		sequTransition.setNode(fish);
 		// Anzeigen des Panes
 		root.setTop(menuBar);
 		root.setCenter(topGrid);
-		root.setBottom(bottomGrid);
+		// root.setBottom(bottomGrid);
+		root.setBottom(bottomCanvas);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+	}
+	
+	/* public boolean checkParamter(){
+		if (fishField.getText() && ());
+		return false;
+		
+		
+	} */
+	public static boolean isNumeric(String str)
+	{
+	  return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+	}
+
+	// 01 0+0 1+1
+	private void drawFish(double x1, double y1, double x2, double y2) {
+		this.gc.strokeLine(x1, y1, x2, y2);
+		this.gc.strokeOval(x1, y1, 2, 2);
+
+	}
+
+
+	public void fieldWindow(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
+			int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
+
+		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
+				deathAngle, r1, r2, r3, bodyLength);
+
+		
+		for (int i = 0; i < iterations; i++) {
+			this.gc.clearRect(0, 0, fieldLength, fieldHeight);
+			for (Fish fish : this.fieldWindow.getFishList()) {
+				drawFish(fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY(),
+						fish.getLengthPosition().getCoordinateX(), fish.getLengthPosition().getCoordinateY());
+//				drawFish(fish.getNextPosition().getCoordinateX(), fish.getNextPosition().getCoordinateY(),
+//						fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY());
+			}
+			this.fieldWindow.startIteration();
+		}
+
 	}
 }
