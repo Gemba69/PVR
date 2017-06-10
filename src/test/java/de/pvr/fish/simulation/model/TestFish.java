@@ -86,7 +86,7 @@ public class TestFish {
 		fish.goToNextPosition(3);
 		System.out.println(fish.getAngle());
 		//assertEquals(targetFish, fish);
-		//FIXME verfickte Winkelberechnung macht noch scheiß
+		//FIXME verfickte Winkelberechnung ein wenig genauer machen
 	}
 	
 	@Test

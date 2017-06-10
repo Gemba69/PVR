@@ -10,6 +10,7 @@ public class Fish {
 	
 	private Position position;
 	private Position nextPosition;
+	private Position previousPosition;
 	
 	public Fish (Position position, Position nextPosition) {
 		this.position = position;
@@ -30,6 +31,14 @@ public class Fish {
 	
 	public void setNextPosition(Position nextPosition) {
 		this.nextPosition = nextPosition;
+	}
+	
+	public Position getPreviousPosition() {
+		return this.previousPosition;
+	}
+	
+	public void setPreviousPosition(Position previousPosition) {
+		this.previousPosition = previousPosition;
 	}
 	
 	public void turnAround() {
@@ -107,6 +116,8 @@ public class Fish {
                 ", coordinateY=" + this.position.getCoordinateY() +
                 ", nextCoordinateX=" + this.nextPosition.getCoordinateX() +
                 ", nextCoordinateY=" + this.nextPosition.getCoordinateY() +
+                ", previousCoordinateX=" + this.previousPosition.getCoordinateX() +
+                ", previousCoordinateY=" + this.previousPosition.getCoordinateY() +
                 "}";
     }
     

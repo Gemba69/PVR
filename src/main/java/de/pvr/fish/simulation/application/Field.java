@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import de.pvr.fish.simulation.algorithm.task.FishTask;
 import de.pvr.fish.simulation.algorithm.task.IterationTask;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
@@ -21,7 +22,7 @@ public class Field {
 	private int fishNumber;
 	
 	private ExecutorService executorService;
-	private ArrayList<IterationTask> tasks;
+	private ArrayList<FishTask> tasks;
 	
 	private static final Logger LOG = LogManager.getLogger(Field.class);
 	
@@ -34,7 +35,7 @@ public class Field {
 		fishes = new Fish[length][height];
 		
 		this.executorService = Executors.newFixedThreadPool(threads);
-		this.tasks = new ArrayList<IterationTask>();
+		this.tasks = new ArrayList<FishTask>();
 		
 	}
 	
@@ -121,11 +122,11 @@ public class Field {
 		this.executorService = executorService;
 	}
 
-	public ArrayList<IterationTask> getTasks() {
+	public ArrayList<FishTask> getTasks() {
 		return tasks;
 	}
 
-	public void setTasks(ArrayList<IterationTask> tasks) {
+	public void setTasks(ArrayList<FishTask> tasks) {
 		this.tasks = tasks;
 	}
 

@@ -15,19 +15,13 @@ import de.pvr.fish.simulation.util.RandomGenerator;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-public class IterationTask implements Callable<Void>{
-	
-	private Fish[][] fishes;
-	private Position startPosition;
-	private Position endPosition;
+public class IterationTask extends FishTask{
 	
 	private static final Logger LOG = LogManager.getLogger(IterationTask.class);
 	
 	
 	public IterationTask( Fish[][] fishes, Position startPosition, Position endPosition) {
-		this.fishes = fishes;
-		this.startPosition = startPosition;
-		this.endPosition = endPosition;
+		super(fishes, startPosition, endPosition);
 	}
 	
 

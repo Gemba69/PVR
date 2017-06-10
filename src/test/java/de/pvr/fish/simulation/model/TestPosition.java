@@ -113,10 +113,10 @@ public class TestPosition {
 		assertEquals(p.getDiffBetweenPositions(p2), targetPosition);
 	}
 	
-	//@Test FIXME TEST mit double (doublePositionen muss irgendwie auf nachkomma getrimmt werden
+	@Test
 	public void testAddSpecificAngle() {
 		Position p = new Position(2, 2);
-		Position targetPosition = new Position (2, 0);
+		Position targetPosition = new Position (3, 0);
 		
 		p.addSpecificAngle(45);
 		
