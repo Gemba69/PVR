@@ -8,14 +8,14 @@ import org.apache.logging.log4j.Logger;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
 
-public class NewPositionTask extends FishTask{
+public class SetNewPositionTask extends FishTask{
 	
 	private Fish[][] newFishes;
 	
-	private static final Logger LOG = LogManager.getLogger(NewPositionTask.class);
+	private static final Logger LOG = LogManager.getLogger(SetNewPositionTask.class);
 	
 	
-	public NewPositionTask( Fish[][] oldFishes,Fish[][] newFishes, Position startPosition, Position endPosition) {
+	public SetNewPositionTask( Fish[][] oldFishes,Fish[][] newFishes, Position startPosition, Position endPosition) {
 		super(oldFishes, startPosition, endPosition);
 		this.newFishes = newFishes;
 	}
@@ -29,6 +29,7 @@ public class NewPositionTask extends FishTask{
 			for (int j = (int) startPosition.getCoordinateY() ; j < endPosition.getCoordinateY(); i++) {
 				if (fishes[i][j] != null) {
 					fish = fishes[i][j];
+					fish.goToNextPosition();
 					newFishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateY()] = fish;
 				}
 			}

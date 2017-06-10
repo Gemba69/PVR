@@ -7,10 +7,9 @@ import de.pvr.fish.simulation.util.RandomGenerator;
 
 public class Fish {
 
-	
 	private Position position;
 	private Position nextPosition;
-	private Position previousPosition;
+	private Position calcNextPosition;
 	
 	public Fish (Position position, Position nextPosition) {
 		this.position = position;
@@ -33,12 +32,12 @@ public class Fish {
 		this.nextPosition = nextPosition;
 	}
 	
-	public Position getPreviousPosition() {
-		return this.previousPosition;
+	public Position getCalcNextPosition() {
+		return this.calcNextPosition;
 	}
 	
-	public void setPreviousPosition(Position previousPosition) {
-		this.previousPosition = previousPosition;
+	public void setCalcNextPosition(Position previousPosition) {
+		this.calcNextPosition = previousPosition;
 	}
 	
 	public void turnAround() {
@@ -46,6 +45,21 @@ public class Fish {
 	}
 	
 	public void turnAt(int angle) {
+		angle *= -1;
+		Position p = this.position.getDiffBetweenPositions(this.nextPosition);
+		Position newNextPosition = new Position(this.position.getCoordinateX(), this.position.getCoordinateY());
+		
+		p.addSpecificAngle(angle);
+		newNextPosition.addPosition(p);
+		
+		this.nextPosition = newNextPosition;
+	}
+	
+	public void turnAroundCalc() {
+		turnAtCalc(-180);
+	}
+	
+	public void turnAtCalc(int angle) {
 		angle *= -1;
 		Position p = this.position.getDiffBetweenPositions(this.nextPosition);
 		Position newNextPosition = new Position(this.position.getCoordinateX(), this.position.getCoordinateY());
@@ -92,6 +106,10 @@ public class Fish {
 		return this.position.getDiffBetweenPositions(nextPosition);
 	}
 	
+	public void calcNextPosition(){
+		
+	}
+	
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -116,8 +134,8 @@ public class Fish {
                 ", coordinateY=" + this.position.getCoordinateY() +
                 ", nextCoordinateX=" + this.nextPosition.getCoordinateX() +
                 ", nextCoordinateY=" + this.nextPosition.getCoordinateY() +
-                ", previousCoordinateX=" + this.previousPosition.getCoordinateX() +
-                ", previousCoordinateY=" + this.previousPosition.getCoordinateY() +
+                ", previousCoordinateX=" + this.calcNextPosition.getCoordinateX() +
+                ", previousCoordinateY=" + this.calcNextPosition.getCoordinateY() +
                 "}";
     }
     

@@ -8,7 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.algorithm.task.FishTask;
-import de.pvr.fish.simulation.algorithm.task.IterationTask;
+import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
+import de.pvr.fish.simulation.algorithm.task.SetNewPositionTask;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
 
@@ -52,8 +53,9 @@ public class Field {
 		
 		//split Task 
 		Position startPosition = new Position (0, 0);
-		for (Position position : splitTasks()) {
-			this.tasks.add(new IterationTask(this.fishes, startPosition, position));
+		ArrayList<Position> borders = splitTasks();
+		for (Position position : borders) {
+			this.tasks.add(new CalculatePositionTask(this.fishes, startPosition, position));
 			position.nextPosition();
 			startPosition = position;
 		}
@@ -65,10 +67,21 @@ public class Field {
 			LOG.error(e.getMessage());
 		}
 		
-		// for....
+		Fish[][] newFishes = new Fish[this.length][this.height];
+		tasks.clear();
+		for (Position position : borders) {
+			this.tasks.add(new SetNewPositionTask(this.fishes,newFishes, startPosition, position));
+			position.nextPosition();
+			startPosition = position;
+		}
+		//Execution
+		try {
+			this.executorService.invokeAll(this.tasks);
+		} catch (InterruptedException e) {
+			LOG.error(e.getMessage());
+		}
 		
-		//setNeigbourFish
-		//fish.move()
+		fishes = newFishes;
 	}
 	
 	public ArrayList<Position> splitTasks() {

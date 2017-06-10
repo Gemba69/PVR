@@ -3,7 +3,7 @@ package de.pvr.fish.simulation.algorithm;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
-import de.pvr.fish.simulation.algorithm.task.IterationTask;
+import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
 import de.pvr.fish.simulation.application.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
@@ -14,13 +14,13 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-public class TestIterationTask {
+public class TestCalculatePositionTask {
 	
 	@Test
 	public void testFindNeighbours() {
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
 		
-		IterationTask iterationTask = new IterationTask(field.getFishes(), new Position(0, 0), new Position(0, 0));
+		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), new Position(0, 0), new Position(0, 0));
 
 		ArrayList<Pair<Fish, Radius>> neighbourhood = iterationTask.findNeighbours(field.getFishes()[100][100]);
 		
@@ -38,7 +38,7 @@ public class TestIterationTask {
 		
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
 		
-		IterationTask iterationTask = new IterationTask(field.getFishes(), new Position(0, 0), new Position(0, 0));
+		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), new Position(0, 0), new Position(0, 0));
 		Fish fish = field.getFishes()[100][100];
 		Fish targetFish = new Fish(new Position (101, 101), new Position(103, 103));
 
@@ -51,7 +51,7 @@ public class TestIterationTask {
 	@Test
 	public void testCalculateNewAngle() {
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
-		IterationTask iterationTask = new IterationTask(field.getFishes(), new Position(0, 0), new Position(0, 0));
+		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), new Position(0, 0), new Position(0, 0));
 		
 		Fish fish = field.getFishes()[100][100];
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();

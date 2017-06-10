@@ -15,19 +15,19 @@ import de.pvr.fish.simulation.util.RandomGenerator;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-public class IterationTask extends FishTask{
+public class CalculatePositionTask extends FishTask{
 	
-	private static final Logger LOG = LogManager.getLogger(IterationTask.class);
+	private static final Logger LOG = LogManager.getLogger(CalculatePositionTask.class);
 	
 	
-	public IterationTask( Fish[][] fishes, Position startPosition, Position endPosition) {
+	public CalculatePositionTask( Fish[][] fishes, Position startPosition, Position endPosition) {
 		super(fishes, startPosition, endPosition);
 	}
 	
 
 	@Override
 	public Void call() throws Exception {
-		LOG.info("Starting with Task iteration");
+		LOG.info("Starting with Task iteration from " + this.startPosition + " to " + this.endPosition);
 		for ( int i = (int) startPosition.getCoordinateX() ; i < endPosition.getCoordinateX(); i++) {
 			for (int j = (int) startPosition.getCoordinateY() ; j < endPosition.getCoordinateY(); i++) {
 				if (fishes[i][j] != null) {
@@ -58,10 +58,8 @@ public class IterationTask extends FishTask{
 	}
 	
 	public void setToNewPlace(Fish fish, ArrayList<Pair<Fish, Radius>> neighbourFishes) {
-
-			fish.turnAt(calculateNewAngle(fish, neighbourFishes));
-			//TODO 2 fish wirklich auf neue Position legen
-			fish.getNextPosition();
+			fish.turnAtCalc(calculateNewAngle(fish, neighbourFishes));
+			
 			
 	}
 	
