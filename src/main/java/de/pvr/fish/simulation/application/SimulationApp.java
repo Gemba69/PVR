@@ -95,10 +95,14 @@ public class SimulationApp {
 		this.field.setFishes(createRandomFishes(this.fishNumber, field.getLength(), field.getHeight()));
 	}
 	
-	public void startIteration() {
+	public void startIterations() {
 		for (int i = 0; i < this.iterations; i++) {
 			this.field.nextInteration();
 		}
+	}
+	
+	public void startIteration() {
+		this.field.nextInteration();
 	}
 	
 	public void setParametersInFischParameters(int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
@@ -125,7 +129,7 @@ public class SimulationApp {
 	private Fish[][] createRandomFishes(int fishNumber, int fieldLength, int fieldHeight) {
 		Fish[][] fishes = new Fish[fieldLength][fieldHeight];
 		Fish fish;
-		for (int i = 0; i > fishNumber; i++) {
+		for (int i = 0; i < fishNumber; i++) {
 			fish = createRandomFish(fieldLength, fieldHeight);
 			if (fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] == null) {
 				fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] = fish;

@@ -114,6 +114,14 @@ public class Fish {
 	public Position getDiffPosition() {
 		return this.position.getDiffBetweenPositions(nextPosition);
 	}
+	
+	public Position getLengthPosition() {
+		Position p = new Position(position.getCoordinateX(), position.getCoordinateY());
+		p.getDiffBetweenPositions(this.position);
+		p.addLength(FishParameter.FISH_BODY_LENGTH);
+		p.addSpecificAngle(getAngle());
+		return p;
+	}
 
 	@Override
 	public boolean equals(Object o) {
