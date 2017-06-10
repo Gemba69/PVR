@@ -1,5 +1,6 @@
 package de.pvr.fish.simulation.view;
 
+import de.pvr.fish.simulation.application.SimulationApp;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -27,13 +28,17 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+
 public class ViewControlerWindow extends Application {
 
 	private GridPane topGrid;
 	private GridPane bottomGrid;
+	private SimulationApp fieldWindow;
+	
 
 	public static void main(String[] args) {
 		Application.launch(args);
+		
 	}
 
 	@Override
@@ -119,6 +124,7 @@ public class ViewControlerWindow extends Application {
 		Label deadAngleLabel = new Label("Größe des toten Winkels:");
 		Label neighborLabel = new Label("Anzahl der Nachbarn:");
 		Label fishLengthLabel = new Label("Länge des Fisches:");
+		
 
 		// final ChoiceBox<String> toterwinkel = new
 		// ChoiceBox<>(FXCollections.observableArrayList("First", "Second",
@@ -140,13 +146,12 @@ public class ViewControlerWindow extends Application {
 		GridPane.setHalignment(iterationField, HPos.LEFT);
 		topGrid.add(iterationField, 1, 2);
 		iterationField.setText("1000");
-		iterationField.getText();
-
-		// Timefield
+		
+		// Threadcount
 		GridPane.setHalignment(threadCount, HPos.LEFT);
 		topGrid.add(threadCount, 1, 3);
 		threadCount.setText("4");
-		threadCount.getText();
+		//threadCount.getText(fieldWindow.get);
 
 		// Fishfield
 		GridPane.setHalignment(fishField, HPos.LEFT);
@@ -157,7 +162,11 @@ public class ViewControlerWindow extends Application {
 		// StartButton
 		GridPane.setHalignment(startButton, HPos.LEFT);
 		topGrid.add(startButton, 2, 4);
-
+		startButton.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override public void handle(ActionEvent e) {
+		    	fieldWindow(600, 600, Integer.parseInt(fishField.getText()), 2, 10, 4, 30, 2, 4, 6, 1);
+		    	// fishLabel.setText("Accepted");
+		    }});
 		// ResetButton
 		GridPane.setHalignment(resetButton, HPos.CENTER);
 		topGrid.add(resetButton, 3, 2);
@@ -175,19 +184,19 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(visButton, 3, 4);
 		visButton.setMinSize(105, 20);
 
-		// ButtonLeer1
+		// Fieldsize Buttonlabel
 		GridPane.setHalignment(fieldSize, HPos.LEFT);
 		topGrid.add(fieldSize, 2, 7);
 		fieldSize.setMinSize(105, 20);
 		fieldSize.setAlignment(Pos.BASELINE_CENTER);
 
-		// ButtonLeer2
+		// Size600
 		GridPane.setHalignment(size600, HPos.LEFT);
 		topGrid.add(size600, 2, 8);
 		size600.setMinSize(105, 20);
 		size600.setAlignment(Pos.BASELINE_CENTER);
 
-		// ButtonLeer3
+		// Size1000
 		GridPane.setHalignment(size1000, HPos.LEFT);
 		topGrid.add(size1000, 2, 9);
 		size1000.setMinSize(105, 20);
@@ -279,5 +288,17 @@ public class ViewControlerWindow extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+	}
+	
+	public void fieldWindow(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations, int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
+		
+			this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours, deathAngle, r1, r2, r3, bodyLength);
+		
+			//Window geöffnet
+			//Fische setzen
+			//this.fieldWindow.getFishList();
+			
+		
+		
 	}
 }
