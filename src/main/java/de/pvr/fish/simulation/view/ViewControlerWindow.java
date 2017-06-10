@@ -190,11 +190,7 @@ public class ViewControlerWindow extends Application {
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-<<<<<<< HEAD
 				fieldWindow(600, 600, Integer.parseInt(fishField.getText()), Integer.parseInt(threadCount.getText()), 10, 4, 30, 2, 4, 6, 1);
-=======
-				fieldWindow(600, 600, Integer.parseInt(fishField.getText()), 2, 1, 4, 30, 2, 4, 6, 2);
->>>>>>> 632f0536e187c84995e65886965023317e6a4cef
 				// fishLabel.setText("Accepted");
 			}
 		});
