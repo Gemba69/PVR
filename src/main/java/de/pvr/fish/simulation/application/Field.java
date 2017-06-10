@@ -24,6 +24,7 @@ public class Field {
 	
 	private ExecutorService executorService;
 	private ArrayList<FishTask> tasks;
+	private ArrayList<Fish> fishList = new ArrayList<Fish>();
 	
 	private static final Logger LOG = LogManager.getLogger(Field.class);
 	

@@ -1,5 +1,6 @@
 package de.pvr.fish.simulation.application;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 import de.pvr.fish.simulation.config.FishParameter;
@@ -14,6 +15,10 @@ public class SimulationApp {
 	private int fishNumber;
 	private int threads;
 	private int iterations;
+	
+	private Field field;
+	
+	private ArrayList<Fish> fishList = new ArrayList<Fish>();
 
 	
 	public int getFieldLength() {
@@ -61,7 +66,8 @@ public class SimulationApp {
 		
 		SimulationApp app = new SimulationApp(FishParameter.FIELD_LENGTH, FishParameter.FIELD_HEIGHT, FishParameter.NUMBER_FISH, FishParameter.THREADS, FishParameter.ITERATIONS);
 		
-		app.createFieldAndIterate();
+		app.createField();
+		app.startIteration();
 	}
 	
 	public SimulationApp(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations) {
@@ -80,15 +86,18 @@ public class SimulationApp {
 		this.iterations = iterations;
 		
 		setParametersInFischParameters(neighbours, deathAngle, r1, r2, r3, bodyLength);
+		createField();
 	}
 	
-	public void createFieldAndIterate() {
-		Field field = new Field(this.fieldLength, this.fieldHeight, this.fishNumber, this.threads);
+	public void createField() {
+		this.field = new Field(this.fieldLength, this.fieldHeight, this.fishNumber, this.threads);
 		
-		field.setFishes(createRandomFishes(this.fishNumber, field.getLength(), field.getHeight()));
-		
+		this.field.setFishes(createRandomFishes(this.fishNumber, field.getLength(), field.getHeight()));
+	}
+	
+	public void startIteration() {
 		for (int i = 0; i < this.iterations; i++) {
-			field.nextInteration();
+			this.field.nextInteration();
 		}
 	}
 	
@@ -113,13 +122,14 @@ public class SimulationApp {
 		FishParameter.FISH_BODY_LENGTH = bodyLength;
 	}
 
-	private static Fish[][] createRandomFishes(int fishNumber, int fieldLength, int fieldHeight) {
+	private Fish[][] createRandomFishes(int fishNumber, int fieldLength, int fieldHeight) {
 		Fish[][] fishes = new Fish[fieldLength][fieldHeight];
 		Fish fish;
 		for (int i = 0; i > fishNumber; i++) {
 			fish = createRandomFish(fieldLength, fieldHeight);
 			if (fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] == null) {
 				fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] = fish;
+				fishList.add(fish);
 			} else {
 				i--;
 			}
@@ -132,7 +142,20 @@ public class SimulationApp {
 	private static Fish createRandomFish(int fieldLength, int fieldHeight) {
 		return RandomGenerator.getRandomFish(fieldLength, fieldHeight);
 	}
-	
-	
 
+	public Field getField() {
+		return field;
+	}
+
+	public void setField(Field field) {
+		this.field = field;
+	}
+
+	public ArrayList<Fish> getFishList() {
+		return fishList;
+	}
+
+	public void setFishList(ArrayList<Fish> fishList) {
+		this.fishList = fishList;
+	}
 }
