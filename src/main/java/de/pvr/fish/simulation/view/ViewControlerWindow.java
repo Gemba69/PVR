@@ -1,6 +1,11 @@
 package de.pvr.fish.simulation.view;
 
+import java.util.ArrayList;
+
+import de.pvr.fish.simulation.application.Field;
 import de.pvr.fish.simulation.application.SimulationApp;
+import de.pvr.fish.simulation.model.Fish;
+import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -10,6 +15,8 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -23,6 +30,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -32,7 +40,8 @@ import javafx.stage.Stage;
 public class ViewControlerWindow extends Application {
 
 	private GridPane topGrid;
-	private GridPane bottomGrid;
+	//private GridPane bottomGrid;
+	Canvas bottomCanvas = new Canvas(400, 400);
 	private SimulationApp fieldWindow;
 	
 
@@ -45,7 +54,7 @@ public class ViewControlerWindow extends Application {
 	public void start(Stage primaryStage) {
 
 		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root, 700, 800, Color.WHITE);
+		Scene scene = new Scene(root, 700, 900, Color.WHITE);
 
 		MenuBar menuBar = new MenuBar();
 		menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
@@ -68,7 +77,10 @@ public class ViewControlerWindow extends Application {
 				stage.show();
 			}
 		});
-
+		
+        drawFish();
+        
+        
 		menuBar.getMenus().addAll(fileMenu, Visualisierung);
 
 		// TopGrid
@@ -262,7 +274,7 @@ public class ViewControlerWindow extends Application {
 		squareNumber.getSelectionModel().select(2);
 		// String squarenumberstring = (String) squareNumber.getValue();
 
-		bottomGrid = new GridPane();
+	/*	bottomGrid = new GridPane();
 		bottomGrid.setAlignment(Pos.BOTTOM_LEFT);
 		bottomGrid.setPadding(new Insets(5));
 		bottomGrid.setHgap(10);
@@ -279,25 +291,53 @@ public class ViewControlerWindow extends Application {
 		GridPane.setHalignment(fishTankLabel, HPos.CENTER);
 		bottomGrid.add(fishTankLabel, 2, 2);
 		fishTankLabel.setMinSize(600, 300);
-		fishTankLabel.setAlignment(Pos.BASELINE_CENTER);
-
+		fishTankLabel.setAlignment(Pos.BASELINE_CENTER); */
+		Rectangle fish = new Rectangle(6, 2, Color.BLUE);
+		
+		SequentialTransition sequTransition = new SequentialTransition();
+		// Rectangle is the node for all animations
+		sequTransition.setNode(fish);
 		// Anzeigen des Panes
 		root.setTop(menuBar);
 		root.setCenter(topGrid);
-		root.setBottom(bottomGrid);
+	//	root.setBottom(bottomGrid);
+		root.setBottom(bottomCanvas);
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
 	
+	
+	//01  0+0 1+1
+    private void drawFish () {
+    	GraphicsContext gc = bottomCanvas.getGraphicsContext2D();
+        gc.strokeLine(40, 10, 10, 40); 
+        gc.strokeOval(40, 7, 3, 3);
+
+    }
+    
+    private void moveFish(int x, int y) {
+    	int [] CoordinateX;
+    	int [] CoordinateY;
+    	
+        bottomCanvas.setTranslateX(x);
+        bottomCanvas.setTranslateY(y);
+    }
+	
 	public void fieldWindow(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations, int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
 		
 			this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours, deathAngle, r1, r2, r3, bodyLength);
-		
-			//Window geöffnet
-			//Fische setzen
-			//this.fieldWindow.getFishList();
+			//create ViewField (Länge und Höhe)
+		//	this.bottomGrid = ;
 			
+			ArrayList<Fish> fishes = this.fieldWindow.getFishList();
+			for (Fish fish : fishes) {
+				fish.getPosition().getCoordinateX(); //double mit max. 2 Nachkommastellen
+				fish.getPosition().getCoordinateY(); 
+				fish.getAngle(); //Wert 0 - 359
+				//Set Fish on viewField with position fish.getP
+			}
+			this.fieldWindow.startIteration();
 		
 		
 	}
