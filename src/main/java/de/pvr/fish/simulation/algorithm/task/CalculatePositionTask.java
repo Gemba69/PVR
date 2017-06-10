@@ -27,7 +27,7 @@ public class CalculatePositionTask extends FishTask{
 
 	@Override
 	public Void call() throws Exception {
-		LOG.info("Starting with Task iteration from " + this.startPosition + " to " + this.endPosition);
+		LOG.info("Starting with CalculatePosition Task from " + this.startPosition + " to " + this.endPosition);
 		for ( int i = (int) startPosition.getCoordinateX() ; i < endPosition.getCoordinateX(); i++) {
 			for (int j = (int) startPosition.getCoordinateY() ; j < endPosition.getCoordinateY(); i++) {
 				if (fishes[i][j] != null) {

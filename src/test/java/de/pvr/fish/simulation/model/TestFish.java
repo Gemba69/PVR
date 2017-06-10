@@ -77,16 +77,12 @@ public class TestFish {
 		
 		fish.turnAtCalc(90);
 		targetFish = new Fish(new Position (98, 102), new Position(95, 102));
-		System.out.println(fish.getAngle());
 		fish.goToNextPosition(3);
-		System.out.println(fish.getAngle());
 		//assertEquals(targetFish, fish);
 		
 		fish.turnAtCalc(45);
 		targetFish = new Fish(new Position (96, 100), new Position(97, 105));
-		System.out.println(fish.getAngle());
 		fish.goToNextPosition(3);
-		System.out.println(fish.getAngle());
 		//assertEquals(targetFish, fish);
 		//FIXME verfickte Winkelberechnung ein wenig genauer machen
 	}
@@ -110,7 +106,18 @@ public class TestFish {
 		fish = new Fish(new Position(100, 100), new Position(104, 102));
 		targetPosition = new Position (4, 2);
 		assertEquals(targetPosition, fish.getDiffPosition());
+	}
+	
+	@Test
+	public void testGetLengthPosition() {
+		Fish fish = new Fish(new Position(100, 100), new Position(100, 102));
+		Position targetPosition = new Position(100, 99);
+		//assertEquals(targetPosition, fish.getLengthPosition());
+		//FIXME Verhalten hinterfragen
 		
+		fish = new Fish(new Position(100, 100), new Position(102, 100));
+		targetPosition = new Position(99, 100);
+		assertEquals(targetPosition, fish.getLengthPosition());
 	}
 
 }

@@ -172,7 +172,7 @@ public class ViewControlerWindow extends Application {
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				fieldWindow(600, 600, Integer.parseInt(fishField.getText()), 2, 10, 4, 30, 2, 4, 6, 1);
+				fieldWindow(600, 600, Integer.parseInt(fishField.getText()), 2, 1, 4, 30, 2, 4, 6, 2);
 				// fishLabel.setText("Accepted");
 			}
 		});
@@ -304,9 +304,9 @@ public class ViewControlerWindow extends Application {
 	}
 
 	// 01 0+0 1+1
-	private void drawFish(double d, double e, double f, double g) {
-		this.gc.strokeLine(d, e, f, f);
-		this.gc.strokeOval(d, e, 3, 3);
+	private void drawFish(double x1, double y1, double x2, double y2) {
+		this.gc.strokeLine(x1, y1, x2, y2);
+		this.gc.strokeOval(x1, y1, 2, 2);
 
 	}
 
@@ -330,8 +330,10 @@ public class ViewControlerWindow extends Application {
 			for (Fish fish : this.fieldWindow.getFishList()) {
 				drawFish(fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY(),
 						fish.getLengthPosition().getCoordinateX(), fish.getLengthPosition().getCoordinateY());
-				this.fieldWindow.startIteration();
+//				drawFish(fish.getNextPosition().getCoordinateX(), fish.getNextPosition().getCoordinateY(),
+//						fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY());
 			}
+			this.fieldWindow.startIteration();
 		}
 
 	}
