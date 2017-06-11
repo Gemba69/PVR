@@ -194,6 +194,14 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(oneIterationButton, 1, 3);
 		oneIterationButton.setMinSize(60, 20);
 		oneIterationButton.setAlignment(Pos.BASELINE_LEFT);
+		oneIterationButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				iterateOnce();
+				// fishLabel.setText("Accepted");
+				//redrawFish(0, 0, 0, 0);
+			}
+		});
 
 		// Methode nur ein Iterationsschritt
 
@@ -385,5 +393,9 @@ public class ViewControlerWindow extends Application {
 			this.fieldWindow.startIteration();
 		}
 
+	}
+	
+	public void iterateOnce() {
+		this.fieldWindow.startIteration();
 	}
 }
