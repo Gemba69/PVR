@@ -21,8 +21,6 @@ public class SimulationApp {
 	
 	private Field field;
 	
-	private ArrayList<Fish> fishList = new ArrayList<Fish>();
-	
 	private static final Logger LOG = LogManager.getLogger(SimulationApp.class);
 
 	public static void main(String[] args) {
@@ -117,14 +115,6 @@ public class SimulationApp {
 
 	public void setField(Field field) {
 		this.field = field;
-	}
-
-	public ArrayList<Fish> getFishList() {
-		return fishList;
-	}
-
-	public void setFishList(ArrayList<Fish> fishList) {
-		this.fishList = fishList;
 	}
 	
 	public int getFieldLength() {

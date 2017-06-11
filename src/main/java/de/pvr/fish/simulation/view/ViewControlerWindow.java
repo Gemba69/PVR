@@ -349,7 +349,7 @@ public class ViewControlerWindow extends Application {
 		
 		for (int i = 0; i < iterations; i++) {
 			this.gc.clearRect(0, 0, fieldLength, fieldHeight);
-			for (Fish fish : this.fieldWindow.getFishList()) {
+			for (Fish fish : this.fieldWindow.getField().getFishes()) {
 				drawFish(fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY(),
 						fish.getLengthPosition().getCoordinateX(), fish.getLengthPosition().getCoordinateY());
 //				drawFish(fish.getNextPosition().getCoordinateX(), fish.getNextPosition().getCoordinateY(),

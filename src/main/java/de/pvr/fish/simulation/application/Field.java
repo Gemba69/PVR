@@ -56,14 +56,13 @@ public class Field {
 		//split Task 
 		int startPosition = 0;
 		int endPosition = 0;
-		for (int i = 0; i < threads; i++) {
+		for (int i = 0; i < threads - 1; i++) {
 			endPosition = fishNumber/threads * (i + 1);
-			if (endPosition > fishNumber) {
-				endPosition = fishNumber;
-			}
 			this.tasks.add(new CalculatePositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));
 			startPosition = endPosition + 1;
 		}
+		endPosition = fishNumber - 1;
+		this.tasks.add(new CalculatePositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));
 		//Execution
 		try {
 			this.executorService.invokeAll(this.tasks);
@@ -71,16 +70,12 @@ public class Field {
 			LOG.error(e.getMessage());
 		}
 		//2.
-		startPosition = 0;
-		endPosition = 0;
-		for (int i = 0; i < threads; i++) {
-			endPosition = fishNumber/threads * (i + 1);
-			if (endPosition > fishNumber) {
-				endPosition = fishNumber;
-			}
-			this.tasks.add(new SetNewPositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));
-			startPosition = endPosition + 1;
+		ArrayList<Position> positions = splitTasks();
+		for (Position p : positions) {
+			this.tasks.add(new SetNewPositionTask(this.fishes, this.fishes.subList(p.getCoordinateX(), endPosition), startPosition, endPosition));
 		}
+		endPosition = fishNumber - 1;
+		this.tasks.add(new SetNewPositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));
 		//Execution
 		try {
 			this.executorService.invokeAll(this.tasks);
@@ -89,23 +84,19 @@ public class Field {
 		}
 	}
 	
-	public ArrayList<Position> splitTasks() {
-		ArrayList<Position> borderPositions = new ArrayList<Position>();
-		int fishcounter = 0;
-		for (int i = 0; i < this.length - 1; i++) {
-			for( int j = 0; j < this.height - 1; j++) {
-				//if (this.fishes[i][j] != null) {
-					fishcounter++;
-					if (fishcounter%((int)this.fishNumber/this.threads) == 0 || fishcounter == this.fishNumber) {
-						borderPositions.add(new Position(i, j));
-					//}
-					if (fishcounter == this.fishNumber) {
-						
-					}
-				}
-			}
+	public ArrayList<Integer, Integer> splitTasks() {
+		ArrayList<Position> positions = new ArrayList<Position>();
+		int startPosition = 0;
+		int endPosition = 0;
+		for (int i = 0; i < threads - 1; i++) {
+			endPosition = fishNumber/threads * (i + 1);
+			positions.add(new Position (startPosition, endPosition));
+			startPosition = endPosition + 1;
 		}
-		return borderPositions;
+		endPosition = fishNumber - 1;
+		positions.add(new Position (startPosition, endPosition));
+		return positions;
+
 	}
 
 	public ArrayList<Fish> getFishes() {
