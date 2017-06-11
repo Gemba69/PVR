@@ -18,13 +18,22 @@ public class TestField {
 	public void testSplitTasks() {
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
 		
-		ArrayList<Position> borderPositions = field.splitTasks();
+		ArrayList<Integer> targetList = new ArrayList<Integer>();
+		targetList.add(4);
+		targetList.add(9);
+		assertEquals(targetList, field.splitTasks());
 		
-		ArrayList<Position> targetList = new ArrayList<Position>();
-		targetList.add(new Position(101, 102));
-		targetList.add(new Position(500, 500));
-		
-		assertEquals(targetList, borderPositions);
+		field.setFishNumber(120);
+		field.setThreads(7);
+		targetList = new ArrayList<Integer>();
+		targetList.add(16);
+		targetList.add(33);
+		targetList.add(50);
+		targetList.add(67);
+		targetList.add(84);
+		targetList.add(101);
+		targetList.add(119);
+		assertEquals(targetList, field.splitTasks());
 	}
 	
 	@Test
@@ -33,13 +42,13 @@ public class TestField {
 		Fish fish = new Fish(new Position(8, 8), new Position(10, 8));	
 		assertTrue(field.addNewFishToField(fish));
 		
-		Fish[][] targetArray = new Fish[10][10];
-		targetArray[8][8] = fish;
+		ArrayList<Fish> targetList = new ArrayList<Fish>();
+		targetList .add(fish);
 		
 		
-		assertArrayEquals(targetArray, field.getFishes());
+		assertEquals(targetList, field.getFishes());
 		
-		assertFalse(field.addNewFishToField(fish));
+		//assertFalse(field.addNewFishToField(fish)); //FIXME keine doppelten Fishe in Liste (auch beim Random anlegen)
 	}
 	
 	

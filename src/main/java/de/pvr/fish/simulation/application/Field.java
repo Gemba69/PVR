@@ -7,15 +7,15 @@ import java.util.concurrent.Executors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.pvr.fish.simulation.algorithm.task.FishTask;
 import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
+import de.pvr.fish.simulation.algorithm.task.FishTask;
 import de.pvr.fish.simulation.algorithm.task.SetNewPositionTask;
 import de.pvr.fish.simulation.model.Fish;
-import de.pvr.fish.simulation.model.Position;
+
 
 public class Field {
 	
-	private Fish[][] fishes;
+	private ArrayList<Fish> fishes;
 	private int length;
 	private int height;
 	
@@ -33,7 +33,7 @@ public class Field {
 		this.height = height;
 		this.fishNumber = fishNumber;
 		this.threads = threads;
-		fishes = new Fish[length][height];
+		fishes = new ArrayList<Fish>();
 		
 		this.executorService = Executors.newFixedThreadPool(threads);
 		this.tasks = new ArrayList<FishTask>();
@@ -41,11 +41,8 @@ public class Field {
 	}
 	
 	public boolean addNewFishToField(Fish fish) {
-		if (this.fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateY()] == null) {
-			this.fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateY()] = fish;
+			fishes.add(fish);
 			return true;
-		}
-		return false;
 	}
 	
 	public void nextInteration() {
@@ -53,27 +50,11 @@ public class Field {
 		
 		tasks.clear();
 		//split Task 
-		Position startPosition = new Position (0, 0);
-		ArrayList<Position> borders = splitTasks();
-		for (Position position : borders) {
-			this.tasks.add(new CalculatePositionTask(this.fishes, startPosition, position));
-			position.nextPosition();
-			startPosition = position;
-		}
-		
-		//Execution
-		try {
-			this.executorService.invokeAll(this.tasks);
-		} catch (InterruptedException e) {
-			LOG.error(e.getMessage());
-		}
-		
-		Fish[][] newFishes = new Fish[this.length][this.height];
-		tasks.clear();
-		for (Position position : borders) {
-			this.tasks.add(new SetNewPositionTask(this.fishes,newFishes, startPosition, position));
-			position.nextPosition();
-			startPosition = position;
+		int startPosition = 0;
+		ArrayList<Integer> positions = splitTasks();
+		for (Integer endPosition : positions) {
+			this.tasks.add(new CalculatePositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));
+			startPosition = endPosition + 1;
 		}
 		//Execution
 		try {
@@ -81,34 +62,35 @@ public class Field {
 		} catch (InterruptedException e) {
 			LOG.error(e.getMessage());
 		}
-		
-		fishes = newFishes;
+		//2.
+		startPosition = 0;
+		for (Integer endPosition : positions) {
+			this.tasks.add(new SetNewPositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));
+			startPosition = endPosition + 1;
+		}
+		//Execution
+		try {
+			this.executorService.invokeAll(this.tasks);
+		} catch (InterruptedException e) {
+			LOG.error(e.getMessage());
+		}
 	}
 	
-	public ArrayList<Position> splitTasks() {
-		ArrayList<Position> borderPositions = new ArrayList<Position>();
-		int fishcounter = 0;
-		for (int i = 0; i < this.length - 1; i++) {
-			for( int j = 0; j < this.height - 1; j++) {
-				if (this.fishes[i][j] != null) {
-					fishcounter++;
-					if (fishcounter%((int)this.fishNumber/this.threads) == 0 || fishcounter == this.fishNumber) {
-						borderPositions.add(new Position(i, j));
-					}
-					if (fishcounter == this.fishNumber) {
-						
-					}
-				}
-			}
+	public ArrayList<Integer> splitTasks() {
+		ArrayList<Integer> positions = new ArrayList<Integer>();
+		for (int i = 0; i < threads - 1; i++) {
+			positions.add(fishNumber/threads * (i + 1) - 1);
 		}
-		return borderPositions;
+		positions.add(fishNumber - 1);
+		return positions;
+
 	}
 
-	public Fish[][] getFishes() {
+	public ArrayList<Fish> getFishes() {
 		return fishes;
 	}
 
-	public void setFishes(Fish[][] fishes) {
+	public void setFishes(ArrayList<Fish> fishes) {
 		this.fishes = fishes;
 	}
 

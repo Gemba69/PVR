@@ -1,22 +1,24 @@
 package de.pvr.fish.simulation.algorithm.task;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import de.pvr.fish.simulation.model.Fish;
-import de.pvr.fish.simulation.model.Position;
+
+
 
 public abstract class FishTask implements Callable<Void> {
 	
-	protected Fish[][] fishes;
-	protected Position startPosition;
-	protected Position endPosition;
+	protected ArrayList<Fish> fishes;
+	protected List<Fish> subFishes;
+	protected int startPosition;
+	protected int endPosition;
 	
 	
-	public FishTask( Fish[][] fishes, Position startPosition, Position endPosition) {
+	public FishTask( ArrayList<Fish> fishes,  List<Fish> subFishes, int startPosition, int endPosition) {
 		this.fishes = fishes;
+		this.subFishes = subFishes;
 		this.startPosition = startPosition;
 		this.endPosition = endPosition;
 	}

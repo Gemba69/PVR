@@ -21,15 +21,13 @@ public class SimulationApp {
 	
 	private Field field;
 	
-	private ArrayList<Fish> fishList = new ArrayList<Fish>();
-	
 	private static final Logger LOG = LogManager.getLogger(SimulationApp.class);
 
 	public static void main(String[] args) {
 		//TODO 4 Parameter validieren
 		
 		//SimulationApp app = new SimulationApp(FishParameter.FIELD_LENGTH, FishParameter.FIELD_HEIGHT, FishParameter.NUMBER_FISH, FishParameter.THREADS, FishParameter.ITERATIONS);
-		SimulationApp app = new SimulationApp(600, 600, 550, 8, 2, 4, 30, 2, 4,6,1);
+		SimulationApp app = new SimulationApp(600, 600, 1100, 8, 3, 4, 30, 2, 4,6,1);
 		app.startIterations();
 	}
 	
@@ -56,7 +54,6 @@ public class SimulationApp {
 	
 	public void createField() {
 		this.field = new Field(this.fieldLength, this.fieldHeight, this.fishNumber, this.threads);
-		
 		this.field.setFishes(createRandomFishes(this.fishNumber, field.getLength(), field.getHeight()));
 	}
 	
@@ -91,24 +88,17 @@ public class SimulationApp {
 		FishParameter.FISH_BODY_LENGTH = bodyLength;
 	}
 
-	private Fish[][] createRandomFishes(int fishNumber, int fieldLength, int fieldHeight) {
-		Fish[][] fishes = new Fish[fieldLength][fieldHeight];
-		Fish fish;
+	private ArrayList<Fish> createRandomFishes(int fishNumber, int fieldLength, int fieldHeight) {
+		ArrayList<Fish> fishes = new ArrayList<Fish>();
 		for (int i = 0; i < fishNumber; i++) {
-			fish = createRandomFish(fieldLength - 1, fieldHeight - 1);
-			if (fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] == null) {
-				fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] = fish;
-				fishList.add(fish);
-			} else {
-				i--;
-			}
+			fishes.add(createRandomFish(fieldLength - 1, fieldHeight - 1));
 		}
 		
 		return fishes;
 		
 	}
 	
-	private static Fish createRandomFish(int fieldLength, int fieldHeight) {
+	private Fish createRandomFish(int fieldLength, int fieldHeight) {
 		return RandomGenerator.getRandomFish(fieldLength, fieldHeight);
 	}
 
@@ -118,14 +108,6 @@ public class SimulationApp {
 
 	public void setField(Field field) {
 		this.field = field;
-	}
-
-	public ArrayList<Fish> getFishList() {
-		return fishList;
-	}
-
-	public void setFishList(ArrayList<Fish> fishList) {
-		this.fishList = fishList;
 	}
 	
 	public int getFieldLength() {
