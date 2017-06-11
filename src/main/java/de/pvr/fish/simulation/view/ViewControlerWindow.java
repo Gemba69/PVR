@@ -270,7 +270,12 @@ public class ViewControlerWindow extends Application {
 		GridPane.setHalignment(r3TextField, HPos.LEFT);
 		topGrid.add(r3TextField, 8, 3);
 		r3TextField.setText("6");
-		r3TextField.getText();
+		if (r3TextField.getText().trim().equals("")) {
+			r3TextField.setStyle("-fx-text-box-border: red");
+		}else
+			r3TextField.getText();
+
+	
 
 		// StartButton / ResetButton
 		// StartButton
@@ -280,10 +285,15 @@ public class ViewControlerWindow extends Application {
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				fieldWindow(Integer.parseInt(fieldLengthTextField.getText()),Integer.parseInt(fieldWidthTextField.getText()), Integer.parseInt(fishField.getText()),
-						Integer.parseInt(threadTextField.getText()), Integer.parseInt(iterationTextField.getText()), Integer.parseInt(neighbourFishTextField.getText()), Integer.parseInt(deathAngelTextField.getText()), 2, 4, 6, 1);
+				fieldWindow(Integer.parseInt(fieldLengthTextField.getText()),
+						Integer.parseInt(fieldWidthTextField.getText()), 
+						Integer.parseInt(fishField.getText()),
+						Integer.parseInt(threadTextField.getText()),
+						Integer.parseInt(iterationTextField.getText()),
+						Integer.parseInt(neighbourFishTextField.getText()),
+						Integer.parseInt(deathAngelTextField.getText()), 2, 4, 6, 1);
 				// fishLabel.setText("Accepted");
-				redrawFish(0, 0, 0, 0);
+				//redrawFish(0, 0, 0, 0);
 			}
 		});
 		// ResetButton
@@ -308,7 +318,7 @@ public class ViewControlerWindow extends Application {
 				r1TextField.setText("2");
 				r2TextField.setText("4");
 				r3TextField.setText("6");
-				
+
 			}
 		});
 
@@ -343,11 +353,12 @@ public class ViewControlerWindow extends Application {
 	private void drawFish(double x1, double y1, double x2, double y2) {
 		this.gc.strokeLine(x1, y1, x2, y2);
 		this.gc.strokeOval(x1, y1, 2, 2);
-	//	gc.setFill(Color.ALICEBLUE);
-	//	gc.sets(fieldLengthTextField.getText(), fieldWidthTextField.getText());
+		gc.setFill(Color.ALICEBLUE);
+		// gc.sets(fieldLengthTextField.getText(),
+		// fieldWidthTextField.getText());
 
 	}
-
+/*
 	// Größe ändern nachdem Start gedrückt wird
 	private void redrawFish(double x1, double y1, double x2, double y2) {
 		gc.setStroke(Color.ALICEBLUE);
@@ -355,7 +366,7 @@ public class ViewControlerWindow extends Application {
 		this.gc.strokeLine(x1, y1, x2, y2);
 		this.gc.strokeOval(x1, y1, 2, 2);
 	}
-
+*/
 	public void fieldWindow(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
 			int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
 
