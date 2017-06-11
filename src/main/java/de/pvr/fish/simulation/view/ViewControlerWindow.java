@@ -171,7 +171,7 @@ public class ViewControlerWindow extends Application {
 		// -----------------------------------------------
 
 		// Spalte 1
-		// Iteration
+		// Iterationnumber
 		GridPane.setHalignment(iterationLabel, HPos.LEFT);
 		topGrid.add(iterationLabel, 0, 1);
 		GridPane.setHalignment(iterationTextField, HPos.LEFT);
@@ -179,7 +179,7 @@ public class ViewControlerWindow extends Application {
 		iterationTextField.setText("100");
 		iterationTextField.getText();
 
-		// ThreadLabel
+		// Threadnumber
 		GridPane.setHalignment(threadLabel, HPos.LEFT);
 		topGrid.add(threadLabel, 0, 2);
 		GridPane.setHalignment(threadTextField, HPos.LEFT);
@@ -187,7 +187,7 @@ public class ViewControlerWindow extends Application {
 		threadTextField.setText("4");
 		threadTextField.getText();
 
-		// OneIterationLabel
+		// OneIteration
 		GridPane.setHalignment(oneIterationLabel, HPos.LEFT);
 		topGrid.add(oneIterationLabel, 0, 3);
 		GridPane.setHalignment(oneIterationButton, HPos.LEFT);
@@ -198,7 +198,7 @@ public class ViewControlerWindow extends Application {
 		// Methode nur ein Iterationsschritt
 
 		// Spalte 2
-		// FishLabel
+		// FishNumber
 		GridPane.setHalignment(fishLabel, HPos.LEFT);
 		topGrid.add(fishLabel, 2, 1);
 		GridPane.setHalignment(fishField, HPos.LEFT);
@@ -280,7 +280,7 @@ public class ViewControlerWindow extends Application {
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				fieldWindow(Integer.parseInt(fieldLengthTextField.getText()),Integer.parseInt(fieldWidthTextField.getText()), 10,
+				fieldWindow(Integer.parseInt(fieldLengthTextField.getText()),Integer.parseInt(fieldWidthTextField.getText()), Integer.parseInt(fishField.getText()),
 						Integer.parseInt(threadTextField.getText()), Integer.parseInt(iterationTextField.getText()), Integer.parseInt(neighbourFishTextField.getText()), Integer.parseInt(deathAngelTextField.getText()), 2, 4, 6, 1);
 				// fishLabel.setText("Accepted");
 				redrawFish(0, 0, 0, 0);
