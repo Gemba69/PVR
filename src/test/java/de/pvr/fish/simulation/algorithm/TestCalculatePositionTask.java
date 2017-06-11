@@ -26,9 +26,9 @@ public class TestCalculatePositionTask {
 		
 		ArrayList<Pair<Fish, Radius>> targetNeighbourhood = new ArrayList<Pair<Fish, Radius>>();
 		targetNeighbourhood.add(Pair.of(field.getFishes().get(7), Radius.R1));
-		targetNeighbourhood.add(Pair.of(field.getFishes().get(8), Radius.R2));
-		targetNeighbourhood.add(Pair.of(field.getFishes().get(3), Radius.R2));
 		targetNeighbourhood.add(Pair.of(field.getFishes().get(1), Radius.R2));
+		targetNeighbourhood.add(Pair.of(field.getFishes().get(3), Radius.R2));
+		targetNeighbourhood.add(Pair.of(field.getFishes().get(8), Radius.R2));
 		
 		assertEquals(targetNeighbourhood, neighbourhood);
 	}

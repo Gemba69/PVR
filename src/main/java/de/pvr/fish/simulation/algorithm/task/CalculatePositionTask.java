@@ -54,27 +54,27 @@ public class CalculatePositionTask extends FishTask {
 	}
 
 	private ArrayList<Pair<Fish, Radius>> searchInR1(Fish fish, int freeCapacity) {
-		return searchInSpecificRadius(fish, freeCapacity, 0, FishParameter.RADIUS1, Radius.R1);
+		return searchInSpecificRadius(fish, freeCapacity, 0, FishParameter.RADIUS1 * FishParameter.FISH_BODY_LENGTH, Radius.R1);
 	}
 
 	private ArrayList<Pair<Fish, Radius>> searchInR2(Fish fish, int freeCapacity) {
-		return searchInSpecificRadius(fish, freeCapacity, FishParameter.RADIUS1, FishParameter.RADIUS2, Radius.R2);
+		return searchInSpecificRadius(fish, freeCapacity, FishParameter.RADIUS1 * FishParameter.FISH_BODY_LENGTH, FishParameter.RADIUS2 * FishParameter.FISH_BODY_LENGTH, Radius.R2);
 	}
 
 	private ArrayList<Pair<Fish, Radius>> searchInR3(Fish fish, int freeCapacity) {
-		return searchInSpecificRadius(fish, freeCapacity, FishParameter.RADIUS2, FishParameter.RADIUS3, Radius.R3);
+		return searchInSpecificRadius(fish, freeCapacity, FishParameter.RADIUS2 * FishParameter.FISH_BODY_LENGTH, FishParameter.RADIUS3 * FishParameter.FISH_BODY_LENGTH, Radius.R3);
 	}
 
 	private ArrayList<Pair<Fish, Radius>> searchInSpecificRadius(Fish fish, int freeCapacity, int minRadusLength,
 			int radiusLength, Radius radius) {
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
-		Position startPosition = fish.getPosition()
-				.getRadiusStartPosition(radiusLength * FishParameter.FISH_BODY_LENGTH);
-		Position endPosition = fish.getPosition().getRadiusEndPosition(radiusLength * FishParameter.FISH_BODY_LENGTH);
 
 		for (Fish potencialNeighbour : fishes) {
-			if (potencialNeighbour != fish && fish.getPosition()
-					.getDiffBetweenPositions(potencialNeighbour.getPosition()).getLength() >= minRadusLength
+			if (potencialNeighbour != fish
+					&& fish.getPosition().getDiffBetweenPositions(potencialNeighbour.getPosition())
+							.getLength() >= minRadusLength
+					&& fish.getPosition().getDiffBetweenPositions(potencialNeighbour.getPosition())
+							.getLength() < radiusLength
 					&& !fish.isInDeathAngle(potencialNeighbour.getPosition())) {
 				neighbourFishes.add(Pair.of(potencialNeighbour, radius));
 			}
