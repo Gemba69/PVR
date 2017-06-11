@@ -380,22 +380,25 @@ public class ViewControlerWindow extends Application {
 
 		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
 				deathAngle, r1, r2, r3, bodyLength);
+		drawAllFishes();
 		for (int i = 0; i < iterations; i++) {
-			this.gc.clearRect(0, 0, fieldLength, fieldHeight);
-			for (Fish fish : this.fieldWindow.getField().getFishes()) {
-				drawFish(fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY(),
-						fish.getLengthPosition().getCoordinateX(), fish.getLengthPosition().getCoordinateY());
-				// drawFish(fish.getNextPosition().getCoordinateX(),
-				// fish.getNextPosition().getCoordinateY(),
-				// fish.getPosition().getCoordinateX(),
-				// fish.getPosition().getCoordinateY());
-			}
 			this.fieldWindow.startIteration();
+			drawAllFishes();
+			
 		}
 
 	}
 	
 	public void iterateOnce() {
 		this.fieldWindow.startIteration();
+		drawAllFishes();
+	}
+	
+	private void drawAllFishes() {
+		this.gc.clearRect(0, 0, this.fieldWindow.getFieldLength(), this.fieldWindow.getFieldHeight());
+		for (Fish fish : this.fieldWindow.getField().getFishes()) {
+			drawFish(fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY(),
+					fish.getLengthPosition().getCoordinateX(), fish.getLengthPosition().getCoordinateY());
+		}
 	}
 }
