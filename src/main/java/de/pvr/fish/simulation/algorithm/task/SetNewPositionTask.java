@@ -2,13 +2,11 @@ package de.pvr.fish.simulation.algorithm.task;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.model.Fish;
-import de.pvr.fish.simulation.model.Position;
 
 public class SetNewPositionTask extends FishTask{
 	

@@ -6,6 +6,8 @@ import java.util.concurrent.Callable;
 
 import de.pvr.fish.simulation.model.Fish;
 
+
+
 public abstract class FishTask implements Callable<Void> {
 	
 	protected ArrayList<Fish> fishes;

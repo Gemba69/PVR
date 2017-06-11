@@ -7,11 +7,11 @@ import java.util.concurrent.Executors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.pvr.fish.simulation.algorithm.task.FishTask;
 import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
+import de.pvr.fish.simulation.algorithm.task.FishTask;
 import de.pvr.fish.simulation.algorithm.task.SetNewPositionTask;
 import de.pvr.fish.simulation.model.Fish;
-import de.pvr.fish.simulation.model.Position;
+
 
 public class Field {
 	
@@ -70,9 +70,11 @@ public class Field {
 			LOG.error(e.getMessage());
 		}
 		//2.
-		ArrayList<Position> positions = splitTasks();
-		for (Position p : positions) {
-			this.tasks.add(new SetNewPositionTask(this.fishes, this.fishes.subList(p.getCoordinateX(), endPosition), startPosition, endPosition));
+		ArrayList<Integer> positions = splitTasks();
+		int startPosition2 = 0;
+		for (Integer endPosition2 : positions) {
+			this.tasks.add(new SetNewPositionTask(this.fishes, this.fishes.subList(startPosition2, endPosition2), startPosition2, endPosition2));
+			startPosition2 = endPosition2 + 1;
 		}
 		endPosition = fishNumber - 1;
 		this.tasks.add(new SetNewPositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));
@@ -84,17 +86,11 @@ public class Field {
 		}
 	}
 	
-	public ArrayList<Integer, Integer> splitTasks() {
-		ArrayList<Position> positions = new ArrayList<Position>();
-		int startPosition = 0;
-		int endPosition = 0;
+	public ArrayList<Integer> splitTasks() {
+		ArrayList<Integer> positions = new ArrayList<Integer>();
 		for (int i = 0; i < threads - 1; i++) {
-			endPosition = fishNumber/threads * (i + 1);
-			positions.add(new Position (startPosition, endPosition));
-			startPosition = endPosition + 1;
+			positions.add(fishNumber/threads * (i + 1));
 		}
-		endPosition = fishNumber - 1;
-		positions.add(new Position (startPosition, endPosition));
 		return positions;
 
 	}

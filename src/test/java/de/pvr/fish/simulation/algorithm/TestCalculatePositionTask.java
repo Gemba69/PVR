@@ -20,15 +20,15 @@ public class TestCalculatePositionTask {
 	public void testFindNeighbours() {
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
 		
-		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), new Position(0, 0), new Position(0, 0));
+		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
 
-		ArrayList<Pair<Fish, Radius>> neighbourhood = iterationTask.findNeighbours(field.getFishes()[100][100]);
+		ArrayList<Pair<Fish, Radius>> neighbourhood = iterationTask.findNeighbours(field.getFishes().get(0));
 		
 		ArrayList<Pair<Fish, Radius>> targetNeighbourhood = new ArrayList<Pair<Fish, Radius>>();
-		targetNeighbourhood.add(Pair.of(field.getFishes()[99][99], Radius.R1));
-		targetNeighbourhood.add(Pair.of(field.getFishes()[100][102], Radius.R2));
-		targetNeighbourhood.add(Pair.of(field.getFishes()[101][102], Radius.R2));
-		targetNeighbourhood.add(Pair.of(field.getFishes()[102][102], Radius.R2));
+		targetNeighbourhood.add(Pair.of(field.getFishes().get(7), Radius.R1));
+		targetNeighbourhood.add(Pair.of(field.getFishes().get(8), Radius.R2));
+		targetNeighbourhood.add(Pair.of(field.getFishes().get(3), Radius.R2));
+		targetNeighbourhood.add(Pair.of(field.getFishes().get(1), Radius.R2));
 		
 		assertEquals(targetNeighbourhood, neighbourhood);
 	}
@@ -38,8 +38,8 @@ public class TestCalculatePositionTask {
 		
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
 		
-		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), new Position(0, 0), new Position(0, 0));
-		Fish fish = field.getFishes()[100][100];
+		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
+		Fish fish = field.getFishes().get(0);
 		Fish targetFish = new Fish(new Position (101, 101), new Position(103, 103));
 
 		//iterationTask.setToNewPlace(fish, iterationTask.findNeighbours(fish));
@@ -51,14 +51,14 @@ public class TestCalculatePositionTask {
 	@Test
 	public void testCalculateNewAngle() {
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
-		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), new Position(0, 0), new Position(0, 0));
+		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		
-		Fish fish = field.getFishes()[100][100];
+		Fish fish = field.getFishes().get(0);
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
-		neighbourFishes.add(Pair.of(field.getFishes()[99][99], Radius.R1));
-		neighbourFishes.add(Pair.of(field.getFishes()[100][102], Radius.R2));
-		neighbourFishes.add(Pair.of(field.getFishes()[101][102], Radius.R2));
-		neighbourFishes.add(Pair.of(field.getFishes()[102][102], Radius.R2));
+		neighbourFishes.add(Pair.of(field.getFishes().get(7), Radius.R1));
+		neighbourFishes.add(Pair.of(field.getFishes().get(8), Radius.R2));
+		neighbourFishes.add(Pair.of(field.getFishes().get(3), Radius.R2));
+		neighbourFishes.add(Pair.of(field.getFishes().get(1), Radius.R2));
 		
 		assertEquals(28 , iterationTask.calculateNewAngle(fish, neighbourFishes));
 	}

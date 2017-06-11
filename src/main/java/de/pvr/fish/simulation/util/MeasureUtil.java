@@ -4,8 +4,6 @@ import org.apache.commons.lang.time.StopWatch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
-
 public class MeasureUtil {
 
 	//TODO 3 implement this class
