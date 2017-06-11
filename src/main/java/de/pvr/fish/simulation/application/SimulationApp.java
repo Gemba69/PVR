@@ -3,6 +3,9 @@ package de.pvr.fish.simulation.application;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
@@ -19,55 +22,15 @@ public class SimulationApp {
 	private Field field;
 	
 	private ArrayList<Fish> fishList = new ArrayList<Fish>();
-
 	
-	public int getFieldLength() {
-		return fieldLength;
-	}
-
-	public void setFieldLength(int fieldLength) {
-		this.fieldLength = fieldLength;
-	}
-
-	public int getFieldHeight() {
-		return fieldHeight;
-	}
-
-	public void setFieldHeight(int fieldHeight) {
-		this.fieldHeight = fieldHeight;
-	}
-
-	public int getFishNumber() {
-		return fishNumber;
-	}
-
-	public void setFishNumber(int fishNumber) {
-		this.fishNumber = fishNumber;
-	}
-
-	public int getThreads() {
-		return threads;
-	}
-
-	public void setThreads(int threads) {
-		this.threads = threads;
-	}
-
-	public int getIterations() {
-		return iterations;
-	}
-
-	public void setIterations(int iterations) {
-		this.iterations = iterations;
-	}
+	private static final Logger LOG = LogManager.getLogger(SimulationApp.class);
 
 	public static void main(String[] args) {
 		//TODO 4 Parameter validieren
 		
-		SimulationApp app = new SimulationApp(FishParameter.FIELD_LENGTH, FishParameter.FIELD_HEIGHT, FishParameter.NUMBER_FISH, FishParameter.THREADS, FishParameter.ITERATIONS);
-		
-		app.createField();
-		app.startIteration();
+		//SimulationApp app = new SimulationApp(FishParameter.FIELD_LENGTH, FishParameter.FIELD_HEIGHT, FishParameter.NUMBER_FISH, FishParameter.THREADS, FishParameter.ITERATIONS);
+		SimulationApp app = new SimulationApp(600, 600, 550, 8, 2, 4, 30, 2, 4,6,1);
+		app.startIterations();
 	}
 	
 	public SimulationApp(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations) {
@@ -87,6 +50,8 @@ public class SimulationApp {
 		
 		setParametersInFischParameters(neighbours, deathAngle, r1, r2, r3, bodyLength);
 		createField();
+		
+		LOG.info("Creating new Field " + this.fieldLength + " x " + this.fieldHeight + " with " + this.fishNumber + " Fishes and " + this.threads + " threads and "+ this.iterations + "iterations." );
 	}
 	
 	public void createField() {
@@ -130,7 +95,7 @@ public class SimulationApp {
 		Fish[][] fishes = new Fish[fieldLength][fieldHeight];
 		Fish fish;
 		for (int i = 0; i < fishNumber; i++) {
-			fish = createRandomFish(fieldLength, fieldHeight);
+			fish = createRandomFish(fieldLength - 1, fieldHeight - 1);
 			if (fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] == null) {
 				fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] = fish;
 				fishList.add(fish);
@@ -161,5 +126,45 @@ public class SimulationApp {
 
 	public void setFishList(ArrayList<Fish> fishList) {
 		this.fishList = fishList;
+	}
+	
+	public int getFieldLength() {
+		return fieldLength;
+	}
+
+	public void setFieldLength(int fieldLength) {
+		this.fieldLength = fieldLength;
+	}
+
+	public int getFieldHeight() {
+		return fieldHeight;
+	}
+
+	public void setFieldHeight(int fieldHeight) {
+		this.fieldHeight = fieldHeight;
+	}
+
+	public int getFishNumber() {
+		return fishNumber;
+	}
+
+	public void setFishNumber(int fishNumber) {
+		this.fishNumber = fishNumber;
+	}
+
+	public int getThreads() {
+		return threads;
+	}
+
+	public void setThreads(int threads) {
+		this.threads = threads;
+	}
+
+	public int getIterations() {
+		return iterations;
+	}
+
+	public void setIterations(int iterations) {
+		this.iterations = iterations;
 	}
 }

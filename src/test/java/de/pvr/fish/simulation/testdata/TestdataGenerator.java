@@ -11,6 +11,7 @@ public class TestdataGenerator {
 	public static Fish generateRandomFish() {
 		Position p = RandomGenerator.getRandomPosition();
 		//FIXME 2 kein Out of Bounds Exception in bestimmten Fällen
+		
 		Fish fish = new Fish(p, new Position(p.getCoordinateX() + RandomGenerator.getRandomRangeNumber(), p.getCoordinateY() + RandomGenerator.getRandomRangeNumber() ));
 		return fish;
 	}
