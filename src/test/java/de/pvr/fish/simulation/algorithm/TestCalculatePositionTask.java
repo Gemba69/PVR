@@ -34,18 +34,17 @@ public class TestCalculatePositionTask {
 	}
 	
 	@Test
-	public void testSetToNewPlace() {
+	public void testCalculateNewPlace() {
 		
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
 		
 		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		Fish fish = field.getFishes().get(0);
-		Fish targetFish = new Fish(new Position (101, 101), new Position(103, 103));
+		Fish targetFish = new Fish(new Position (100, 100), new Position(100, 102), new Position(99,102));
 
-		//iterationTask.setToNewPlace(fish, iterationTask.findNeighbours(fish));
+		iterationTask.calculateNewPlace(fish, iterationTask.findNeighbours(fish));
 		
-		//assertEquals(targetFish, fish);
-		//FIXME Datenstruktur und testen der neuen Positionen
+		assertEquals(targetFish, fish);
 	}
 	
 	@Test

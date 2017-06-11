@@ -43,12 +43,12 @@ public class TestField {
 		assertTrue(field.addNewFishToField(fish));
 		
 		ArrayList<Fish> targetList = new ArrayList<Fish>();
-		targetList .add(fish);
-		
+		targetList.add(fish);
+		field.addNewFishToField(fish);
 		
 		assertEquals(targetList, field.getFishes());
 		
-		//assertFalse(field.addNewFishToField(fish)); //FIXME keine doppelten Fishe in Liste (auch beim Random anlegen)
+		assertFalse(field.addNewFishToField(fish));
 	}
 	
 	

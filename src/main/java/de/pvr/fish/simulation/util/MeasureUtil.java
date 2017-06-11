@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 public class MeasureUtil {
 
 	//TODO 3 implement this class
-	//TODO 3 create Logging
 	private static final Logger LOG = LogManager.getLogger(MeasureUtil.class);
 	
 	private static StopWatch simulation;

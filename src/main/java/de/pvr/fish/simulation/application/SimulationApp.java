@@ -54,7 +54,7 @@ public class SimulationApp {
 	
 	public void createField() {
 		this.field = new Field(this.fieldLength, this.fieldHeight, this.fishNumber, this.threads);
-		this.field.setFishes(createRandomFishes(this.fishNumber, field.getLength(), field.getHeight()));
+		createRandomFishes(this.fishNumber, field.getLength(), field.getHeight());
 	}
 	
 	public void startIterations() {
@@ -88,13 +88,12 @@ public class SimulationApp {
 		FishParameter.FISH_BODY_LENGTH = bodyLength;
 	}
 
-	private ArrayList<Fish> createRandomFishes(int fishNumber, int fieldLength, int fieldHeight) {
-		ArrayList<Fish> fishes = new ArrayList<Fish>();
+	private void createRandomFishes(int fishNumber, int fieldLength, int fieldHeight) {
 		for (int i = 0; i < fishNumber; i++) {
-			fishes.add(createRandomFish(fieldLength - 1, fieldHeight - 1));
+			if (!field.addNewFishToField(createRandomFish(fieldLength - 1, fieldHeight - 1))) {
+				i--;
+			}
 		}
-		
-		return fishes;
 		
 	}
 	

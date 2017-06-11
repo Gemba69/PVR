@@ -41,8 +41,12 @@ public class Field {
 	}
 	
 	public boolean addNewFishToField(Fish fish) {
+		if (fishes.contains(fish)) {
+			return false;
+		} else {
 			fishes.add(fish);
 			return true;
+		}
 	}
 	
 	public void nextInteration() {
