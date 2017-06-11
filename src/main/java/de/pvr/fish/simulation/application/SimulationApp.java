@@ -29,7 +29,7 @@ public class SimulationApp {
 		//TODO 4 Parameter validieren
 		
 		//SimulationApp app = new SimulationApp(FishParameter.FIELD_LENGTH, FishParameter.FIELD_HEIGHT, FishParameter.NUMBER_FISH, FishParameter.THREADS, FishParameter.ITERATIONS);
-		SimulationApp app = new SimulationApp(600, 600, 550, 8, 2, 4, 30, 2, 4,6,1);
+		SimulationApp app = new SimulationApp(600, 600, 1100, 8, 3, 4, 30, 2, 4,6,1);
 		app.startIterations();
 	}
 	
@@ -91,17 +91,16 @@ public class SimulationApp {
 		FishParameter.FISH_BODY_LENGTH = bodyLength;
 	}
 
-	private Fish[][] createRandomFishes(int fishNumber, int fieldLength, int fieldHeight) {
-		Fish[][] fishes = new Fish[fieldLength][fieldHeight];
-		Fish fish;
+	private ArrayList<Fish> createRandomFishes(int fishNumber, int fieldLength, int fieldHeight) {
+		ArrayList<Fish> fishes = new ArrayList<Fish>();
 		for (int i = 0; i < fishNumber; i++) {
-			fish = createRandomFish(fieldLength - 1, fieldHeight - 1);
-			if (fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] == null) {
-				fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] = fish;
-				fishList.add(fish);
-			} else {
-				i--;
-			}
+			fishes.add(createRandomFish(fieldLength - 1, fieldHeight - 1));
+//			if (fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] == null) {
+//				fishes[(int) fish.getPosition().getCoordinateX()][(int) fish.getPosition().getCoordinateX()] = fish;
+//				fishList.add(fish);
+//			} else {
+//				i--;
+//			}
 		}
 		
 		return fishes;
