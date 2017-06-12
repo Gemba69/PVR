@@ -112,8 +112,7 @@ public class TestFish {
 	public void testGetLengthPosition() {
 		Fish fish = new Fish(new Position(100, 100), new Position(100, 102));
 		Position targetPosition = new Position(100, 99);
-		//assertEquals(targetPosition, fish.getLengthPosition());
-		//FIXME Verhalten hinterfragen
+		assertEquals(targetPosition, fish.getLengthPosition());
 		
 		fish = new Fish(new Position(100, 100), new Position(102, 100));
 		targetPosition = new Position(99, 100);

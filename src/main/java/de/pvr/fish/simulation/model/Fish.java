@@ -119,7 +119,7 @@ public class Fish {
 		Position p = new Position(0, 0);
 		//p = p.getDiffBetweenPositions(this.position);
 		p.addLength(FishParameter.FISH_BODY_LENGTH);
-		p.addSpecificAngle(getAngle());
+		p.addSpecificAngle(-1 * getAngle());
 		p.addPosition(this.position);
 		return p;
 	}

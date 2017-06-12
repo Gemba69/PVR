@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import de.pvr.fish.simulation.application.Field;
 import de.pvr.fish.simulation.application.SimulationApp;
+import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Fish;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
@@ -43,8 +44,6 @@ import javafx.stage.Stage;
 public class ViewControlerWindow extends Application {
 
 	private GridPane topGrid;
-	private TextField fieldWidthTextField;
-	private TextField fieldLengthTextField;
 	// private GridPane bottomGrid;
 	Canvas bottomCanvas = new Canvas(900, 550);
 	// Canvas bottomCanvas = new
@@ -52,6 +51,18 @@ public class ViewControlerWindow extends Application {
 	// Double.parseDouble(fieldWidthTextField.getText()));
 	private SimulationApp fieldWindow;
 	private GraphicsContext gc = bottomCanvas.getGraphicsContext2D();
+	
+	TextField iterationTextField;
+	TextField threadTextField;
+	TextField fishField;
+	TextField fieldLengthTextField;
+	TextField fieldWidthTextField;
+	TextField deathAngelTextField;
+	TextField neighbourFishTextField;
+	TextField fishLengthTextField;
+	TextField r1TextField;
+	TextField r2TextField;
+	TextField r3TextField;
 
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -123,9 +134,9 @@ public class ViewControlerWindow extends Application {
 
 		// Spalte 1
 		Label iterationLabel = new Label("Iterationen:");
-		TextField iterationTextField = new TextField();
+		this.iterationTextField = new TextField();
 		Label threadLabel = new Label("Anzahl der Threads:");
-		TextField threadTextField = new TextField();
+		this.threadTextField = new TextField();
 		Label oneIterationLabel = new Label("Ein Iterationsschritt:");
 		Button oneIterationButton = new Button("Step");
 
@@ -137,11 +148,11 @@ public class ViewControlerWindow extends Application {
 
 		// Spalte 2
 		Label fishLabel = new Label("Anzahl der Fische:");
-		TextField fishField = new TextField();
+		this.fishField = new TextField();
 		Label fieldlength = new Label("Feld Länge:");
-		TextField fieldLengthTextField = new TextField();
+		this.fieldLengthTextField = new TextField();
 		Label fieldWidthLabel = new Label("Feld Breite:");
-		TextField fieldWidthTextField = new TextField();
+		this.fieldWidthTextField = new TextField();
 
 		// Titel Spalte 3 und 4
 		Text fishConfigurationHeading = new Text("Fisch Konfiguration");
@@ -150,19 +161,19 @@ public class ViewControlerWindow extends Application {
 
 		// Spalte 3
 		Label deathAngelLabel = new Label("Toter Winkel:");
-		TextField deathAngelTextField = new TextField();
+		this.deathAngelTextField = new TextField();
 		Label neighbourFishLabel = new Label("Anzahl der Nachbarn:");
-		TextField neighbourFishTextField = new TextField();
+		this.neighbourFishTextField = new TextField();
 		Label fishLengthLabel = new Label("Länge des Fisches:");
-		TextField fishLengthTextField = new TextField();
+		this.fishLengthTextField = new TextField();
 
 		// Spalte 4
 		Label r1Label = new Label("R1:");
-		TextField r1TextField = new TextField();
+		this.r1TextField = new TextField();
 		Label r2Label = new Label("R2:");
-		TextField r2TextField = new TextField();
+		this.r2TextField = new TextField();
 		Label r3Label = new Label("R3:");
-		TextField r3TextField = new TextField();
+		this.r3TextField = new TextField();
 
 		// StartButton / RestButton
 		Button startButton = new Button("Start");
@@ -176,16 +187,12 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(iterationLabel, 0, 1);
 		GridPane.setHalignment(iterationTextField, HPos.LEFT);
 		topGrid.add(iterationTextField, 1, 1);
-		iterationTextField.setText("100");
-		iterationTextField.getText();
 
 		// Threadnumber
 		GridPane.setHalignment(threadLabel, HPos.LEFT);
 		topGrid.add(threadLabel, 0, 2);
 		GridPane.setHalignment(threadTextField, HPos.LEFT);
 		topGrid.add(threadTextField, 1, 2);
-		threadTextField.setText("4");
-		threadTextField.getText();
 
 		// OneIteration
 		GridPane.setHalignment(oneIterationLabel, HPos.LEFT);
@@ -211,24 +218,18 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(fishLabel, 2, 1);
 		GridPane.setHalignment(fishField, HPos.LEFT);
 		topGrid.add(fishField, 3, 1);
-		fishField.setText("100");
-		fishField.getText();
 
 		// FieldLength
 		GridPane.setHalignment(fieldlength, HPos.LEFT);
 		topGrid.add(fieldlength, 2, 2);
 		GridPane.setHalignment(fieldLengthTextField, HPos.LEFT);
 		topGrid.add(fieldLengthTextField, 3, 2);
-		fieldLengthTextField.setText("600");
-		fieldLengthTextField.getText();
 
 		// FieldLength
 		GridPane.setHalignment(fieldWidthLabel, HPos.LEFT);
 		topGrid.add(fieldWidthLabel, 2, 3);
 		GridPane.setHalignment(fieldWidthTextField, HPos.LEFT);
 		topGrid.add(fieldWidthTextField, 3, 3);
-		fieldWidthTextField.setText("600");
-		fieldWidthTextField.getText();
 
 		// Spalte 3
 		// DeathAngel
@@ -236,24 +237,18 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(deathAngelLabel, 5, 1);
 		GridPane.setHalignment(deathAngelTextField, HPos.LEFT);
 		topGrid.add(deathAngelTextField, 6, 1);
-		deathAngelTextField.setText("30");
-		deathAngelTextField.getText();
 
 		// NeighbourFish
 		GridPane.setHalignment(neighbourFishLabel, HPos.LEFT);
 		topGrid.add(neighbourFishLabel, 5, 2);
 		GridPane.setHalignment(neighbourFishTextField, HPos.LEFT);
 		topGrid.add(neighbourFishTextField, 6, 2);
-		neighbourFishTextField.setText("4");
-		neighbourFishTextField.getText();
 
 		// FishLength
 		GridPane.setHalignment(fishLengthLabel, HPos.LEFT);
 		topGrid.add(fishLengthLabel, 5, 3);
 		GridPane.setHalignment(fishLengthTextField, HPos.LEFT);
 		topGrid.add(fishLengthTextField, 6, 3);
-		fishLengthTextField.setText("2");
-		fishLengthTextField.getText();
 
 		// Spalte 4
 		// R1
@@ -261,30 +256,24 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(r1Label, 7, 1);
 		GridPane.setHalignment(r1TextField, HPos.LEFT);
 		topGrid.add(r1TextField, 8, 1);
-		r1TextField.setText("2");
-		r1TextField.getText();
 
 		// R2
 		GridPane.setHalignment(r2Label, HPos.CENTER);
 		topGrid.add(r2Label, 7, 2);
 		GridPane.setHalignment(r2TextField, HPos.LEFT);
 		topGrid.add(r2TextField, 8, 2);
-		r2TextField.setText("4");
-		r2TextField.getText();
 
 		// R3
 		GridPane.setHalignment(r3Label, HPos.CENTER);
 		topGrid.add(r3Label, 7, 3);
 		GridPane.setHalignment(r3TextField, HPos.LEFT);
 		topGrid.add(r3TextField, 8, 3);
-		r3TextField.setText("6");
-		if (r3TextField.getText().trim().equals("")) {
-			r3TextField.setStyle("-fx-text-box-border: red");
-		}else
-			r3TextField.getText();
+//		if (r3TextField.getText().trim().equals("")) {
+//			r3TextField.setStyle("-fx-text-box-border: red");
+//		}
 
-	
-
+		setDefaultValues();
+		
 		// StartButton / ResetButton
 		// StartButton
 		GridPane.setHalignment(startButton, HPos.LEFT);
@@ -299,7 +288,11 @@ public class ViewControlerWindow extends Application {
 						Integer.parseInt(threadTextField.getText()),
 						Integer.parseInt(iterationTextField.getText()),
 						Integer.parseInt(neighbourFishTextField.getText()),
-						Integer.parseInt(deathAngelTextField.getText()), 2, 4, 6, 1);
+						Integer.parseInt(deathAngelTextField.getText()), 
+						Integer.parseInt(r1TextField.getText()),
+						Integer.parseInt(r2TextField.getText()),
+						Integer.parseInt(r3TextField.getText()),
+						Integer.parseInt(fishLengthTextField.getText()));
 				// fishLabel.setText("Accepted");
 				//redrawFish(0, 0, 0, 0);
 			}
@@ -400,5 +393,19 @@ public class ViewControlerWindow extends Application {
 			drawFish(fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY(),
 					fish.getLengthPosition().getCoordinateX(), fish.getLengthPosition().getCoordinateY());
 		}
+	}
+	
+	private void setDefaultValues() {
+		this.iterationTextField.setText(Integer.toString(FishParameter.ITERATIONS));
+		this.threadTextField.setText(Integer.toString(FishParameter.THREADS));
+		this.fishField.setText(Integer.toString(FishParameter.NUMBER_FISH));
+		this.fieldLengthTextField.setText(Integer.toString(FishParameter.FIELD_LENGTH));
+		this.fieldWidthTextField.setText(Integer.toString(FishParameter.FIELD_HEIGHT));
+		this.deathAngelTextField.setText(Integer.toString(FishParameter.DEATH_ANGLE));
+		this.neighbourFishTextField.setText(Integer.toString(FishParameter.NUMBER_OF_NEIGHBOURS));
+		this.fishLengthTextField.setText(Integer.toString(FishParameter.FISH_BODY_LENGTH));
+		this.r1TextField.setText(Integer.toString(FishParameter.RADIUS1));
+		this.r2TextField.setText(Integer.toString(FishParameter.RADIUS2));
+		this.r3TextField.setText(Integer.toString(FishParameter.RADIUS3));
 	}
 }

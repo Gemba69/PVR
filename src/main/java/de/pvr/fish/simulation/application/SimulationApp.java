@@ -50,6 +50,7 @@ public class SimulationApp {
 		createField();
 		
 		LOG.info("Creating new Field " + this.fieldLength + " x " + this.fieldHeight + " with " + this.fishNumber + " Fishes and " + this.threads + " threads and "+ this.iterations + "iterations." );
+		LOG.info("Specific Fish Parameters: Body Length: " + bodyLength + ", Neigbours " + neighbours + ", Death Angel: " + deathAngle + " and Radius: " + r1 + " " + r2 + " "+ r3);
 	}
 	
 	public void createField() {
