@@ -10,6 +10,8 @@ public class Fish {
 	private Position position;
 	private Position nextPosition;
 	private Position calcNextPosition;
+	
+	private static int maxSpedMultiplicator = FishParameter.MAX_SPEED_MULTIPLICATOR;
 
 	public Fish(Position position, Position nextPosition) {
 		this.position = position;
@@ -93,8 +95,7 @@ public class Fish {
 	}
 
 	public double getNewSpeed() {
-		// TODO 2 eleganter machen
-		return RandomGenerator.getRandomSpeed(3);
+		return RandomGenerator.getRandomSpeed(this.maxSpedMultiplicator);
 	}
 
 	public void goToNextPosition(double speed) {

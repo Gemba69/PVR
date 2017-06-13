@@ -58,7 +58,7 @@ public class RandomGenerator {
 	}
 	
 	public static int getRandomRangeNumber(int number) {
-		return getRandomNumber(2 * number) - number;
+		return getRandomNumber(2) * FishParameter.FISH_BODY_LENGTH;
 	}
 
 }

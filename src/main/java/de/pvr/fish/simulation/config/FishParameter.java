@@ -21,5 +21,7 @@ public class FishParameter {
 	
 	public static int FISH_BODY_LENGTH = 1;
 	
+	public static int MAX_SPEED_MULTIPLICATOR = 2;
+	
 	
 }
