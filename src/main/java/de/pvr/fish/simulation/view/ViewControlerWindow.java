@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
@@ -45,7 +46,7 @@ public class ViewControlerWindow extends Application {
 
 	private GridPane topGrid;
 	// private GridPane bottomGrid;
-	Canvas bottomCanvas = new Canvas(900, 550);
+	Canvas bottomCanvas = new Canvas(800, 550);
 	// Canvas bottomCanvas = new
 	// Canvas(Double.parseDouble(fieldLengthTextField.getText()),
 	// Double.parseDouble(fieldWidthTextField.getText()));
@@ -63,6 +64,11 @@ public class ViewControlerWindow extends Application {
 	TextField r1TextField;
 	TextField r2TextField;
 	TextField r3TextField;
+	TextField mValueTextField1;
+	TextField mValueTextField2;
+	TextField mValueTextField3;
+	TextField mValueTextField4;
+	TextField mValueTextField5;
 
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -73,7 +79,7 @@ public class ViewControlerWindow extends Application {
 	public void start(Stage primaryStage) {
 
 		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root, 920, 900, Color.WHITE);
+		Scene scene = new Scene(root, 1200, 1100, Color.WHITE);
 
 		// Menüleiste
 		MenuBar menuBar = new MenuBar();
@@ -111,17 +117,21 @@ public class ViewControlerWindow extends Application {
 		// Spalten
 		ColumnConstraints column1 = new ColumnConstraints(140);
 		ColumnConstraints column2 = new ColumnConstraints(60);
-		ColumnConstraints column3 = new ColumnConstraints(140);
-		ColumnConstraints column4 = new ColumnConstraints(60);
-		ColumnConstraints column5 = new ColumnConstraints(30);
-		ColumnConstraints column6 = new ColumnConstraints(140);
-		ColumnConstraints column7 = new ColumnConstraints(60);
-		ColumnConstraints column8 = new ColumnConstraints(40);
-		ColumnConstraints column9 = new ColumnConstraints(60);
-		ColumnConstraints column10 = new ColumnConstraints(40);
+		ColumnConstraints column3 = new ColumnConstraints(4);
+		ColumnConstraints column4 = new ColumnConstraints(140);
+		ColumnConstraints column5 = new ColumnConstraints(60);
+		ColumnConstraints column6 = new ColumnConstraints(30);
+		ColumnConstraints column7 = new ColumnConstraints(140);
+		ColumnConstraints column8 = new ColumnConstraints(60);
+		ColumnConstraints column9 = new ColumnConstraints(4);
+		ColumnConstraints column10 = new ColumnConstraints(22);
+		ColumnConstraints column11 = new ColumnConstraints(60);
+		ColumnConstraints column12 = new ColumnConstraints(60);
+		ColumnConstraints column13 = new ColumnConstraints(100);
+		ColumnConstraints column14 = new ColumnConstraints(100);
 		column2.setHgrow(Priority.ALWAYS);
 		topGrid.getColumnConstraints().addAll(column1, column2, column3, column4, column5, column6, column7, column8,
-				column9, column10);
+				column9, column10, column11, column12, column13, column14);
 
 		// Fenstertitel
 		primaryStage.setTitle("PVR - Simulation");
@@ -140,12 +150,6 @@ public class ViewControlerWindow extends Application {
 		Label oneIterationLabel = new Label("Ein Iterationsschritt:");
 		Button oneIterationButton = new Button("Step");
 
-		// Seperator
-		final Separator sepHor = new Separator();
-		sepHor.setValignment(VPos.CENTER);
-		GridPane.setConstraints(sepHor, 7, 1);
-		GridPane.setColumnSpan(sepHor, 7);
-
 		// Spalte 2
 		Label fishLabel = new Label("Anzahl der Fische:");
 		this.fishField = new TextField();
@@ -157,7 +161,7 @@ public class ViewControlerWindow extends Application {
 		// Titel Spalte 3 und 4
 		Text fishConfigurationHeading = new Text("Fisch Konfiguration");
 		fishConfigurationHeading.setFont(Font.font("Tahoma", FontWeight.NORMAL, 25));
-		topGrid.add(fishConfigurationHeading, 5, 0);
+		topGrid.add(fishConfigurationHeading, 6, 0);
 
 		// Spalte 3
 		Label deathAngelLabel = new Label("Toter Winkel:");
@@ -178,6 +182,23 @@ public class ViewControlerWindow extends Application {
 		// StartButton / RestButton
 		Button startButton = new Button("Start");
 		Button resetButton = new Button("Reset");
+		
+		// Titel Spalte 5
+		Text measuredValueHeading = new Text("Messwerte");
+		measuredValueHeading.setFont(Font.font("Tahoma", FontWeight.NORMAL, 25));
+		topGrid.add(measuredValueHeading, 12, 0);
+		
+		//Spalte 5
+		Label mValue1Label = new Label("Messwert1:");
+		TextField mValueTextField1 = new TextField();
+		Label mValue2Label = new Label("Messwert2:");
+		TextField mValueTextField2 = new TextField();
+		Label mValue3Label = new Label("Messwert3:");
+		TextField mValueTextField3 = new TextField();
+		Label mValue4Label = new Label("Messwert4:");
+		TextField mValueTextField4 = new TextField();
+		Label mValue5Label = new Label("Messwert5:");
+		TextField mValueTextField5 = new TextField();
 
 		// -----------------------------------------------
 
@@ -215,70 +236,116 @@ public class ViewControlerWindow extends Application {
 		// Spalte 2
 		// FishNumber
 		GridPane.setHalignment(fishLabel, HPos.LEFT);
-		topGrid.add(fishLabel, 2, 1);
+		topGrid.add(fishLabel, 3, 1);
 		GridPane.setHalignment(fishField, HPos.LEFT);
-		topGrid.add(fishField, 3, 1);
+		topGrid.add(fishField, 4, 1);
 
 		// FieldLength
 		GridPane.setHalignment(fieldlength, HPos.LEFT);
-		topGrid.add(fieldlength, 2, 2);
+		topGrid.add(fieldlength, 3, 2);
 		GridPane.setHalignment(fieldLengthTextField, HPos.LEFT);
-		topGrid.add(fieldLengthTextField, 3, 2);
+		topGrid.add(fieldLengthTextField, 4, 2);
 
 		// FieldLength
 		GridPane.setHalignment(fieldWidthLabel, HPos.LEFT);
-		topGrid.add(fieldWidthLabel, 2, 3);
+		topGrid.add(fieldWidthLabel, 3, 3);
 		GridPane.setHalignment(fieldWidthTextField, HPos.LEFT);
-		topGrid.add(fieldWidthTextField, 3, 3);
+		topGrid.add(fieldWidthTextField, 4, 3);
 
 		// Spalte 3
 		// DeathAngel
 		GridPane.setHalignment(deathAngelLabel, HPos.LEFT);
-		topGrid.add(deathAngelLabel, 5, 1);
+		topGrid.add(deathAngelLabel, 6, 1);
 		GridPane.setHalignment(deathAngelTextField, HPos.LEFT);
-		topGrid.add(deathAngelTextField, 6, 1);
+		topGrid.add(deathAngelTextField, 7, 1);
 
 		// NeighbourFish
 		GridPane.setHalignment(neighbourFishLabel, HPos.LEFT);
-		topGrid.add(neighbourFishLabel, 5, 2);
+		topGrid.add(neighbourFishLabel, 6, 2);
 		GridPane.setHalignment(neighbourFishTextField, HPos.LEFT);
-		topGrid.add(neighbourFishTextField, 6, 2);
+		topGrid.add(neighbourFishTextField, 7, 2);
 
 		// FishLength
 		GridPane.setHalignment(fishLengthLabel, HPos.LEFT);
-		topGrid.add(fishLengthLabel, 5, 3);
+		topGrid.add(fishLengthLabel, 6, 3);
 		GridPane.setHalignment(fishLengthTextField, HPos.LEFT);
-		topGrid.add(fishLengthTextField, 6, 3);
+		topGrid.add(fishLengthTextField, 7, 3);
 
 		// Spalte 4
 		// R1
 		GridPane.setHalignment(r1Label, HPos.CENTER);
-		topGrid.add(r1Label, 7, 1);
+		topGrid.add(r1Label, 9, 1);
 		GridPane.setHalignment(r1TextField, HPos.LEFT);
-		topGrid.add(r1TextField, 8, 1);
+		topGrid.add(r1TextField, 10, 1);
 
 		// R2
 		GridPane.setHalignment(r2Label, HPos.CENTER);
-		topGrid.add(r2Label, 7, 2);
+		topGrid.add(r2Label, 9, 2);
 		GridPane.setHalignment(r2TextField, HPos.LEFT);
-		topGrid.add(r2TextField, 8, 2);
+		topGrid.add(r2TextField, 10, 2);
 
 		// R3
 		GridPane.setHalignment(r3Label, HPos.CENTER);
-		topGrid.add(r3Label, 7, 3);
+		topGrid.add(r3Label, 9, 3);
 		GridPane.setHalignment(r3TextField, HPos.LEFT);
-		topGrid.add(r3TextField, 8, 3);
+		topGrid.add(r3TextField, 10, 3);
 //		if (r3TextField.getText().trim().equals("")) {
 //			r3TextField.setStyle("-fx-text-box-border: red");
 //		}
+		
+		// Spalte 5
+		// Messwert1
+		GridPane.setHalignment(mValue1Label, HPos.LEFT);
+		topGrid.add(mValue1Label, 12, 1);
+		GridPane.setHalignment(mValueTextField1, HPos.LEFT);
+		topGrid.add(mValueTextField1, 13, 1);
 
+		// Messwert2
+		GridPane.setHalignment(mValue2Label, HPos.LEFT);
+		topGrid.add(mValue2Label, 12, 2);
+		GridPane.setHalignment(mValueTextField2, HPos.LEFT);
+		topGrid.add(mValueTextField2, 13, 2);
+
+		// Messwert3
+		GridPane.setHalignment(mValue3Label, HPos.LEFT);
+		topGrid.add(mValue3Label, 12, 3);
+		GridPane.setHalignment(mValueTextField3, HPos.LEFT);
+		topGrid.add(mValueTextField3, 13, 3);
+		
+		// Messwert4
+		GridPane.setHalignment(mValue4Label, HPos.LEFT);
+		topGrid.add(mValue4Label, 12, 4);
+		GridPane.setHalignment(mValueTextField4, HPos.LEFT);
+		topGrid.add(mValueTextField4, 13, 4);
+		
+		// Messwert5
+		GridPane.setHalignment(mValue5Label, HPos.LEFT);
+		topGrid.add(mValue5Label, 12, 5);
+		GridPane.setHalignment(mValueTextField5, HPos.LEFT);
+		topGrid.add(mValueTextField5, 13, 5);
+
+		// Seperator1
+		Separator sepVert1 = new Separator();
+        sepVert1.setOrientation(Orientation.VERTICAL);
+        sepVert1.setValignment(VPos.BOTTOM);
+        sepVert1.setPrefHeight(80);
+        GridPane.setConstraints(sepVert1, 20, 20);
+        GridPane.setRowSpan(sepVert1, 3);
+        
+        // Seperator2
+    	Separator sepVert2 = new Separator();
+        sepVert2.setOrientation(Orientation.VERTICAL);
+        sepVert2.setValignment(VPos.BOTTOM);
+        sepVert2.setPrefHeight(80);
+        GridPane.setConstraints(sepVert2, 20, 20);
+        GridPane.setRowSpan(sepVert2, 3);
 		setDefaultValues();
 		
 		// StartButton / ResetButton
 		// StartButton
 		GridPane.setHalignment(startButton, HPos.LEFT);
-		topGrid.add(startButton, 6, 6);
-		startButton.setMinSize(180, 20);
+		topGrid.add(startButton, 7, 5);
+		startButton.setMinSize(176, 20);
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -299,10 +366,10 @@ public class ViewControlerWindow extends Application {
 		});
 		// ResetButton
 		GridPane.setHalignment(resetButton, HPos.LEFT);
-		topGrid.add(resetButton, 5, 6);
+		topGrid.add(resetButton, 6, 5);
 		resetButton.setMinSize(80, 20);
 		resetButton.setAlignment(Pos.BASELINE_CENTER);
-
+/*
 		// Setting an action for the Clear button
 		resetButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -311,12 +378,15 @@ public class ViewControlerWindow extends Application {
 				setDefaultValues();
 			}
 		});
-
+*/
 		// Anzeigen des Panes
-		gc.setFill(Color.ALICEBLUE);
-		topGrid.add(new Separator(), 0, 4, 4, 1);
-		topGrid.add(new Separator(), 5, 4, 4, 1);
-		topGrid.add(new Separator(), 5, 8, 4, 1);
+		//gc.setFill(Color.ALICEBLUE);
+		topGrid.add(new Separator(), 0, 4, 5, 1);
+		topGrid.add(new Separator(), 6, 4, 5, 1);
+		topGrid.add(new Separator(), 6, 7, 5, 1);
+		topGrid.add(new Separator(), 12, 7, 2, 1);
+		topGrid.add(sepVert1, 2, 1);
+		topGrid.add(sepVert2, 8, 1);
 		root.setTop(menuBar);
 		root.setCenter(topGrid);
 		// root.setBottom(bottomGrid);
@@ -360,6 +430,9 @@ public class ViewControlerWindow extends Application {
 		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
 				deathAngle, r1, r2, r3, bodyLength);
 		//TODO Feld erstellen und einfärben
+		gc.setFill(Color.ALICEBLUE);
+		gc.fillRect(0, 0, bottomCanvas.getWidth(), bottomCanvas.getHeight());
+		
 		drawAllFishes();
 		for (int i = 0; i < iterations; i++) {
 			this.fieldWindow.startIteration();
