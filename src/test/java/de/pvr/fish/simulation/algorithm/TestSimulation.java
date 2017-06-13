@@ -14,10 +14,10 @@ public class TestSimulation {
 	public void testSimulation10RandomFishes() {
 		Field field = TestdataGenerator.getFieldWith10Fishes();
 		
-//		field.nextInteration();
-//		field.nextInteration();
-//		field.nextInteration();
-//		field.nextInteration();
+		field.nextInteration();
+		field.nextInteration();
+		field.nextInteration();
+		field.nextInteration();
 	}
 	
 	@Test

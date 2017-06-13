@@ -51,7 +51,7 @@ public class Field {
 	
 	public void nextInteration() {
 		LOG.info("Starting overall Iteration");
-		
+		//TODO kann bei Objekterzeugung generiert werden- außerdem kann es auch zwei getrennte Listen geben
 		tasks.clear();
 		//split Task 
 		int startPosition = 0;

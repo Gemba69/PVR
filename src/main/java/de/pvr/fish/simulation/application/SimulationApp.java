@@ -66,22 +66,15 @@ public class SimulationApp {
 	
 	public void setParametersInFischParameters(int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
 		FishParameter.ITERATIONS = this.iterations;
-
 		FishParameter.THREADS = this.threads;
-		
 		FishParameter.NUMBER_FISH = this.fishNumber;
-
 		FishParameter.FIELD_LENGTH = this.fieldLength;
 		FishParameter.FIELD_HEIGHT = this.fieldLength;
-
 		FishParameter.NUMBER_OF_NEIGHBOURS = neighbours;
-		
 		FishParameter.DEATH_ANGLE = deathAngle;
-		
 		FishParameter.RADIUS1 = r1;
 		FishParameter.RADIUS2 = r2;
 		FishParameter.RADIUS3 = r3;
-		
 		FishParameter.FISH_BODY_LENGTH = bodyLength;
 	}
 
@@ -91,7 +84,6 @@ public class SimulationApp {
 				i--;
 			}
 		}
-		
 	}
 	
 	private Fish createRandomFish(int fieldLength, int fieldHeight) {

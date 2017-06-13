@@ -1,6 +1,9 @@
 package de.pvr.fish.simulation.algorithm.task;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -8,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Fish;
-import de.pvr.fish.simulation.model.Position;
 import de.pvr.fish.simulation.util.CommonUtil;
 import de.pvr.fish.simulation.util.Radius;
 import de.pvr.fish.simulation.util.RandomGenerator;
@@ -80,12 +82,20 @@ public class CalculatePositionTask extends FishTask {
 			}
 
 		}
-
 		while (neighbourFishes.size() > freeCapacity) {
 			neighbourFishes.remove(0);
 			// TODO 2 eleganter machen
 		}
-
+//		Collections.sort(neighbourFishes, new Comparator<Pair<Fish, Radius>>() {
+//			@Override
+//			public int compare(Pair<Fish, Radius> p1, Pair<Fish, Radius> p2) {
+//				if ( p1.getLeft().getPosition().getDiffBetweenPositions(fish.getPosition()).getLength() < p2.getLeft().getPosition().getDiffBetweenPositions(fish.getPosition()).getLength()) {
+//					return 1;
+//				} else 
+//				return 0;
+//			}
+//			});
+		
 		return neighbourFishes;
 	}
 

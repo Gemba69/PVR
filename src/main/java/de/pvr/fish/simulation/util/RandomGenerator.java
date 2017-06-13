@@ -16,7 +16,7 @@ public class RandomGenerator {
 	}
 	
 	public static Position getRandomPosition() {
-		return getRandomPosition(1000, 1000);
+		return getRandomPosition(600, 600);
 	}
 	
 	public static Position getRandomPosition(int length, int height) {

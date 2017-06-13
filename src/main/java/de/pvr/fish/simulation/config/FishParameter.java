@@ -8,8 +8,8 @@ public class FishParameter {
 	
 	public static int NUMBER_FISH = 10;
 
-	public static int FIELD_LENGTH = 1000;
-	public static int FIELD_HEIGHT = 1000;
+	public static int FIELD_LENGTH = 600;
+	public static int FIELD_HEIGHT = 600;
 
 	public static int NUMBER_OF_NEIGHBOURS = 4;
 	

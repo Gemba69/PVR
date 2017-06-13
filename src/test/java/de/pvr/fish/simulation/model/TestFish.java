@@ -128,6 +128,10 @@ public class TestFish {
 		assertTrue(fish.getNewSpeed() >= 1 * FishParameter.FISH_BODY_LENGTH);
 		assertTrue(fish.getNewSpeed() >= 1 * FishParameter.FISH_BODY_LENGTH);
 		assertTrue(fish.getNewSpeed() >= 1 * FishParameter.FISH_BODY_LENGTH);
+		assertTrue(fish.getNewSpeed() <= 2 * FishParameter.FISH_BODY_LENGTH);
+		assertTrue(fish.getNewSpeed() <= 2 * FishParameter.FISH_BODY_LENGTH);
+		assertTrue(fish.getNewSpeed() <= 2 * FishParameter.FISH_BODY_LENGTH);
+		assertTrue(fish.getNewSpeed() <= 2 * FishParameter.FISH_BODY_LENGTH);
 	}
 
 }

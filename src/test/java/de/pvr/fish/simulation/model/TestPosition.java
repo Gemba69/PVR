@@ -56,14 +56,14 @@ public class TestPosition {
 		
 		assertEquals(targetPosition, endPosition);
 
-		p = new Position(100, 999);
-		targetPosition = new Position(102, 999);
+		p = new Position(100, 599);
+		targetPosition = new Position(102, 599);
 		endPosition = p.getRadiusEndPosition(2);
 		
 		assertEquals(targetPosition, endPosition);
 		
-		p = new Position(999, 999);
-		targetPosition = new Position(999, 999);
+		p = new Position(599, 599);
+		targetPosition = new Position(599, 599);
 		endPosition = p.getRadiusEndPosition(2);
 		
 		assertEquals(targetPosition, endPosition);
