@@ -56,15 +56,18 @@ public class CalculatePositionTask extends FishTask {
 	}
 
 	private ArrayList<Pair<Fish, Radius>> searchInR1(Fish fish, int freeCapacity) {
-		return searchInSpecificRadius(fish, freeCapacity, 0, FishParameter.RADIUS1 * FishParameter.FISH_BODY_LENGTH, Radius.R1);
+		return searchInSpecificRadius(fish, freeCapacity, 0, FishParameter.RADIUS1 * FishParameter.FISH_BODY_LENGTH,
+				Radius.R1);
 	}
 
 	private ArrayList<Pair<Fish, Radius>> searchInR2(Fish fish, int freeCapacity) {
-		return searchInSpecificRadius(fish, freeCapacity, FishParameter.RADIUS1 * FishParameter.FISH_BODY_LENGTH, FishParameter.RADIUS2 * FishParameter.FISH_BODY_LENGTH, Radius.R2);
+		return searchInSpecificRadius(fish, freeCapacity, FishParameter.RADIUS1 * FishParameter.FISH_BODY_LENGTH,
+				FishParameter.RADIUS2 * FishParameter.FISH_BODY_LENGTH, Radius.R2);
 	}
 
 	private ArrayList<Pair<Fish, Radius>> searchInR3(Fish fish, int freeCapacity) {
-		return searchInSpecificRadius(fish, freeCapacity, FishParameter.RADIUS2 * FishParameter.FISH_BODY_LENGTH, FishParameter.RADIUS3 * FishParameter.FISH_BODY_LENGTH, Radius.R3);
+		return searchInSpecificRadius(fish, freeCapacity, FishParameter.RADIUS2 * FishParameter.FISH_BODY_LENGTH,
+				FishParameter.RADIUS3 * FishParameter.FISH_BODY_LENGTH, Radius.R3);
 	}
 
 	private ArrayList<Pair<Fish, Radius>> searchInSpecificRadius(Fish fish, int freeCapacity, int minRadusLength,
@@ -82,20 +85,19 @@ public class CalculatePositionTask extends FishTask {
 			}
 
 		}
-		while (neighbourFishes.size() > freeCapacity) {
-			neighbourFishes.remove(0);
-			// TODO 2 eleganter machen
+		// while (neighbourFishes.size() > freeCapacity) {
+		// neighbourFishes.remove(0);
+		// }
+		if (neighbourFishes.size() > freeCapacity) {
+			Collections.sort(neighbourFishes, new Comparator<Pair<Fish, Radius>>() {
+				@Override
+				public int compare(Pair<Fish, Radius> p1, Pair<Fish, Radius> p2) {
+					return (int) (p1.getLeft().getPosition().getDiffBetweenPositions(fish.getPosition()).getLength() - p2
+							.getLeft().getPosition().getDiffBetweenPositions(fish.getPosition()).getLength());
+				}
+			});
+			neighbourFishes = (ArrayList<Pair<Fish, Radius>>) neighbourFishes.subList(0, freeCapacity);
 		}
-//		Collections.sort(neighbourFishes, new Comparator<Pair<Fish, Radius>>() {
-//			@Override
-//			public int compare(Pair<Fish, Radius> p1, Pair<Fish, Radius> p2) {
-//				if ( p1.getLeft().getPosition().getDiffBetweenPositions(fish.getPosition()).getLength() < p2.getLeft().getPosition().getDiffBetweenPositions(fish.getPosition()).getLength()) {
-//					return 1;
-//				} else 
-//				return 0;
-//			}
-//			});
-		
 		return neighbourFishes;
 	}
 

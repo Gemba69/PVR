@@ -427,7 +427,6 @@ public class ViewControlerWindow extends Application {
 
 		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
 				deathAngle, r1, r2, r3, bodyLength);
-		//TODO Feld erstellen und einfärben
 		gc.setFill(Color.ALICEBLUE);
 		gc.fillRect(0, 0, bottomCanvas.getWidth(), bottomCanvas.getHeight());
 		

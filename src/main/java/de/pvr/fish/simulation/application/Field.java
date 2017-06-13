@@ -53,18 +53,15 @@ public class Field {
 	
 	public void nextInteration() {
 		LOG.info("Starting overall Iteration");
-		//TODO kann bei Objekterzeugung generiert werden- außerdem kann es auch zwei getrennte Listen geben
 		//Execution
 		try {
 			this.executorService.invokeAll(this.calcTasks);
 		} catch (InterruptedException e) {
 			LOG.error(e.getMessage());
 		}
-		//2.
-
-		//Execution
+		//2. Execution
 		try {
-			this.executorService.invokeAll(this.calcTasks);
+			this.executorService.invokeAll(this.newPositionTasks);
 		} catch (InterruptedException e) {
 			LOG.error(e.getMessage());
 		}
