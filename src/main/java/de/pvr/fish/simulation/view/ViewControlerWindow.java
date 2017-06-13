@@ -308,18 +308,7 @@ public class ViewControlerWindow extends Application {
 
 			@Override
 			public void handle(ActionEvent e) {
-				iterationTextField.setText("100");
-				threadTextField.setText("4");
-				fishField.setText("100");
-				fieldLengthTextField.setText("600");
-				fieldWidthTextField.setText("600");
-				deathAngelTextField.setText("30");
-				neighbourFishTextField.setText("4");
-				fishLengthTextField.setText("2");
-				r1TextField.setText("2");
-				r2TextField.setText("4");
-				r3TextField.setText("6");
-
+				setDefaultValues();
 			}
 		});
 
