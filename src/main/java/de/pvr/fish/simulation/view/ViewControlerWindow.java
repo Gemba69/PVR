@@ -343,9 +343,6 @@ public class ViewControlerWindow extends Application {
 	private void drawFish(double x1, double y1, double x2, double y2) {
 		this.gc.strokeLine(x1, y1, x2, y2);
 		this.gc.strokeOval(x1, y1, 2, 2);
-		gc.setFill(Color.ALICEBLUE);
-		// gc.sets(fieldLengthTextField.getText(),
-		// fieldWidthTextField.getText());
 
 	}
 /*
@@ -362,6 +359,7 @@ public class ViewControlerWindow extends Application {
 
 		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
 				deathAngle, r1, r2, r3, bodyLength);
+		//TODO Feld erstellen und einfärben
 		drawAllFishes();
 		for (int i = 0; i < iterations; i++) {
 			this.fieldWindow.startIteration();
