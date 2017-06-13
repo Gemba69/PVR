@@ -276,6 +276,17 @@ public class ViewControlerWindow extends Application {
 			r3TextField.getText();
 
 	
+	/*	fieldLengthTextField.focusedProperty().addListener((arg0, oldValue, newValue) -> {
+	        if (!newValue) { //when focus lost
+	            if(!fieldLengthTextField.getText().matches("[1-5]\\.[0-9]|6\\.0")){
+	                //when it not matches the pattern (1.0 - 6.0)
+	                //set the textField empty
+	            	fieldLengthTextField.setText("");
+	            }
+	        }
+
+	    }); */
+
 
 		// StartButton / ResetButton
 		// StartButton
@@ -291,7 +302,11 @@ public class ViewControlerWindow extends Application {
 						Integer.parseInt(threadTextField.getText()),
 						Integer.parseInt(iterationTextField.getText()),
 						Integer.parseInt(neighbourFishTextField.getText()),
-						Integer.parseInt(deathAngelTextField.getText()), 2, 4, 6, 1);
+						Integer.parseInt(deathAngelTextField.getText()),
+						Integer.parseInt(r1TextField.getText()), 
+						Integer.parseInt(r2TextField.getText()),
+						Integer.parseInt(r3TextField.getText()),
+						Integer.parseInt(fishLengthTextField.getText()));
 				// fishLabel.setText("Accepted");
 				//redrawFish(0, 0, 0, 0);
 			}
@@ -337,17 +352,14 @@ public class ViewControlerWindow extends Application {
 		primaryStage.show();
 	}
 
-	/*
-	 * public boolean checkParamter(){ if (fishField.getText() && ()); return
-	 * false;
-	 * 
-	 * 
-	 * }
-	 */
+	  
+	 
+	  
+	 /*
 	public static boolean isNumeric(String str) {
 		return str.matches("-?\\d+(\\.\\d+)?"); // match a number with optional
 												// '-' and decimal.
-	}
+	}*/
 
 	// 01 0+0 1+1
 	private void drawFish(double x1, double y1, double x2, double y2) {
