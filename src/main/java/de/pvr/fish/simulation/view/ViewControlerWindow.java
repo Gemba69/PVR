@@ -363,10 +363,8 @@ public class ViewControlerWindow extends Application {
 		drawAllFishes();
 		for (int i = 0; i < iterations; i++) {
 			this.fieldWindow.startIteration();
-			drawAllFishes();
-			
+			drawAllFishes();	
 		}
-
 	}
 	
 	public void iterateOnce() {

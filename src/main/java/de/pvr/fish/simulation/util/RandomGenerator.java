@@ -46,7 +46,6 @@ public class RandomGenerator {
 	
 	public static int getRandomSpeed() {
 		return getRandomNumber(3);
-		//TODO 2 eleganter machen mit den anderen auf Speed mappen
 	}
 	
 	public static int getRandomSpeed(int maxSpeed) {

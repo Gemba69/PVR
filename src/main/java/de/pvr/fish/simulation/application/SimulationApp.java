@@ -1,14 +1,10 @@
 package de.pvr.fish.simulation.application;
 
-import java.util.ArrayList;
-import java.util.Vector;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Fish;
-import de.pvr.fish.simulation.model.Position;
 import de.pvr.fish.simulation.util.RandomGenerator;
 
 public class SimulationApp {

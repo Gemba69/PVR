@@ -67,6 +67,7 @@ public class Field {
 			LOG.error(e.getMessage());
 		}
 		//2.
+		tasks.clear();
 		startPosition = 0;
 		for (Integer endPosition : positions) {
 			this.tasks.add(new SetNewPositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));

@@ -51,5 +51,13 @@ public class TestField {
 		assertFalse(field.addNewFishToField(fish));
 	}
 	
+	@Test
+	public void testNextIteration() {
+		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
+		field.nextInteration();
+		assertEquals(10, field.getFishes().size());
+		field.nextInteration();
+		assertEquals(10, field.getFishes().size());
+	}
 	
 }

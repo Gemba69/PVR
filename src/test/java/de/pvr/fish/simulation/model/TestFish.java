@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import de.pvr.fish.simulation.config.FishParameter;
+
 
 public class TestFish {
 	
@@ -117,6 +119,15 @@ public class TestFish {
 		fish = new Fish(new Position(100, 100), new Position(102, 100));
 		targetPosition = new Position(99, 100);
 		assertEquals(targetPosition, fish.getLengthPosition());
+	}
+	
+	@Test
+	public void testGetSpeed() {
+		Fish fish = new Fish(new Position(100, 100), new Position(100, 102));
+		assertTrue(fish.getNewSpeed() >= 1 * FishParameter.FISH_BODY_LENGTH);
+		assertTrue(fish.getNewSpeed() >= 1 * FishParameter.FISH_BODY_LENGTH);
+		assertTrue(fish.getNewSpeed() >= 1 * FishParameter.FISH_BODY_LENGTH);
+		assertTrue(fish.getNewSpeed() >= 1 * FishParameter.FISH_BODY_LENGTH);
 	}
 
 }
