@@ -23,7 +23,8 @@ public class Field {
 	private int fishNumber;
 	
 	private ExecutorService executorService;
-	private ArrayList<FishTask> tasks;
+	private ArrayList<FishTask> calcTasks;
+	private ArrayList<FishTask> newPositionTasks;
 	
 	private static final Logger LOG = LogManager.getLogger(Field.class);
 	
@@ -36,7 +37,8 @@ public class Field {
 		fishes = new ArrayList<Fish>();
 		
 		this.executorService = Executors.newFixedThreadPool(threads);
-		this.tasks = new ArrayList<FishTask>();
+		this.calcTasks = new ArrayList<FishTask>();
+		this.newPositionTasks = new ArrayList<FishTask>();
 		
 	}
 	
@@ -52,32 +54,36 @@ public class Field {
 	public void nextInteration() {
 		LOG.info("Starting overall Iteration");
 		//TODO kann bei Objekterzeugung generiert werden- außerdem kann es auch zwei getrennte Listen geben
-		tasks.clear();
-		//split Task 
-		int startPosition = 0;
-		ArrayList<Integer> positions = splitTasks();
-		for (Integer endPosition : positions) {
-			this.tasks.add(new CalculatePositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));
-			startPosition = endPosition + 1;
-		}
 		//Execution
 		try {
-			this.executorService.invokeAll(this.tasks);
+			this.executorService.invokeAll(this.calcTasks);
 		} catch (InterruptedException e) {
 			LOG.error(e.getMessage());
 		}
 		//2.
-		tasks.clear();
-		startPosition = 0;
-		for (Integer endPosition : positions) {
-			this.tasks.add(new SetNewPositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));
-			startPosition = endPosition + 1;
-		}
+
 		//Execution
 		try {
-			this.executorService.invokeAll(this.tasks);
+			this.executorService.invokeAll(this.calcTasks);
 		} catch (InterruptedException e) {
 			LOG.error(e.getMessage());
+		}
+	}
+	
+	public void prepareTaskLists() {
+		this.calcTasks.clear();
+		this.newPositionTasks.clear();
+		//split Task 
+		int startPosition = 0;
+		ArrayList<Integer> positions = splitTasks();
+		for (Integer endPosition : positions) {
+			this.calcTasks.add(new CalculatePositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));
+			startPosition = endPosition + 1;
+		}
+		startPosition = 0;
+		for (Integer endPosition : positions) {
+			this.newPositionTasks.add(new SetNewPositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));
+			startPosition = endPosition + 1;
 		}
 	}
 	
@@ -123,12 +129,20 @@ public class Field {
 		this.executorService = executorService;
 	}
 
-	public ArrayList<FishTask> getTasks() {
-		return tasks;
+	public ArrayList<FishTask> getCalcTasks() {
+		return calcTasks;
 	}
 
-	public void setTasks(ArrayList<FishTask> tasks) {
-		this.tasks = tasks;
+	public void setCalcTasks(ArrayList<FishTask> tasks) {
+		this.calcTasks = tasks;
+	}
+	
+	public ArrayList<FishTask> getNewPositionTasks() {
+		return newPositionTasks;
+	}
+
+	public void setNewPositionTasks(ArrayList<FishTask> tasks) {
+		this.newPositionTasks = tasks;
 	}
 
 	public static Logger getLog() {

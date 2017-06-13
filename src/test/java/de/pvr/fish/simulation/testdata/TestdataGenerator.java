@@ -26,6 +26,7 @@ public class TestdataGenerator {
 				i--;
 			};
 		}	
+		field.prepareTaskLists();
 		return field;
 	}
 	
@@ -46,7 +47,7 @@ public class TestdataGenerator {
 		field.addNewFishToField(new Fish(new Position(99,99), new Position(100, 102)));
 		field.addNewFishToField(new Fish(new Position(100,102), new Position(101, 102)));
 		field.addNewFishToField(new Fish(new Position(500,500), new Position(502, 502))); //far away
-		
+		field.prepareTaskLists();
 		return field;
 	}
 	

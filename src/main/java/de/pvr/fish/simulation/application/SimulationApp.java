@@ -52,6 +52,7 @@ public class SimulationApp {
 	public void createField() {
 		this.field = new Field(this.fieldLength, this.fieldHeight, this.fishNumber, this.threads);
 		createRandomFishes(this.fishNumber, field.getLength(), field.getHeight());
+		this.field.prepareTaskLists();
 	}
 	
 	public void startIterations() {

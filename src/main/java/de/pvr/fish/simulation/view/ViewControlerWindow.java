@@ -369,7 +369,6 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(resetButton, 6, 5);
 		resetButton.setMinSize(80, 20);
 		resetButton.setAlignment(Pos.BASELINE_CENTER);
-/*
 		// Setting an action for the Clear button
 		resetButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -378,7 +377,6 @@ public class ViewControlerWindow extends Application {
 				setDefaultValues();
 			}
 		});
-*/
 		// Anzeigen des Panes
 		//gc.setFill(Color.ALICEBLUE);
 		topGrid.add(new Separator(), 0, 4, 5, 1);
