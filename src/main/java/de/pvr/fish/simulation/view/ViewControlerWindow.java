@@ -368,7 +368,7 @@ public class ViewControlerWindow extends Application {
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				fieldWindow(Integer.parseInt(fieldLengthTextField.getText()),
+				createFieldWindow(Integer.parseInt(fieldLengthTextField.getText()),
 						Integer.parseInt(fieldWidthTextField.getText()), 
 						Integer.parseInt(fishField.getText()),
 						Integer.parseInt(threadTextField.getText()),
@@ -444,9 +444,11 @@ public class ViewControlerWindow extends Application {
 		this.gc.strokeOval(x1, y1, 2, 2);
 	}
 */
-	public void fieldWindow(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
+	public void createFieldWindow(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
 			int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
-
+		if (this.gc != null && this.fieldWindow != null) {
+			this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
+		}
 		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
 				deathAngle, r1, r2, r3, bodyLength);
 		
