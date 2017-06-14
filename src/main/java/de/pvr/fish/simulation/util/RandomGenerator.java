@@ -25,7 +25,7 @@ public class RandomGenerator {
 	
 	public static Position getRandomNextPosition(Position p) {
 		double coordX = p.getCoordinateX() + getRandomRangeNumber();
-		double coordY = p.getCoordinateX() + getRandomRangeNumber();
+		double coordY = p.getCoordinateY() + getRandomRangeNumber();
 		while (coordX > FishParameter.FIELD_LENGTH || coordX < 0) {
 			coordX = p.getCoordinateX() + getRandomRangeNumber();
 		}

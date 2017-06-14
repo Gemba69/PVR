@@ -22,8 +22,11 @@ public class TestSimulation {
 	
 	@Test
 	public void testSimulation10SpecificFishes() {
-		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
+		Field field = TestdataGenerator.getFieldWithSpecific10Fishes2();
 		
+		field.nextInteration();
+		field.nextInteration();
+		field.nextInteration();
 		field.nextInteration();
 	}
 

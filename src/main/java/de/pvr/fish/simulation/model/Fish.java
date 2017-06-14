@@ -5,7 +5,6 @@ import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.pvr.fish.simulation.application.SimulationApp;
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.util.RandomGenerator;
 

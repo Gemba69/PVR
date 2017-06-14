@@ -24,18 +24,13 @@ public class TestSimulationApp {
 	public void testThreeIterations() {
 		SimulationApp app = new SimulationApp(600, 600, 10, 8, 3, 4, 30, 2, 4,6,1);
 		app.setField(TestdataGenerator.getFieldWithSpecific10Fishes());
-		ArrayList<Fish> fishes = app.getField().getFishes();
+		ArrayList<Fish> fishes = TestdataGenerator.getFieldWithSpecific10Fishes().getFishes();
 		app.startIteration();
-		//assertNotEquals(fishes, app.getField().getFishes());
-		fishes = app.getField().getFishes();
-		//FIXME
+		assertNotEquals(fishes, app.getField().getFishes());
+		Field field2 = TestdataGenerator.getFieldWithSpecific10Fishes();
+		field2.nextInteration();
+		fishes = field2.getFishes();
 		app.startIteration();
-		//assertNotEquals(fishes, app.getField().getFishes());
-		fishes = app.getField().getFishes();
-		
-		app.startIteration();
-		//assertNotEquals(fishes, app.getField().getFishes());
-		fishes = app.getField().getFishes();
-
+		assertNotEquals(fishes, app.getField().getFishes());
 	}
 }
