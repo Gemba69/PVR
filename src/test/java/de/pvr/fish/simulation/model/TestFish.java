@@ -62,6 +62,17 @@ public class TestFish {
 	}
 	
 	@Test
+	public void testGetCalcAngel() {
+		Fish fish = new Fish(new Position(100, 100), new Position(102, 102));
+		
+		assertEquals(225, fish.getCalcAngle());
+		
+		fish = new Fish(new Position(98, 102), new Position(96, 102));
+		
+		assertEquals(0, fish.getCalcAngle());
+	}
+	
+	@Test
 	public void testIsInDeathAngle() {
 		Fish fish = new Fish(new Position(100, 100), new Position(100, 102));
 		
@@ -80,10 +91,10 @@ public class TestFish {
 		fish.turnAtCalc(90);
 		targetFish = new Fish(new Position (98, 102), new Position(95, 102));
 		fish.goToNextPosition(3);
-		//assertEquals(targetFish, fish);
+		assertEquals(targetFish, fish);
 		
 		fish.turnAtCalc(45);
-		targetFish = new Fish(new Position (96, 100), new Position(97, 105));
+		targetFish = new Fish(new Position (96, 100), new Position(94, 98));
 		fish.goToNextPosition(3);
 		//assertEquals(targetFish, fish);
 		//FIXME verfickte Winkelberechnung ein wenig genauer machen
@@ -119,6 +130,21 @@ public class TestFish {
 		fish = new Fish(new Position(100, 100), new Position(102, 100));
 		targetPosition = new Position(99, 100);
 		assertEquals(targetPosition, fish.getLengthPosition());
+		
+		FishParameter.FISH_BODY_LENGTH = 3;
+		fish = new Fish(new Position(100, 100), new Position(102, 100));
+		targetPosition = new Position(97, 100);
+		assertEquals(targetPosition, fish.getLengthPosition());
+		
+		fish = new Fish(new Position(100, 100), new Position(102, 103));
+		targetPosition = new Position(98, 98);
+		assertEquals(targetPosition, fish.getLengthPosition());
+		
+		fish = new Fish(new Position(100, 100), new Position(98, 98));
+		targetPosition = new Position(102, 102);
+		assertEquals(targetPosition, fish.getLengthPosition());
+		
+		FishParameter.FISH_BODY_LENGTH = FishParameter.DEFAULT_FISH_BODY_LENGTH;
 	}
 	
 	@Test

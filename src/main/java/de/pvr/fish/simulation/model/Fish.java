@@ -2,11 +2,17 @@ package de.pvr.fish.simulation.model;
 
 import java.util.Objects;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import de.pvr.fish.simulation.application.SimulationApp;
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.util.RandomGenerator;
 
 public class Fish {
 
+	private static final Logger LOG = LogManager.getLogger(Fish.class);
+	
 	private Position position;
 	private Position nextPosition;
 	private Position calcNextPosition;
@@ -93,19 +99,27 @@ public class Fish {
 	public int getAngle() {
 		return this.position.getAngle(this.nextPosition);
 	}
+	
+	public int getCalcAngle() {
+		return this.position.getAngle(this.calcNextPosition);
+	}
 
 	public double getNewSpeed() {
 		return RandomGenerator.getRandomSpeed(maxSpedMultiplicator - 1) + 1;
 	}
 
 	public void goToNextPosition(double speed) {
-		int angle = getAngle(); //180
+		LOG.debug("Starting go to next Position: " + this );
+		int angle = getCalcAngle(); //180
+		LOG.debug("The angle of Fish is: " + angle);
 		this.position = this.calcNextPosition;
 		Position newPosition = new Position(this.position.getCoordinateX(), this.position.getCoordinateY());
 		newPosition.addLength(speed);
+		LOG.debug("New Position is: " + newPosition);
 		this.nextPosition = newPosition;
 		turnAt(angle - 180);
-		this.calcNextPosition = new Position(this.nextPosition.getCoordinateX(), this.nextPosition.getCoordinateY());;
+		this.calcNextPosition = new Position(this.nextPosition.getCoordinateX(), this.nextPosition.getCoordinateY());
+		LOG.debug("Ending go to next Position: " + this );
 	}
 
 	public void goToNextPosition() {
@@ -154,8 +168,8 @@ public class Fish {
 	public String toString() {
 		return "Fish{" + "coordinateX=" + this.position.getCoordinateX() + ", coordinateY="
 				+ this.position.getCoordinateY() + ", nextCoordinateX=" + this.nextPosition.getCoordinateX()
-				+ ", nextCoordinateY=" + this.nextPosition.getCoordinateY() + ", previousCoordinateX="
-				+ this.calcNextPosition.getCoordinateX() + ", previousCoordinateY="
+				+ ", nextCoordinateY=" + this.nextPosition.getCoordinateY() + ", calcNextCoordinateX="
+				+ this.calcNextPosition.getCoordinateX() + ", calcNextCoordinateY="
 				+ this.calcNextPosition.getCoordinateY() + "}";
 	}
 

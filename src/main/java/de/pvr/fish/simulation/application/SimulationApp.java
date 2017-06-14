@@ -10,7 +10,6 @@ import de.pvr.fish.simulation.util.RandomGenerator;
 public class SimulationApp {
 	
 	private int iterations;
-	//TODO werden die Klassenvariablen überhaupt außer den iterationsbenötigt? Sind die iterations nicht auch Methodenbezogen?
 	
 	private Field field;
 	
