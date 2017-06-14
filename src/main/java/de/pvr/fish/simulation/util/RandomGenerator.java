@@ -53,7 +53,7 @@ public class RandomGenerator {
 	}
 	
 	public static int getRandomRangeNumber() {
-		return getRandomRangeNumber(3);
+		return getRandomRangeNumber(2);
 	}
 	
 	public static int getRandomRangeNumber(int number) {

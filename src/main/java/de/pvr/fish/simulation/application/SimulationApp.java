@@ -14,6 +14,7 @@ public class SimulationApp {
 	private int fishNumber;
 	private int threads;
 	private int iterations;
+	//TODO werden die Klassenvariablen überhaupt außer den iterationsbenötigt? Sind die iterations nicht auch Methodenbezogen?
 	
 	private Field field;
 	

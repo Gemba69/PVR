@@ -1,7 +1,6 @@
 package de.pvr.fish.simulation.algorithm.task;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -21,7 +20,7 @@ public class CalculatePositionTask extends FishTask {
 
 	private static final Logger LOG = LogManager.getLogger(CalculatePositionTask.class);
 
-	public CalculatePositionTask(ArrayList<Fish> fishes, List<Fish> subFishes, int startPositon, int endPosition) {
+	public CalculatePositionTask(ArrayList<Fish> fishes, ArrayList<Fish> subFishes, int startPositon, int endPosition) {
 		super(fishes, subFishes, startPositon, endPosition);
 	}
 
@@ -29,6 +28,7 @@ public class CalculatePositionTask extends FishTask {
 	public Void call() throws Exception {
 		LOG.info("Starting with CalculatePosition Task from " + this.startPosition + " to " + this.endPosition);
 		for (Fish fish : subFishes) {
+			LOG.debug("Calculate new Position for fish with Position " + fish.getPosition());
 			calculateNewPlace(fish, findNeighbours(fish));
 		}
 		return null;

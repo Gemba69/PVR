@@ -23,5 +23,7 @@ public class FishParameter {
 	
 	public static int MAX_SPEED_MULTIPLICATOR = 2;
 	
+	//TODO add DEFAULT PARAMETER for Reset function
+	
 	
 }

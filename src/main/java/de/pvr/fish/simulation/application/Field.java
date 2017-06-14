@@ -74,22 +74,22 @@ public class Field {
 		int startPosition = 0;
 		ArrayList<Integer> positions = splitTasks();
 		for (Integer endPosition : positions) {
-			this.calcTasks.add(new CalculatePositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));
-			startPosition = endPosition + 1;
+			this.calcTasks.add(new CalculatePositionTask(this.fishes, new ArrayList<Fish>(this.fishes.subList(startPosition, endPosition)), startPosition, endPosition));
+			startPosition = endPosition;
 		}
 		startPosition = 0;
 		for (Integer endPosition : positions) {
-			this.newPositionTasks.add(new SetNewPositionTask(this.fishes, this.fishes.subList(startPosition, endPosition), startPosition, endPosition));
-			startPosition = endPosition + 1;
+			this.newPositionTasks.add(new SetNewPositionTask(this.fishes, new ArrayList<Fish>(this.fishes.subList(startPosition, endPosition)), startPosition, endPosition));
+			startPosition = endPosition;
 		}
 	}
 	
 	public ArrayList<Integer> splitTasks() {
 		ArrayList<Integer> positions = new ArrayList<Integer>();
 		for (int i = 0; i < threads - 1; i++) {
-			positions.add(fishNumber/threads * (i + 1) - 1);
+			positions.add(fishNumber/threads * (i + 1));
 		}
-		positions.add(fishNumber - 1);
+		positions.add(fishNumber);
 		return positions;
 
 	}

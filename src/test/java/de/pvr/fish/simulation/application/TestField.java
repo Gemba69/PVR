@@ -19,20 +19,20 @@ public class TestField {
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
 		
 		ArrayList<Integer> targetList = new ArrayList<Integer>();
-		targetList.add(4);
-		targetList.add(9);
+		targetList.add(5);
+		targetList.add(10);
 		assertEquals(targetList, field.splitTasks());
 		
 		field.setFishNumber(120);
 		field.setThreads(7);
 		targetList = new ArrayList<Integer>();
-		targetList.add(16);
-		targetList.add(33);
-		targetList.add(50);
-		targetList.add(67);
-		targetList.add(84);
-		targetList.add(101);
-		targetList.add(119);
+		targetList.add(17);
+		targetList.add(34);
+		targetList.add(51);
+		targetList.add(68);
+		targetList.add(85);
+		targetList.add(102);
+		targetList.add(120);
 		assertEquals(targetList, field.splitTasks());
 	}
 	

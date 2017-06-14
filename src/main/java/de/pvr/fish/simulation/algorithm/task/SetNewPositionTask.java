@@ -10,7 +10,7 @@ import de.pvr.fish.simulation.model.Fish;
 
 public class SetNewPositionTask extends FishTask{
 	
-	public SetNewPositionTask(ArrayList<Fish> fishes, List<Fish> subFishes, int startPositon, int endPosition) {
+	public SetNewPositionTask(ArrayList<Fish> fishes, ArrayList<Fish> subFishes, int startPositon, int endPosition) {
 		super(fishes, subFishes, startPositon, endPosition);
 	}
 
@@ -20,7 +20,8 @@ public class SetNewPositionTask extends FishTask{
 	public Void call() throws Exception {
 		LOG.info("Starting with SetNewPosition Task from " + this.startPosition + " to " + this.endPosition);
 		for (Fish fish : subFishes) {
-					fish.goToNextPosition();
+			LOG.debug("Setting fish from Position " + fish.getPosition() + " to Position " + fish.getCalcNextPosition());
+			fish.goToNextPosition();
 		}
 		return null;
 	}

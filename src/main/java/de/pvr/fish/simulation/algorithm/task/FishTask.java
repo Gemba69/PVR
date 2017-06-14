@@ -16,7 +16,7 @@ public abstract class FishTask implements Callable<Void> {
 	protected int endPosition;
 	
 	
-	public FishTask( ArrayList<Fish> fishes,  List<Fish> subFishes, int startPosition, int endPosition) {
+	public FishTask( ArrayList<Fish> fishes,  ArrayList<Fish> subFishes, int startPosition, int endPosition) {
 		this.fishes = fishes;
 		this.subFishes = subFishes;
 		this.startPosition = startPosition;
