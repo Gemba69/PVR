@@ -51,7 +51,7 @@ public class ViewControlerWindow extends Application {
 
 	private GridPane topGrid;
 	private GridPane bottomGrid;
-	Canvas bottomCanvas = new Canvas(800, 550);
+	Canvas bottomCanvas = new Canvas(500, 500);
 	// Canvas bottomCanvas = new
 	// Canvas(Double.parseDouble(fieldLengthTextField.getText()),
 	// Double.parseDouble(fieldWidthTextField.getText()));
@@ -84,7 +84,7 @@ public class ViewControlerWindow extends Application {
 	public void start(Stage primaryStage) {
 
 		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root, 1170, 850, Color.WHITE);
+		Scene scene = new Scene(root, 1200, 850, Color.WHITE);
 
 		// Menüleiste
 		MenuBar menuBar = new MenuBar();
@@ -120,7 +120,7 @@ public class ViewControlerWindow extends Application {
 		topGrid.setStyle("-fx-background-color: ALICEBLUE");
 		// BottomGrid
 		bottomGrid = new GridPane();
-		bottomGrid.setAlignment(Pos.BOTTOM_CENTER);
+		bottomGrid.setAlignment(Pos.CENTER);
 	//	bottomGrid.autosize();
 		bottomGrid.setPadding(new Insets(5));
 		bottomGrid.setBorder(new Border(new BorderStroke(Color.BLACK, 
@@ -128,7 +128,7 @@ public class ViewControlerWindow extends Application {
 		bottomGrid.setHgap(10);
 		bottomGrid.setVgap(10);
 		bottomGrid.setPadding(new Insets(10, 10, 10, 10));
-		bottomGrid.setStyle("-fx-background-color: LIMEGREEN");
+		bottomGrid.setStyle("-fx-background-color: SKYBLUE");
 		bottomGrid.getChildren().add(bottomCanvas);
 		
 
@@ -451,6 +451,8 @@ public class ViewControlerWindow extends Application {
 				deathAngle, r1, r2, r3, bodyLength);
 		
 		this.bottomCanvas = new Canvas (fieldLength, fieldHeight);
+		this.bottomCanvas.setHeight(fieldHeight);
+		this.bottomCanvas.setWidth(fieldLength);
 
 		
 		drawAllFishes();
