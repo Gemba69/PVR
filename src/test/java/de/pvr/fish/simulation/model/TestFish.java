@@ -64,12 +64,13 @@ public class TestFish {
 	@Test
 	public void testGetCalcAngel() {
 		Fish fish = new Fish(new Position(100, 100), new Position(102, 102));
-		
 		assertEquals(225, fish.getCalcAngle());
 		
 		fish = new Fish(new Position(98, 102), new Position(96, 102));
-		
 		assertEquals(0, fish.getCalcAngle());
+		
+		fish = new Fish(new Position(98, 102), new Position(96, 100));
+		assertEquals(45, fish.getCalcAngle());
 	}
 	
 	@Test
@@ -96,8 +97,7 @@ public class TestFish {
 		fish.turnAtCalc(45);
 		targetFish = new Fish(new Position (96, 100), new Position(94, 98));
 		fish.goToNextPosition(3);
-		//assertEquals(targetFish, fish);
-		//FIXME verfickte Winkelberechnung ein wenig genauer machen
+		assertEquals(targetFish, fish);
 	}
 	
 	@Test

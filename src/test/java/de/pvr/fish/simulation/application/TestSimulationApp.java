@@ -28,7 +28,7 @@ public class TestSimulationApp {
 		app.startIteration();
 		//assertNotEquals(fishes, app.getField().getFishes());
 		fishes = app.getField().getFishes();
-		
+		//FIXME
 		app.startIteration();
 		//assertNotEquals(fishes, app.getField().getFishes());
 		fishes = app.getField().getFishes();

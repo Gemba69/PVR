@@ -110,7 +110,7 @@ public class Fish {
 
 	public void goToNextPosition(double speed) {
 		LOG.debug("Starting go to next Position: " + this );
-		int angle = getCalcAngle(); //180
+		int angle = getCalcAngle();
 		LOG.debug("The angle of Fish is: " + angle);
 		this.position = this.calcNextPosition;
 		Position newPosition = new Position(this.position.getCoordinateX(), this.position.getCoordinateY());

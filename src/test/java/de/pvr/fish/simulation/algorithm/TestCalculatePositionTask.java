@@ -40,7 +40,7 @@ public class TestCalculatePositionTask {
 		
 		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		Fish fish = field.getFishes().get(0);
-		Fish targetFish = new Fish(new Position (100, 100), new Position(100, 102), new Position(99,102));
+		Fish targetFish = new Fish(new Position (100, 100), new Position(100, 102), new Position(98,101));
 
 		iterationTask.calculateNewPlace(fish, iterationTask.findNeighbours(fish));
 		
@@ -59,6 +59,6 @@ public class TestCalculatePositionTask {
 		neighbourFishes.add(Pair.of(field.getFishes().get(3), Radius.R2));
 		neighbourFishes.add(Pair.of(field.getFishes().get(1), Radius.R2));
 		
-		assertEquals(28 , iterationTask.calculateNewAngle(fish, neighbourFishes));
+		assertEquals(41 , iterationTask.calculateNewAngle(fish, neighbourFishes));
 	}
 }

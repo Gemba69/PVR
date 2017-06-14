@@ -6,7 +6,7 @@ public class CommonUtil {
 
 	
 	public static int getAngle(Position source, Position target) {
-		double angle2 = Math.atan2(target.getCoordinateY() - source.getCoordinateY() , target.getCoordinateX() - source.getCoordinateY());
+		double angle2 = Math.atan2(target.getCoordinateY() - source.getCoordinateY() , target.getCoordinateX() - source.getCoordinateX());
 		
 		int angle = (int) Math.toDegrees(angle2);
 
