@@ -346,6 +346,7 @@ public class ViewControlerWindow extends Application {
 		GridPane.setHalignment(startButton, HPos.LEFT);
 		topGrid.add(startButton, 7, 5);
 		startButton.setMinSize(176, 20);
+		startButton.setAlignment(Pos.BASELINE_CENTER);
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -393,6 +394,10 @@ public class ViewControlerWindow extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(false);
 		primaryStage.show();
+		primaryStage.setOnCloseRequest(e -> {
+	        Platform.exit();
+	        System.exit(0);
+	    });
 	}
 
 	/*
