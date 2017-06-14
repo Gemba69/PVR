@@ -136,7 +136,7 @@ public class ViewControlerWindow extends Application {
 		ColumnConstraints column1 = new ColumnConstraints(140);
 		ColumnConstraints column2 = new ColumnConstraints(60);
 		ColumnConstraints column3 = new ColumnConstraints(4);
-		ColumnConstraints column4 = new ColumnConstraints(140);
+		ColumnConstraints column4 = new ColumnConstraints(100);
 		ColumnConstraints column5 = new ColumnConstraints(60);
 		ColumnConstraints column6 = new ColumnConstraints(30);
 		ColumnConstraints column7 = new ColumnConstraints(140);
@@ -161,12 +161,13 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(simulationParameterHeading, 0, 0);
 
 		// Spalte 1
-		Label iterationLabel = new Label("Iterationen:");
+		Label iterationLabel = new Label("Anzahl der Iterationen:");
 		this.iterationTextField = new TextField();
 		Label threadLabel = new Label("Anzahl der Threads:");
 		this.threadTextField = new TextField();
-		Label oneIterationLabel = new Label("Ein Iterationsschritt:");
-		Button oneIterationButton = new Button("Step");
+		Button oneIterationButton = new Button("1");
+		Button tenIterationButton = new Button("10");
+		Label iterationCounterLabel = new Label("Anzahl an Iterationen:");
 
 		// Spalte 2
 		Label fishLabel = new Label("Anzahl der Fische:");
@@ -232,31 +233,43 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(threadLabel, 0, 2);
 		GridPane.setHalignment(threadTextField, HPos.LEFT);
 		topGrid.add(threadTextField, 1, 2);
+		
+		// FishNumber
+		GridPane.setHalignment(fishLabel, HPos.LEFT);
+		topGrid.add(fishLabel, 0, 3);
+		GridPane.setHalignment(fishField, HPos.LEFT);
+		topGrid.add(fishField, 1, 3);
 
 		// OneIteration
-		GridPane.setHalignment(oneIterationLabel, HPos.LEFT);
-		topGrid.add(oneIterationLabel, 0, 3);
+		GridPane.setHalignment(iterationCounterLabel, HPos.LEFT);
+		topGrid.add(iterationCounterLabel, 0, 5);
 		GridPane.setHalignment(oneIterationButton, HPos.LEFT);
-		topGrid.add(oneIterationButton, 1, 3);
-		oneIterationButton.setMinSize(60, 20);
-		oneIterationButton.setAlignment(Pos.BASELINE_LEFT);
+		topGrid.add(oneIterationButton, 1, 5);
+		oneIterationButton.setMinSize(10, 20);
+		oneIterationButton.setAlignment(Pos.BASELINE_CENTER);
 		oneIterationButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				iterateOnce();
-				// fishLabel.setText("Accepted");
-				//redrawFish(0, 0, 0, 0);
+			}
+		});
+		
+		// TenIteration
+		GridPane.setHalignment(tenIterationButton, HPos.RIGHT);
+		topGrid.add(tenIterationButton, 1, 5);
+		tenIterationButton.setMinSize(10, 20);
+		tenIterationButton.setAlignment(Pos.BASELINE_CENTER);
+		tenIterationButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				iterateTenTimes();
 			}
 		});
 
 		// Methode nur ein Iterationsschritt
 
 		// Spalte 2
-		// FishNumber
-		GridPane.setHalignment(fishLabel, HPos.LEFT);
-		topGrid.add(fishLabel, 3, 1);
-		GridPane.setHalignment(fishField, HPos.LEFT);
-		topGrid.add(fishField, 4, 1);
+
 
 		// FieldLength
 		GridPane.setHalignment(fieldlength, HPos.LEFT);
@@ -398,6 +411,7 @@ public class ViewControlerWindow extends Application {
 		// Anzeigen des Panes
 		//gc.setFill(Color.ALICEBLUE);
 		topGrid.add(new Separator(), 0, 4, 5, 1);
+		topGrid.add(new Separator(), 0, 7, 5, 1);
 		topGrid.add(new Separator(), 6, 4, 5, 1);
 		topGrid.add(new Separator(), 6, 7, 5, 1);
 		topGrid.add(new Separator(), 12, 7, 2, 1);
@@ -468,6 +482,20 @@ public class ViewControlerWindow extends Application {
 		this.fieldWindow.startIteration();
 		drawAllFishes();
 	}
+	
+	public void iterateTenTimes() {
+		for (int i = 0; i < 10; i++)
+			this.fieldWindow.startIteration();
+			drawAllFishes();
+			
+		}
+		
+			
+		
+			
+	    
+		
+	
 	
 	private void drawAllFishes() {
 		this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
