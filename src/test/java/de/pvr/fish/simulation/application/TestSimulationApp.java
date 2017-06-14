@@ -16,7 +16,7 @@ public class TestSimulationApp {
 	public void testCreateRandomFishes() {
 		SimulationApp app = new SimulationApp(600, 600, 1100, 8, 3, 4, 30, 2, 4,6,1);
 		
-		app.createField();
+		app.createField(600, 600, 1100, 8);
 		
 	}
 	

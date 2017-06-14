@@ -443,7 +443,7 @@ public class ViewControlerWindow extends Application {
 	}
 	
 	private void drawAllFishes() {
-		this.gc.clearRect(0, 0, this.fieldWindow.getFieldLength(), this.fieldWindow.getFieldHeight());
+		this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
 		for (Fish fish : this.fieldWindow.getField().getFishes()) {
 			drawFish(fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY(),
 					fish.getLengthPosition().getCoordinateX(), fish.getLengthPosition().getCoordinateY());

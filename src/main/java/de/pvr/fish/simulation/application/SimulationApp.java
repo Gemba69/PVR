@@ -9,10 +9,6 @@ import de.pvr.fish.simulation.util.RandomGenerator;
 
 public class SimulationApp {
 	
-	private int fieldLength;
-	private int fieldHeight;
-	private int fishNumber;
-	private int threads;
 	private int iterations;
 	//TODO werden die Klassenvariablen überhaupt außer den iterationsbenötigt? Sind die iterations nicht auch Methodenbezogen?
 	
@@ -28,31 +24,23 @@ public class SimulationApp {
 		app.startIterations();
 	}
 	
-	public SimulationApp(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations) {
-		this.fieldLength = fieldLength;
-		this.fieldHeight = fieldHeight;
-		this.fishNumber = fishNumber;
-		this.threads = threads;
+	public SimulationApp(int iterations) {
 		this.iterations = iterations;
 	}
 	
 	public SimulationApp(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations, int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
-		this.fieldLength = fieldLength;
-		this.fieldHeight = fieldHeight;
-		this.fishNumber = fishNumber;
-		this.threads = threads;
 		this.iterations = iterations;
 		
-		setParametersInFischParameters(neighbours, deathAngle, r1, r2, r3, bodyLength);
-		createField();
+		setParametersInFischParameters(fieldLength, fieldHeight, fishNumber, threads, neighbours, deathAngle, r1, r2, r3, bodyLength);
+		createField(fieldLength, fieldHeight, fishNumber, threads);
 		
-		LOG.info("Creating new Field " + this.fieldLength + " x " + this.fieldHeight + " with " + this.fishNumber + " Fishes and " + this.threads + " threads and "+ this.iterations + "iterations." );
+		LOG.info("Creating new Field " + fieldLength + " x " + fieldHeight + " with " + fishNumber + " Fishes and " + threads + " threads and "+ this.iterations + "iterations." );
 		LOG.info("Specific Fish Parameters: Body Length: " + bodyLength + ", Neigbours " + neighbours + ", Death Angel: " + deathAngle + " and Radius: " + r1 + " " + r2 + " "+ r3);
 	}
 	
-	public void createField() {
-		this.field = new Field(this.fieldLength, this.fieldHeight, this.fishNumber, this.threads);
-		createRandomFishes(this.fishNumber, field.getLength(), field.getHeight());
+	public void createField(int fieldLength, int fieldHeight, int fishNumber, int threads) {
+		this.field = new Field(fieldLength, fieldHeight, fishNumber, threads);
+		createRandomFishes(fishNumber, field.getLength(), field.getHeight());
 		this.field.prepareTaskLists();
 	}
 	
@@ -66,12 +54,12 @@ public class SimulationApp {
 		this.field.nextInteration();
 	}
 	
-	public void setParametersInFischParameters(int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
+	public void setParametersInFischParameters(int fieldLength, int fieldHeight, int fishNumber, int threads, int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
 		FishParameter.ITERATIONS = this.iterations;
-		FishParameter.THREADS = this.threads;
-		FishParameter.NUMBER_FISH = this.fishNumber;
-		FishParameter.FIELD_LENGTH = this.fieldLength;
-		FishParameter.FIELD_HEIGHT = this.fieldLength;
+		FishParameter.THREADS = threads;
+		FishParameter.NUMBER_FISH = fishNumber;
+		FishParameter.FIELD_LENGTH = fieldLength;
+		FishParameter.FIELD_HEIGHT = fieldLength;
 		FishParameter.NUMBER_OF_NEIGHBOURS = neighbours;
 		FishParameter.DEATH_ANGLE = deathAngle;
 		FishParameter.RADIUS1 = r1;
@@ -98,38 +86,6 @@ public class SimulationApp {
 
 	public void setField(Field field) {
 		this.field = field;
-	}
-	
-	public int getFieldLength() {
-		return fieldLength;
-	}
-
-	public void setFieldLength(int fieldLength) {
-		this.fieldLength = fieldLength;
-	}
-
-	public int getFieldHeight() {
-		return fieldHeight;
-	}
-
-	public void setFieldHeight(int fieldHeight) {
-		this.fieldHeight = fieldHeight;
-	}
-
-	public int getFishNumber() {
-		return fishNumber;
-	}
-
-	public void setFishNumber(int fishNumber) {
-		this.fishNumber = fishNumber;
-	}
-
-	public int getThreads() {
-		return threads;
-	}
-
-	public void setThreads(int threads) {
-		this.threads = threads;
 	}
 
 	public int getIterations() {
