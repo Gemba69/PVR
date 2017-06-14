@@ -451,16 +451,16 @@ public class ViewControlerWindow extends Application {
 	}
 	
 	private void setDefaultValues() {
-		this.iterationTextField.setText(Integer.toString(FishParameter.ITERATIONS));
-		this.threadTextField.setText(Integer.toString(FishParameter.THREADS));
-		this.fishField.setText(Integer.toString(FishParameter.NUMBER_FISH));
-		this.fieldLengthTextField.setText(Integer.toString(FishParameter.FIELD_LENGTH));
-		this.fieldWidthTextField.setText(Integer.toString(FishParameter.FIELD_HEIGHT));
-		this.deathAngelTextField.setText(Integer.toString(FishParameter.DEATH_ANGLE));
-		this.neighbourFishTextField.setText(Integer.toString(FishParameter.NUMBER_OF_NEIGHBOURS));
-		this.fishLengthTextField.setText(Integer.toString(FishParameter.FISH_BODY_LENGTH));
-		this.r1TextField.setText(Integer.toString(FishParameter.RADIUS1));
-		this.r2TextField.setText(Integer.toString(FishParameter.RADIUS2));
-		this.r3TextField.setText(Integer.toString(FishParameter.RADIUS3));
+		this.iterationTextField.setText(Integer.toString(FishParameter.DEFAULT_ITERATIONS));
+		this.threadTextField.setText(Integer.toString(FishParameter.DEFAULT_THREADS));
+		this.fishField.setText(Integer.toString(FishParameter.DEFAULT_NUMBER_FISH));
+		this.fieldLengthTextField.setText(Integer.toString(FishParameter.DEFAULT_FIELD_LENGTH));
+		this.fieldWidthTextField.setText(Integer.toString(FishParameter.DEFAULT_FIELD_HEIGHT));
+		this.deathAngelTextField.setText(Integer.toString(FishParameter.DEFAULT_DEATH_ANGLE));
+		this.neighbourFishTextField.setText(Integer.toString(FishParameter.DEFAULT_NUMBER_OF_NEIGHBOURS));
+		this.fishLengthTextField.setText(Integer.toString(FishParameter.DEFAULT_FISH_BODY_LENGTH));
+		this.r1TextField.setText(Integer.toString(FishParameter.DEFAULT_RADIUS1));
+		this.r2TextField.setText(Integer.toString(FishParameter.DEFAULT_RADIUS2));
+		this.r3TextField.setText(Integer.toString(FishParameter.DEFAULT_RADIUS3));
 	}
 }
