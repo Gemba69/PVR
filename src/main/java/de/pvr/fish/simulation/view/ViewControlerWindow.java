@@ -29,8 +29,13 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -45,8 +50,8 @@ import javafx.stage.Stage;
 public class ViewControlerWindow extends Application {
 
 	private GridPane topGrid;
-	// private GridPane bottomGrid;
-	Canvas bottomCanvas = new Canvas(800, 550);
+	private GridPane bottomGrid;
+	Canvas bottomCanvas = new Canvas(500, 500);
 	// Canvas bottomCanvas = new
 	// Canvas(Double.parseDouble(fieldLengthTextField.getText()),
 	// Double.parseDouble(fieldWidthTextField.getText()));
@@ -79,12 +84,12 @@ public class ViewControlerWindow extends Application {
 	public void start(Stage primaryStage) {
 
 		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root, 1200, 1100, Color.WHITE);
+		Scene scene = new Scene(root, 1200, 850, Color.WHITE);
 
 		// Menüleiste
 		MenuBar menuBar = new MenuBar();
 		menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
-		root.setTop(menuBar);
+	//	root.setTop(menuBar);
 
 		Menu fileMenu = new Menu("File");
 		MenuItem exitMenuItem = new MenuItem("Exit");
@@ -107,12 +112,25 @@ public class ViewControlerWindow extends Application {
 
 		// TopGrid
 		topGrid = new GridPane();
-		topGrid.setAlignment(Pos.TOP_LEFT);
+		topGrid.setAlignment(Pos.TOP_CENTER);
 		topGrid.setPadding(new Insets(5));
 		topGrid.setHgap(10);
 		topGrid.setVgap(10);
 		topGrid.setPadding(new Insets(25, 25, 25, 25));
-		topGrid.setStyle("-fx-background-color: white");
+		topGrid.setStyle("-fx-background-color: ALICEBLUE");
+		// BottomGrid
+		bottomGrid = new GridPane();
+		bottomGrid.setAlignment(Pos.CENTER);
+	//	bottomGrid.autosize();
+		bottomGrid.setPadding(new Insets(5));
+		bottomGrid.setBorder(new Border(new BorderStroke(Color.BLACK, 
+	            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+		bottomGrid.setHgap(10);
+		bottomGrid.setVgap(10);
+		bottomGrid.setPadding(new Insets(10, 10, 10, 10));
+		bottomGrid.setStyle("-fx-background-color: SKYBLUE");
+		bottomGrid.getChildren().add(bottomCanvas);
+		
 
 		// Spalten
 		ColumnConstraints column1 = new ColumnConstraints(140);
@@ -361,8 +379,7 @@ public class ViewControlerWindow extends Application {
 						Integer.parseInt(r2TextField.getText()),
 						Integer.parseInt(r3TextField.getText()),
 						Integer.parseInt(fishLengthTextField.getText()));
-				// fishLabel.setText("Accepted");
-				//redrawFish(0, 0, 0, 0);
+				
 			}
 		});
 		// ResetButton
@@ -386,13 +403,13 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(new Separator(), 12, 7, 2, 1);
 		topGrid.add(sepVert1, 2, 1);
 		topGrid.add(sepVert2, 8, 1);
-		root.setTop(menuBar);
-		root.setCenter(topGrid);
+		//root.setTop(menuBar);
+		root.setTop(topGrid);
 		// root.setBottom(bottomGrid);
-		root.setBottom(bottomCanvas);
-		bottomCanvas.setStyle("-fx-background-color: red");
+		//root.setCenter(bottomCanvas);
+		root.setCenter(bottomGrid);
 		primaryStage.setScene(scene);
-		primaryStage.setResizable(false);
+		primaryStage.setResizable(true);
 		primaryStage.show();
 		primaryStage.setOnCloseRequest(e -> {
 	        Platform.exit();
@@ -432,8 +449,11 @@ public class ViewControlerWindow extends Application {
 
 		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
 				deathAngle, r1, r2, r3, bodyLength);
-		gc.setFill(Color.ALICEBLUE);
-		gc.fillRect(0, 0, bottomCanvas.getWidth(), bottomCanvas.getHeight());
+		
+		this.bottomCanvas = new Canvas (fieldLength, fieldHeight);
+		this.bottomCanvas.setHeight(fieldHeight);
+		this.bottomCanvas.setWidth(fieldLength);
+
 		
 		drawAllFishes();
 		for (int i = 0; i < iterations; i++) {
