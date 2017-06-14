@@ -208,14 +208,14 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(measuredValueHeading, 12, 0);
 		
 		//Spalte 5
-		Label mValue1Label = new Label("Messwert1:");
-		TextField mValueTextField1 = new TextField();
-		Label mValue2Label = new Label("Messwert2:");
-		TextField mValueTextField2 = new TextField();
-		Label mValue3Label = new Label("Messwert3:");
-		TextField mValueTextField3 = new TextField();
-		Label mValue4Label = new Label("Messwert4:");
-		TextField mValueTextField4 = new TextField();
+		Label speedupLabel = new Label("Speedup:");
+		TextField speedupTextField = new TextField();
+		Label kappaLabel = new Label("Kappa:");
+		TextField kappaTextField = new TextField();
+		Label phiLabel = new Label("Phi:");
+		TextField phiTextField = new TextField();
+		Label sigmaLabel = new Label("Sigma:");
+		TextField sigmaTextField = new TextField();
 		Label mValue5Label = new Label("Messwert5:");
 		TextField mValueTextField5 = new TextField();
 
@@ -326,28 +326,28 @@ public class ViewControlerWindow extends Application {
 		
 		// Spalte 5
 		// Messwert1
-		GridPane.setHalignment(mValue1Label, HPos.LEFT);
-		topGrid.add(mValue1Label, 12, 1);
-		GridPane.setHalignment(mValueTextField1, HPos.LEFT);
-		topGrid.add(mValueTextField1, 13, 1);
+		GridPane.setHalignment(speedupLabel, HPos.LEFT);
+		topGrid.add(speedupLabel, 12, 1);
+		GridPane.setHalignment(speedupTextField, HPos.LEFT);
+		topGrid.add(speedupTextField, 13, 1);
 
 		// Messwert2
-		GridPane.setHalignment(mValue2Label, HPos.LEFT);
-		topGrid.add(mValue2Label, 12, 2);
-		GridPane.setHalignment(mValueTextField2, HPos.LEFT);
-		topGrid.add(mValueTextField2, 13, 2);
+		GridPane.setHalignment(kappaLabel, HPos.LEFT);
+		topGrid.add(kappaLabel, 12, 2);
+		GridPane.setHalignment(kappaTextField, HPos.LEFT);
+		topGrid.add(kappaTextField, 13, 2);
 
 		// Messwert3
-		GridPane.setHalignment(mValue3Label, HPos.LEFT);
-		topGrid.add(mValue3Label, 12, 3);
-		GridPane.setHalignment(mValueTextField3, HPos.LEFT);
-		topGrid.add(mValueTextField3, 13, 3);
+		GridPane.setHalignment(phiLabel, HPos.LEFT);
+		topGrid.add(phiLabel, 12, 3);
+		GridPane.setHalignment(phiTextField, HPos.LEFT);
+		topGrid.add(phiTextField, 13, 3);
 		
 		// Messwert4
-		GridPane.setHalignment(mValue4Label, HPos.LEFT);
-		topGrid.add(mValue4Label, 12, 4);
-		GridPane.setHalignment(mValueTextField4, HPos.LEFT);
-		topGrid.add(mValueTextField4, 13, 4);
+		GridPane.setHalignment(sigmaLabel, HPos.LEFT);
+		topGrid.add(sigmaLabel, 12, 4);
+		GridPane.setHalignment(sigmaTextField, HPos.LEFT);
+		topGrid.add(sigmaTextField, 13, 4);
 		
 		// Messwert5
 		GridPane.setHalignment(mValue5Label, HPos.LEFT);
