@@ -2,9 +2,9 @@ package de.pvr.fish.simulation.view;
 
 import java.util.ArrayList;
 
-import de.pvr.fish.simulation.application.Field;
 import de.pvr.fish.simulation.application.SimulationApp;
 import de.pvr.fish.simulation.config.FishParameter;
+import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
@@ -487,9 +487,10 @@ public class ViewControlerWindow extends Application {
 	}
 
 	public void iterateTenTimes() {
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 10; i++) {
 			this.fieldWindow.startIteration();
-		drawAllFishes();
+			drawAllFishes();
+		}
 
 	}
 

@@ -1,4 +1,4 @@
-package de.pvr.fish.simulation.application;
+package de.pvr.fish.simulation.model;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
 import de.pvr.fish.simulation.algorithm.task.FishTask;
 import de.pvr.fish.simulation.algorithm.task.SetNewPositionTask;
-import de.pvr.fish.simulation.model.Fish;
 
 
 public class Field {

@@ -4,7 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
 import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
-import de.pvr.fish.simulation.application.Field;
+import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
 import de.pvr.fish.simulation.testdata.TestdataGenerator;

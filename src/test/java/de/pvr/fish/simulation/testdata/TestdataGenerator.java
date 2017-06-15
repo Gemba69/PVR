@@ -1,6 +1,6 @@
 package de.pvr.fish.simulation.testdata;
 
-import de.pvr.fish.simulation.application.Field;
+import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
 import de.pvr.fish.simulation.util.RandomGenerator;

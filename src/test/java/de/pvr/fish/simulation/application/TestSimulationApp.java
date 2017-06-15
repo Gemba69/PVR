@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
+import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.testdata.TestdataGenerator;
 
@@ -32,5 +33,25 @@ public class TestSimulationApp {
 		fishes = field2.getFishes();
 		app.startIteration();
 		assertNotEquals(fishes, app.getField().getFishes());
+	}
+	
+	@Test
+	public void testSimulation10RandomFishes() {
+		Field field = TestdataGenerator.getFieldWith10Fishes();
+		
+		field.nextInteration();
+		field.nextInteration();
+		field.nextInteration();
+		field.nextInteration();
+	}
+	
+	@Test
+	public void testSimulation10SpecificFishes() {
+		Field field = TestdataGenerator.getFieldWithSpecific10Fishes2();
+		
+		field.nextInteration();
+		field.nextInteration();
+		field.nextInteration();
+		field.nextInteration();
 	}
 }

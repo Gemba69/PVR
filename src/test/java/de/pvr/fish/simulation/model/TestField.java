@@ -1,8 +1,7 @@
-package de.pvr.fish.simulation.application;
+package de.pvr.fish.simulation.model;
 
 import org.junit.Test;
 
-import de.pvr.fish.simulation.application.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
 import de.pvr.fish.simulation.testdata.TestdataGenerator;
