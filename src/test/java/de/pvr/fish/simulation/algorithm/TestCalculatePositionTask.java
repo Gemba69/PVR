@@ -4,6 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
 import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
+import de.pvr.fish.simulation.algorithm.task.SetNewPositionTask;
 import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
@@ -15,6 +16,19 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 public class TestCalculatePositionTask {
+	
+	@Test
+	public void testCall() {
+	
+		Field field = TestdataGenerator.getFieldWithSpecific10Fishes2();
+		ArrayList<Fish> fishes = field.getFishes();
+		CalculatePositionTask task = new CalculatePositionTask(fishes, new ArrayList<Fish>(fishes.subList(0, 5)), 0, 5);
+		try {
+			task.call();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	@Test
 	public void testFindNeighbours() {

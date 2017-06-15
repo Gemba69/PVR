@@ -2,7 +2,9 @@ package de.pvr.fish.simulation.util;
 
 public enum WatchArea {
 
-	SIMULATION,
-	ITERATION,
-	THREAD,
+	SPEEDUP,
+	SIGMA,
+	KAPPA,
+	PHI,
+	SONSTIGES,
 }
