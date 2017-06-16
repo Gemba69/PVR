@@ -120,7 +120,7 @@ public class Fish {
 		turnAt(angle - 180);
 		// prevent that fish can not swim out of the aquarium
 		if (isFishOutOfAquariumX() || isFishOutOfAquariumY()) {
-			turnAround();
+			//turnAround();
 		}
 		this.calcNextPosition = new Position(this.nextPosition.getCoordinateX(), this.nextPosition.getCoordinateY());
 		LOG.debug("Ending go to next Position: " + this);

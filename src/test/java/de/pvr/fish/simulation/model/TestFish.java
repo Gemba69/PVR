@@ -217,6 +217,12 @@ public class TestFish {
 		fish.setFishFromOutInAquariumX();
 		fish.setFishFromOutInAquariumY();
 		assertEquals(targetFish, fish);
+		
+		fish = new Fish(new Position(302, -1), new Position (298, 298));
+		targetFish = new Fish(new Position(299, 0), new Position (298, 298));
+		fish.setFishFromOutInAquariumX();
+		fish.setFishFromOutInAquariumY();
+		assertEquals(targetFish, fish);
 	}
 
 

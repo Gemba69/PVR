@@ -36,7 +36,7 @@ public class RandomGenerator {
 	}
 	
 	public static int getRandomAngle() {
-		return (int) (Math.random() * 360 + 1);
+		return (int) (Math.random() * 360 );
 	}
 	
 	public static Fish getRandomFish(int length, int height) {
