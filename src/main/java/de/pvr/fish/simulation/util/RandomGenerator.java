@@ -16,7 +16,7 @@ public class RandomGenerator {
 	}
 	
 	public static Position getRandomPosition() {
-		return getRandomPosition(600, 600);
+		return getRandomPosition(300, 300);
 	}
 	
 	public static Position getRandomPosition(int length, int height) {
@@ -57,7 +57,7 @@ public class RandomGenerator {
 	}
 	
 	public static int getRandomRangeNumber(int number) {
-		return (getRandomNumber(number*number) - number) * FishParameter.FISH_BODY_LENGTH;
+		return getRandomNumber(number);
 	}
 
 }

@@ -104,7 +104,7 @@ public class Fish {
 	}
 
 	public double getNewSpeed() {
-		return RandomGenerator.getRandomSpeed(maxSpedMultiplicator - 1) + 1;
+		return (RandomGenerator.getRandomSpeed(maxSpedMultiplicator - 1) + 1) * FishParameter.FISH_BODY_LENGTH;
 	}
 
 	public void goToNextPosition(double speed) {

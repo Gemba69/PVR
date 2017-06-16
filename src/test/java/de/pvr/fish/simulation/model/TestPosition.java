@@ -28,48 +28,6 @@ public class TestPosition {
 	}
 	
 	@Test
-	public void testgetRadiusStartPosition() {
-		Position p = new Position(100, 100);
-		Position targetPosition = new Position (98, 98);
-		Position startPosition = p.getRadiusStartPosition(2);
-		
-		assertEquals(targetPosition, startPosition);
-
-		p = new Position(100, 0);
-		targetPosition = new Position(98, 0);
-		startPosition = p.getRadiusStartPosition(2);
-		
-		assertEquals(targetPosition, startPosition);
-		
-		p = new Position(1, 1);
-		targetPosition = new Position(0, 0);
-		startPosition = p.getRadiusStartPosition(3);
-		
-		assertEquals(targetPosition, startPosition);
-	}
-	
-	@Test
-	public void testgetRadiusEndPosition() {
-		Position p = new Position(100, 100);
-		Position targetPosition = new Position (102, 102);
-		Position endPosition = p.getRadiusEndPosition(2);
-		
-		assertEquals(targetPosition, endPosition);
-
-		p = new Position(100, 599);
-		targetPosition = new Position(102, 599);
-		endPosition = p.getRadiusEndPosition(2);
-		
-		assertEquals(targetPosition, endPosition);
-		
-		p = new Position(599, 599);
-		targetPosition = new Position(599, 599);
-		endPosition = p.getRadiusEndPosition(2);
-		
-		assertEquals(targetPosition, endPosition);
-	}
-	
-	@Test
 	public void testAddPosition() {
 		Position p = new Position(100, 100);
 		Position addPosition = new Position(3, 3);

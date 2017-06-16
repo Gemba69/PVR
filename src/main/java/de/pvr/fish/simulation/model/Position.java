@@ -69,34 +69,6 @@ public class Position {
                 "}";
     }
 	
-	public Position getRadiusStartPosition(double radius) {
-		int positionX = (int) (this.coordinateX - radius);
-		if (positionX < 0) {
-			positionX = 0;
-		} else if (positionX > FishParameter.FIELD_LENGTH - 1) {
-			positionX = FishParameter.FIELD_LENGTH - 1;
-		}
-		int positionY = (int) (this.coordinateY - radius);
-		if (positionY < 0) {
-			positionY = 0;
-		}	else if (positionY > FishParameter.FIELD_HEIGHT - 1) {
-			positionY = FishParameter.FIELD_HEIGHT - 1;
-		}
-		return new Position(positionX, positionY);
-	}
-	
-	public Position getRadiusEndPosition(double radius) {
-		int positionX = (int) (this.coordinateX + radius);
-		if (positionX > FishParameter.FIELD_LENGTH - 1) {
-			positionX = FishParameter.FIELD_LENGTH - 1;
-		}
-		int positionY = (int) (this.coordinateY + radius);
-		if (positionY > FishParameter.FIELD_HEIGHT - 1) {
-			positionY = FishParameter.FIELD_HEIGHT - 1;
-		}
-		return new Position(positionX, positionY);
-	}
-	
 	public void addPosition(Position p) {
 		this.coordinateX += p.getCoordinateX();
 		this.coordinateY += p.getCoordinateY();

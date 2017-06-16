@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
 import de.pvr.fish.simulation.algorithm.task.SetNewPositionTask;
+import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
@@ -32,6 +33,7 @@ public class TestCalculatePositionTask {
 	
 	@Test
 	public void testFindNeighbours() {
+		FishParameter.FISH_BODY_LENGTH = 1;
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
 		
 		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
@@ -45,11 +47,12 @@ public class TestCalculatePositionTask {
 		targetNeighbourhood.add(Pair.of(field.getFishes().get(8), Radius.R2));
 		
 		assertEquals(targetNeighbourhood, neighbourhood);
+		FishParameter.FISH_BODY_LENGTH = FishParameter.DEFAULT_FISH_BODY_LENGTH;
 	}
 	
 	@Test
 	public void testCalculateNewPlace() {
-		
+		FishParameter.FISH_BODY_LENGTH = 1;
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
 		
 		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
@@ -59,6 +62,7 @@ public class TestCalculatePositionTask {
 		iterationTask.calculateNewPlace(fish, iterationTask.findNeighbours(fish));
 		
 		assertEquals(targetFish, fish);
+		FishParameter.FISH_BODY_LENGTH = FishParameter.DEFAULT_FISH_BODY_LENGTH;
 	}
 	
 	@Test

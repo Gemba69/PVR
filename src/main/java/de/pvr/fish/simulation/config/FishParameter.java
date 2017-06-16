@@ -3,14 +3,14 @@ package de.pvr.fish.simulation.config;
 public class FishParameter {
 	
 	//DEFAULT Parameters
-	public static int DEFAULT_ITERATIONS = 5;
+	public static int DEFAULT_ITERATIONS = 10;
 
-	public static int DEFAULT_THREADS = 2;
+	public static int DEFAULT_THREADS = 4;
 	
-	public static int DEFAULT_NUMBER_FISH = 10;
+	public static int DEFAULT_NUMBER_FISH = 20;
 
-	public static int DEFAULT_FIELD_LENGTH = 600;
-	public static int DEFAULT_FIELD_HEIGHT = 600;
+	public static int DEFAULT_FIELD_LENGTH = 300;
+	public static int DEFAULT_FIELD_HEIGHT = 300;
 
 	public static int DEFAULT_NUMBER_OF_NEIGHBOURS = 4;
 	
@@ -20,7 +20,7 @@ public class FishParameter {
 	public static int DEFAULT_RADIUS2 = 4;
 	public static int DEFAULT_RADIUS3 = 6;
 	
-	public static int DEFAULT_FISH_BODY_LENGTH = 1;
+	public static int DEFAULT_FISH_BODY_LENGTH = 3;
 	
 	public static int DEFAULT_MAX_SPEED_MULTIPLICATOR = 2;
 	

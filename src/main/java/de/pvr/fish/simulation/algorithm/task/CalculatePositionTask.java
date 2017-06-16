@@ -96,7 +96,7 @@ public class CalculatePositionTask extends FishTask {
 							.getLeft().getPosition().getDiffBetweenPositions(fish.getPosition()).getLength());
 				}
 			});
-			neighbourFishes = (ArrayList<Pair<Fish, Radius>>) neighbourFishes.subList(0, freeCapacity);
+			neighbourFishes = new ArrayList<Pair<Fish, Radius>>( neighbourFishes.subList(0, freeCapacity));
 		}
 		return neighbourFishes;
 	}
