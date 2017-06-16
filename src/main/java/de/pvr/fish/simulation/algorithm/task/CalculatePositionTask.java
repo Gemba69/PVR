@@ -3,7 +3,6 @@ package de.pvr.fish.simulation.algorithm.task;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -110,7 +109,8 @@ public class CalculatePositionTask extends FishTask {
 				switch (pair.getRight()) {
 				case R1:
 					newAngle = newAngle
-							+ (CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition()) + 90);
+							//+ (CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition()) + 90);
+					+ Math.min((CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition()) + 90), (CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition()) - 90));
 				case R2:
 					newAngle = newAngle
 							+ (CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition()));

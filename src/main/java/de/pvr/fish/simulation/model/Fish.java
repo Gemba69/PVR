@@ -11,11 +11,11 @@ import de.pvr.fish.simulation.util.RandomGenerator;
 public class Fish {
 
 	private static final Logger LOG = LogManager.getLogger(Fish.class);
-	
+
 	private Position position;
 	private Position nextPosition;
 	private Position calcNextPosition;
-	
+
 	private static int maxSpedMultiplicator = FishParameter.MAX_SPEED_MULTIPLICATOR;
 
 	public Fish(Position position, Position nextPosition) {
@@ -23,11 +23,12 @@ public class Fish {
 		this.nextPosition = nextPosition;
 		this.calcNextPosition = nextPosition;
 	}
+
 	public Fish(Position position, Position nextPosition, Position calcNextPosition) {
 		this.position = position;
 		this.nextPosition = nextPosition;
 		this.calcNextPosition = calcNextPosition;
-		
+
 	}
 
 	public Position getPosition() {
@@ -98,7 +99,7 @@ public class Fish {
 	public int getAngle() {
 		return this.position.getAngle(this.nextPosition);
 	}
-	
+
 	public int getCalcAngle() {
 		return this.position.getAngle(this.calcNextPosition);
 	}
@@ -108,7 +109,7 @@ public class Fish {
 	}
 
 	public void goToNextPosition(double speed) {
-		LOG.debug("Starting go to next Position: " + this );
+		LOG.debug("Starting go to next Position: " + this);
 		int angle = getCalcAngle();
 		LOG.debug("The angle of Fish is: " + angle);
 		this.position = this.calcNextPosition;
@@ -117,8 +118,12 @@ public class Fish {
 		LOG.debug("New Position is: " + newPosition);
 		this.nextPosition = newPosition;
 		turnAt(angle - 180);
+		// prevent that fish can not swim out of the aquarium
+		if (isFishOutOfAquariumX() || isFishOutOfAquariumY()) {
+			turnAround();
+		}
 		this.calcNextPosition = new Position(this.nextPosition.getCoordinateX(), this.nextPosition.getCoordinateY());
-		LOG.debug("Ending go to next Position: " + this );
+		LOG.debug("Ending go to next Position: " + this);
 	}
 
 	public void goToNextPosition() {
@@ -128,14 +133,47 @@ public class Fish {
 	public Position getDiffPosition() {
 		return this.position.getDiffBetweenPositions(nextPosition);
 	}
-	
+
 	public Position getLengthPosition() {
 		Position p = new Position(0, 0);
-		//p = p.getDiffBetweenPositions(this.position);
 		p.addLength(FishParameter.FISH_BODY_LENGTH);
 		p.addSpecificAngle(-1 * getAngle());
 		p.addPosition(this.position);
 		return p;
+	}
+
+	public boolean isFishOutOfAquariumX() {
+		if (this.position.getCoordinateX() < 0 || this.position.getCoordinateX() > FishParameter.FIELD_LENGTH - 1) {
+			setFishFromOutInAquariumX();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean isFishOutOfAquariumY() {
+		if (this.position.getCoordinateY() < 0 || this.position.getCoordinateY() > FishParameter.FIELD_HEIGHT - 1) {
+			setFishFromOutInAquariumY();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void setFishFromOutInAquariumX() {
+		if (this.position.getCoordinateX() < 0) {
+			this.position.setCoordinateX(0);
+		} else if (this.position.getCoordinateX() > FishParameter.FIELD_LENGTH - 1) {
+			this.position.setCoordinateX(FishParameter.FIELD_LENGTH - 1);
+		}
+	}
+
+	public void setFishFromOutInAquariumY() {
+		if (this.position.getCoordinateY() < 0) {
+			this.position.setCoordinateY(0);
+		} else if (this.position.getCoordinateY() > FishParameter.FIELD_HEIGHT - 1) {
+			this.position.setCoordinateY(FishParameter.FIELD_HEIGHT - 1);
+		}
 	}
 
 	@Override
