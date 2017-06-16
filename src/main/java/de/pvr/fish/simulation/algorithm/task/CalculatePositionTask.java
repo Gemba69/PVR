@@ -91,11 +91,11 @@ public class CalculatePositionTask extends FishTask {
 			Collections.sort(neighbourFishes, new Comparator<Pair<Fish, Radius>>() {
 				@Override
 				public int compare(Pair<Fish, Radius> p1, Pair<Fish, Radius> p2) {
-					return (int) (p1.getLeft().getPosition().getDiffBetweenPositions(fish.getPosition()).getLength() - p2
-							.getLeft().getPosition().getDiffBetweenPositions(fish.getPosition()).getLength());
+					return (int) (p1.getLeft().getPosition().getDiffBetweenPositions(fish.getPosition()).getLength()
+							- p2.getLeft().getPosition().getDiffBetweenPositions(fish.getPosition()).getLength());
 				}
 			});
-			neighbourFishes = new ArrayList<Pair<Fish, Radius>>( neighbourFishes.subList(0, freeCapacity));
+			neighbourFishes = new ArrayList<Pair<Fish, Radius>>(neighbourFishes.subList(0, freeCapacity));
 		}
 		return neighbourFishes;
 	}
@@ -109,18 +109,26 @@ public class CalculatePositionTask extends FishTask {
 				switch (pair.getRight()) {
 				case R1:
 					newAngle = newAngle
-							//+ (CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition()) + 90);
-					+ Math.min((CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition()) + 90), (CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition()) - 90));
+							// + (CommonUtil.getAngle(fish.getDiffPosition(),
+							// pair.getLeft().getDiffPosition()) + 90);
+
+							+ (Math.min(
+									(CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition())
+											+ 90),
+									(CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition())
+											- 90)));
+					break;
 				case R2:
 					newAngle = newAngle
 							+ (CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition()));
+					break;
 				case R3:
 					newAngle = newAngle + (CommonUtil.getAngle(fish.getDiffPosition(),
 							pair.getLeft().getPosition().getDiffBetweenPositions(fish.getPosition())));
 					break;
 				}
-				newAngle = (newAngle / neighbourFishes.size());
 			}
+			newAngle = (newAngle / neighbourFishes.size());
 		}
 		LOG.debug("The fish turns at: " + newAngle);
 		return newAngle;

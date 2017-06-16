@@ -9,6 +9,7 @@ import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
 import de.pvr.fish.simulation.testdata.TestdataGenerator;
+import de.pvr.fish.simulation.util.CommonUtil;
 import de.pvr.fish.simulation.util.Radius;
 
 import static org.junit.Assert.*;
@@ -56,7 +57,7 @@ public class TestCalculatePositionTask {
 		
 		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		Fish fish = field.getFishes().get(0);
-		Fish targetFish = new Fish(new Position (100, 100), new Position(100, 102), new Position(99,100));
+		Fish targetFish = new Fish(new Position (100, 100), new Position(100, 102), new Position(98,100));
 
 		iterationTask.calculateNewPlace(fish, iterationTask.findNeighbours(fish));
 		
@@ -76,7 +77,7 @@ public class TestCalculatePositionTask {
 		neighbourFishes.add(Pair.of(field.getFishes().get(3), Radius.R2));
 		neighbourFishes.add(Pair.of(field.getFishes().get(1), Radius.R2));
 		
-		assertEquals(41 , iterationTask.calculateNewAngle(fish, neighbourFishes));
+		assertEquals(90 , iterationTask.calculateNewAngle(fish, neighbourFishes));
 	}
 	
 	@Test
@@ -88,7 +89,7 @@ public class TestCalculatePositionTask {
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
 		neighbourFishes.add(Pair.of(field.getFishes().get(7), Radius.R1));
 		
-		assertEquals(495 , iterationTask.calculateNewAngle(fish, neighbourFishes));
+		assertEquals(135 , iterationTask.calculateNewAngle(fish, neighbourFishes));
 	}
 	
 	@Test
@@ -100,7 +101,7 @@ public class TestCalculatePositionTask {
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
 		neighbourFishes.add(Pair.of(field.getFishes().get(8), Radius.R2));
 		
-		assertEquals(207 , iterationTask.calculateNewAngle(fish, neighbourFishes));
+		assertEquals(117 , iterationTask.calculateNewAngle(fish, neighbourFishes));
 	}
 	
 	@Test

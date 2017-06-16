@@ -54,8 +54,10 @@ public class TestSimulationApp {
 	public void testSimulation10SpecificFishes() {
 		FishParameter.resetValuesToDefault();
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes2();
-		
+		ArrayList<Fish> fishes = new ArrayList<Fish>(field.getFishes());
+		 
 		field.nextInteration();
+		assertEquals(fishes, field.getFishes());
 		field.nextInteration();
 		field.nextInteration();
 		field.nextInteration();
