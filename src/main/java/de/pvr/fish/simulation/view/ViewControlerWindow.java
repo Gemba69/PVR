@@ -421,6 +421,8 @@ public class ViewControlerWindow extends Application {
 
 			}
 		});
+		this.gc.setLineWidth(3);
+		
 		// ResetButton
 		GridPane.setHalignment(resetButton, HPos.LEFT);
 		topGrid.add(resetButton, 6, 5);

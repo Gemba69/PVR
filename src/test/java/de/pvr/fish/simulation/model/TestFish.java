@@ -126,32 +126,29 @@ public class TestFish {
 	public void testGetLengthPosition() {
 		FishParameter.FISH_BODY_LENGTH = FishParameter.DEFAULT_FISH_BODY_LENGTH;
 		Fish fish = new Fish(new Position(100, 100), new Position(100, 102));
-		Position targetPosition = new Position(100, 97);
+		Position targetPosition = new Position(100, 94);
 		assertEquals(targetPosition, fish.getLengthPosition());
 		
 		fish = new Fish(new Position(100, 100), new Position(102, 100));
-		targetPosition = new Position(97, 100);
+		targetPosition = new Position(94, 100);
 		assertEquals(targetPosition, fish.getLengthPosition());
 		
 		fish = new Fish(new Position(100, 100), new Position(102, 100));
-		targetPosition = new Position(97, 100);
+		targetPosition = new Position(94, 100);
 		assertEquals(targetPosition, fish.getLengthPosition());
 		
 		fish = new Fish(new Position(100, 100), new Position(102, 103));
-		targetPosition = new Position(99, 98);
+		targetPosition = new Position(97, 96);
 		assertEquals(targetPosition, fish.getLengthPosition());
 		
 		fish = new Fish(new Position(100, 100), new Position(98, 98));
-		targetPosition = new Position(102, 102);
+		targetPosition = new Position(104, 104);
 		assertEquals(targetPosition, fish.getLengthPosition());
 	}
 	
 	@Test
 	public void testGetSpeed() {
 		Fish fish = new Fish(new Position(100, 100), new Position(100, 102));
-		System.out.println(fish.getNewSpeed());
-		System.out.println(fish.getNewSpeed());
-		System.out.println(fish.getNewSpeed());
 		assertTrue(fish.getNewSpeed() >= 1 * FishParameter.FISH_BODY_LENGTH);
 		assertTrue(fish.getNewSpeed() >= 1 * FishParameter.FISH_BODY_LENGTH);
 		assertTrue(fish.getNewSpeed() >= 1 * FishParameter.FISH_BODY_LENGTH);
