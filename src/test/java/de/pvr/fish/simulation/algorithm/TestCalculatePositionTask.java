@@ -31,7 +31,7 @@ public class TestCalculatePositionTask {
 		}
 	}
 	
-	//@Test
+	@Test
 	public void testFindNeighbours() {
 		FishParameter.FISH_BODY_LENGTH = 1;
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
@@ -41,9 +41,9 @@ public class TestCalculatePositionTask {
 		ArrayList<Pair<Fish, Radius>> neighbourhood = iterationTask.findNeighbours(field.getFishes().get(0));
 		
 		ArrayList<Pair<Fish, Radius>> targetNeighbourhood = new ArrayList<Pair<Fish, Radius>>();
-		targetNeighbourhood.add(Pair.of(field.getFishes().get(7), Radius.R2));
 		targetNeighbourhood.add(Pair.of(field.getFishes().get(1), Radius.R2));
 		targetNeighbourhood.add(Pair.of(field.getFishes().get(3), Radius.R2));
+		targetNeighbourhood.add(Pair.of(field.getFishes().get(7), Radius.R2));
 		targetNeighbourhood.add(Pair.of(field.getFishes().get(8), Radius.R2));
 		
 		assertEquals(targetNeighbourhood, neighbourhood);

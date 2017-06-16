@@ -6,10 +6,9 @@ import org.apache.commons.lang.time.StopWatch;
 
 import de.pvr.fish.simulation.application.SimulationApp;
 import de.pvr.fish.simulation.config.FishParameter;
-import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
-import de.pvr.fish.simulation.util.WatchAreaType;
 import de.pvr.fish.simulation.util.MeasureUtil;
+import de.pvr.fish.simulation.util.WatchAreaType;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -499,7 +498,6 @@ public class ViewControlerWindow extends Application {
 	//speedupTextField.setText(StopWatch(type).getNanoTime() / 1000000);
 	//(double) (type).WatchAreaType(kappa).getNanoseconds / 1000000;
 	//((double) getWatchAreaType(type).WatchAreaType(phi).getNanoseconds / 1000000);
-	
 	// Eventuell Laufzeit
 	//((double) getWatchAreaType(type).WatchAreaType(SIGMA).getNanoseconds / 1000000);
 	}
