@@ -149,6 +149,9 @@ public class TestFish {
 	@Test
 	public void testGetSpeed() {
 		Fish fish = new Fish(new Position(100, 100), new Position(100, 102));
+		System.out.println(fish.getNewSpeed());
+		System.out.println(fish.getNewSpeed());
+		System.out.println(fish.getNewSpeed());
 		assertTrue(fish.getNewSpeed() >= 1 * FishParameter.FISH_BODY_LENGTH);
 		assertTrue(fish.getNewSpeed() >= 1 * FishParameter.FISH_BODY_LENGTH);
 		assertTrue(fish.getNewSpeed() >= 1 * FishParameter.FISH_BODY_LENGTH);

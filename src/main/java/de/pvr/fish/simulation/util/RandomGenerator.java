@@ -8,11 +8,11 @@ public class RandomGenerator {
 
 	
 	public static int getRandomCoordinate(int number) {
-		return getRandomNumber(number);
+		return (int) getRandomNumber(number);
 	}
 	
-	public static int getRandomNumber(int area) {
-		return (int) (Math.random() * area + 1);
+	public static double getRandomNumber(int area) {
+		return (Math.random() * area );
 	}
 	
 	public static Position getRandomPosition() {
@@ -44,11 +44,11 @@ public class RandomGenerator {
 		return new Fish(p, getRandomNextPosition(p));
 	}
 	
-	public static int getRandomSpeed() {
+	public static double getRandomSpeed() {
 		return getRandomNumber(3);
 	}
 	
-	public static int getRandomSpeed(int maxSpeed) {
+	public static double getRandomSpeed(int maxSpeed) {
 		return getRandomNumber(maxSpeed);
 	}
 	
@@ -57,7 +57,7 @@ public class RandomGenerator {
 	}
 	
 	public static int getRandomRangeNumber(int number) {
-		return getRandomNumber(number);
+		return (int) getRandomNumber(number);
 	}
 
 }
