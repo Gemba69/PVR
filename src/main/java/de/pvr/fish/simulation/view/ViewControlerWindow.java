@@ -49,14 +49,16 @@ import javafx.stage.Stage;
 
 public class ViewControlerWindow extends Application {
 
+	private static double Width = 500;
+	private static double Height = 500;
 	private GridPane topGrid;
 	private GridPane bottomGrid;
-	Canvas bottomCanvas = new Canvas(500, 500);
+	Canvas fishCanvas = new Canvas(Width, Height);
 	// Canvas bottomCanvas = new
 	// Canvas(Double.parseDouble(fieldLengthTextField.getText()),
 	// Double.parseDouble(fieldWidthTextField.getText()));
 	private SimulationApp fieldWindow;
-	private GraphicsContext gc = bottomCanvas.getGraphicsContext2D();
+	private GraphicsContext gc = fishCanvas.getGraphicsContext2D();
 
 	TextField iterationTextField;
 	TextField threadTextField;
@@ -129,7 +131,11 @@ public class ViewControlerWindow extends Application {
 		bottomGrid.setVgap(10);
 		bottomGrid.setPadding(new Insets(10, 10, 10, 10));
 		bottomGrid.setStyle("-fx-background-color: SKYBLUE");
-		bottomGrid.getChildren().add(bottomCanvas);
+		bottomGrid.getChildren().add(fishCanvas);
+	//	fishCanvas.widthProperty().bind(bottomGrid.widthProperty());
+	//	fishCanvas.heightProperty().bind(bottomGrid.heightProperty());
+	//	bottomGrid.prefHeightProperty().bind(fishCanvas.heightProperty());
+	//	bottomGrid.prefWidthProperty().bind(fishCanvas.widthProperty());
 
 		// Spalten
 		ColumnConstraints column1 = new ColumnConstraints(140);
@@ -167,6 +173,7 @@ public class ViewControlerWindow extends Application {
 		Button oneIterationButton = new Button("1");
 		Button tenIterationButton = new Button("10");
 		Label iterationCounterLabel = new Label("Anzahl an Iterationen:");
+		Button twentyfiveIterationButton = new Button("25");
 
 		// Spalte 2
 		Label fishLabel = new Label("Anzahl der Fische:");
@@ -265,7 +272,17 @@ public class ViewControlerWindow extends Application {
 			}
 		});
 
-		// Methode nur ein Iterationsschritt
+		// twentyFiveIteration
+		GridPane.setHalignment(twentyfiveIterationButton, HPos.LEFT);
+		topGrid.add(twentyfiveIterationButton, 3, 5);
+		twentyfiveIterationButton.setMinSize(10, 20);
+		twentyfiveIterationButton.setAlignment(Pos.BASELINE_CENTER);
+		twentyfiveIterationButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				iterateTwentyFiveTimes();
+			}
+		});
 
 		// Spalte 2
 
@@ -323,35 +340,50 @@ public class ViewControlerWindow extends Application {
 		// }
 
 		// Spalte 5
-		// Messwert1
+		// Speedup
 		GridPane.setHalignment(speedupLabel, HPos.LEFT);
 		topGrid.add(speedupLabel, 12, 1);
 		GridPane.setHalignment(speedupTextField, HPos.LEFT);
 		topGrid.add(speedupTextField, 13, 1);
+		speedupTextField.setEditable(false);
+		speedupTextField.setMouseTransparent(true);
+		speedupTextField.setFocusTraversable(false);
 
-		// Messwert2
+		// Kappa
 		GridPane.setHalignment(kappaLabel, HPos.LEFT);
 		topGrid.add(kappaLabel, 12, 2);
 		GridPane.setHalignment(kappaTextField, HPos.LEFT);
 		topGrid.add(kappaTextField, 13, 2);
+		kappaTextField.setEditable(false);
+		kappaTextField.setMouseTransparent(true);
+		kappaTextField.setFocusTraversable(false);
 
-		// Messwert3
+		// Phi
 		GridPane.setHalignment(phiLabel, HPos.LEFT);
 		topGrid.add(phiLabel, 12, 3);
 		GridPane.setHalignment(phiTextField, HPos.LEFT);
 		topGrid.add(phiTextField, 13, 3);
+		phiTextField.setEditable(false);
+		phiTextField.setMouseTransparent(true);
+		phiTextField.setFocusTraversable(false);
 
-		// Messwert4
+		// Sigma
 		GridPane.setHalignment(sigmaLabel, HPos.LEFT);
 		topGrid.add(sigmaLabel, 12, 4);
 		GridPane.setHalignment(sigmaTextField, HPos.LEFT);
 		topGrid.add(sigmaTextField, 13, 4);
+		sigmaTextField.setEditable(false);
+		sigmaTextField.setMouseTransparent(true);
+		sigmaTextField.setFocusTraversable(false);
 
 		// Messwert5
 		GridPane.setHalignment(mValue5Label, HPos.LEFT);
 		topGrid.add(mValue5Label, 12, 5);
 		GridPane.setHalignment(mValueTextField5, HPos.LEFT);
 		topGrid.add(mValueTextField5, 13, 5);
+		mValueTextField5.setEditable(false);
+		mValueTextField5.setMouseTransparent(true);
+		mValueTextField5.setFocusTraversable(false);
 
 		// Seperator1
 		Separator sepVert1 = new Separator();
@@ -470,9 +502,7 @@ public class ViewControlerWindow extends Application {
 		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
 				deathAngle, r1, r2, r3, bodyLength);
 
-		this.bottomCanvas = new Canvas(fieldLength, fieldHeight);
-		this.bottomCanvas.setHeight(fieldHeight);
-		this.bottomCanvas.setWidth(fieldLength);
+		this.fishCanvas = new Canvas(fieldLength, fieldHeight);
 
 		drawAllFishes();
 		for (int i = 0; i < iterations; i++) {
@@ -488,6 +518,13 @@ public class ViewControlerWindow extends Application {
 
 	public void iterateTenTimes() {
 		for (int i = 0; i < 10; i++) {
+			this.fieldWindow.startIteration();
+			drawAllFishes();
+		}
+	}
+
+	public void iterateTwentyFiveTimes() {
+		for (int i = 0; i < 25; i++) {
 			this.fieldWindow.startIteration();
 			drawAllFishes();
 		}
