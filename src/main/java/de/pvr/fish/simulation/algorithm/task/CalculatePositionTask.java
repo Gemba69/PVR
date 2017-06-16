@@ -109,9 +109,6 @@ public class CalculatePositionTask extends FishTask {
 				switch (pair.getRight()) {
 				case R1:
 					newAngle = newAngle
-							// + (CommonUtil.getAngle(fish.getDiffPosition(),
-							// pair.getLeft().getDiffPosition()) + 90);
-
 							+ (Math.min(
 									(CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition())
 											+ 90),

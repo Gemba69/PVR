@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.config.FishParameter;
+import de.pvr.fish.simulation.util.CommonUtil;
 import de.pvr.fish.simulation.util.RandomGenerator;
 
 public class Fish {
@@ -28,7 +29,6 @@ public class Fish {
 		this.position = position;
 		this.nextPosition = nextPosition;
 		this.calcNextPosition = calcNextPosition;
-
 	}
 
 	public Position getPosition() {

@@ -228,5 +228,4 @@ public class TestFish {
 		assertEquals(targetFish, fish);
 	}
 
-
 }

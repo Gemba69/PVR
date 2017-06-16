@@ -483,7 +483,7 @@ public class ViewControlerWindow extends Application {
 	// 01 0+0 1+1
 	private void drawFish(double x1, double y1, double x2, double y2) {
 		this.gc.strokeLine(x1, y1, x2, y2);
-		this.gc.strokeOval(x1, y1, 2, 2);
+		this.gc.strokeOval(x1 -1 , y1 -1, 3, 3);
 
 	}
 
