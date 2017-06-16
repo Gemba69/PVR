@@ -2,10 +2,14 @@ package de.pvr.fish.simulation.view;
 
 import java.util.ArrayList;
 
+import org.apache.commons.lang.time.StopWatch;
+
 import de.pvr.fish.simulation.application.SimulationApp;
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
+import de.pvr.fish.simulation.util.WatchAreaType;
+import de.pvr.fish.simulation.util.MeasureUtil;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -49,8 +53,8 @@ import javafx.stage.Stage;
 
 public class ViewControlerWindow extends Application {
 
-	private static double Width = 500;
-	private static double Height = 500;
+	private static double Width = 600;
+	private static double Height = 600;
 	private GridPane topGrid;
 	private GridPane bottomGrid;
 	Canvas fishCanvas = new Canvas(Width, Height);
@@ -134,8 +138,8 @@ public class ViewControlerWindow extends Application {
 		bottomGrid.getChildren().add(fishCanvas);
 	//	fishCanvas.widthProperty().bind(bottomGrid.widthProperty());
 	//	fishCanvas.heightProperty().bind(bottomGrid.heightProperty());
-	//	bottomGrid.prefHeightProperty().bind(fishCanvas.heightProperty());
-	//	bottomGrid.prefWidthProperty().bind(fishCanvas.widthProperty());
+	    bottomGrid.prefHeightProperty().bind(fishCanvas.heightProperty());
+	    bottomGrid.prefWidthProperty().bind(fishCanvas.widthProperty());
 
 		// Spalten
 		ColumnConstraints column1 = new ColumnConstraints(140);
@@ -357,6 +361,8 @@ public class ViewControlerWindow extends Application {
 		kappaTextField.setEditable(false);
 		kappaTextField.setMouseTransparent(true);
 		kappaTextField.setFocusTraversable(false);
+		kappaTextField.setText("Milli-Sek");
+		kappaTextField.getText();
 
 		// Phi
 		GridPane.setHalignment(phiLabel, HPos.LEFT);
@@ -487,6 +493,15 @@ public class ViewControlerWindow extends Application {
 		this.gc.strokeLine(x1, y1, x2, y2);
 		this.gc.strokeOval(x1 -1 , y1 -1, 3, 3);
 
+	}
+	
+	public void showAllMeasures(WatchAreaType type) {
+	speedupTextField.setText(StopWatch(sigma)).getNanoTime / 1000000;
+	//(double) (type).WatchAreaType(kappa).getNanoseconds / 1000000;
+	//((double) getWatchAreaType(type).WatchAreaType(phi).getNanoseconds / 1000000);
+	
+	// Eventuell Laufzeit
+	//((double) getWatchAreaType(type).WatchAreaType(SIGMA).getNanoseconds / 1000000);
 	}
 
 	/*
