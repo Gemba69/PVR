@@ -136,10 +136,10 @@ public class ViewControlerWindow extends Application {
 		bottomGrid.setPadding(new Insets(10, 10, 10, 10));
 		bottomGrid.setStyle("-fx-background-color: SKYBLUE");
 		bottomGrid.getChildren().add(fishCanvas);
-	//	fishCanvas.widthProperty().bind(bottomGrid.widthProperty());
-	//	fishCanvas.heightProperty().bind(bottomGrid.heightProperty());
-	    bottomGrid.prefHeightProperty().bind(fishCanvas.heightProperty());
-	    bottomGrid.prefWidthProperty().bind(fishCanvas.widthProperty());
+		// fishCanvas.widthProperty().bind(bottomGrid.widthProperty());
+		// fishCanvas.heightProperty().bind(bottomGrid.heightProperty());
+		bottomGrid.prefHeightProperty().bind(fishCanvas.heightProperty());
+		bottomGrid.prefWidthProperty().bind(fishCanvas.widthProperty());
 
 		// Spalten
 		ColumnConstraints column1 = new ColumnConstraints(140);
@@ -428,7 +428,7 @@ public class ViewControlerWindow extends Application {
 			}
 		});
 		this.gc.setLineWidth(3);
-		
+
 		// ResetButton
 		GridPane.setHalignment(resetButton, HPos.LEFT);
 		topGrid.add(resetButton, 6, 5);
@@ -491,12 +491,12 @@ public class ViewControlerWindow extends Application {
 	// 01 0+0 1+1
 	private void drawFish(double x1, double y1, double x2, double y2) {
 		this.gc.strokeLine(x1, y1, x2, y2);
-		this.gc.strokeOval(x1 -1 , y1 -1, 3, 3);
+		this.gc.strokeOval(x1 - 1, y1 - 1, 3, 3);
 
 	}
-	
+
 	public void showAllMeasures(WatchAreaType type) {
-	speedupTextField.setText(StopWatch(sigma)).getNanoTime / 1000000;
+	//speedupTextField.setText(StopWatch(type).getNanoTime() / 1000000);
 	//(double) (type).WatchAreaType(kappa).getNanoseconds / 1000000;
 	//((double) getWatchAreaType(type).WatchAreaType(phi).getNanoseconds / 1000000);
 	
