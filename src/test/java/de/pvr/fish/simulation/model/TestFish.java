@@ -138,7 +138,7 @@ public class TestFish {
 		assertEquals(targetPosition, fish.getLengthPosition());
 		
 		fish = new Fish(new Position(100, 100), new Position(102, 103));
-		targetPosition = new Position(98, 98);
+		targetPosition = new Position(99, 98);
 		assertEquals(targetPosition, fish.getLengthPosition());
 		
 		fish = new Fish(new Position(100, 100), new Position(98, 98));

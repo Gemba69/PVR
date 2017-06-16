@@ -91,8 +91,8 @@ public class Position {
 		double coordX = this.coordinateX * Math.cos(Math.toRadians(angle)) + this.coordinateY * - Math.sin(Math.toRadians(angle));
 		double coordY = this.coordinateX * Math.sin(Math.toRadians(angle)) + this.coordinateY * Math.cos(Math.toRadians(angle));
 		
-		this.coordinateX = (Math.round(coordX) * 100)/100;
-		this.coordinateY = (Math.round(coordY) * 100)/100;
+		this.coordinateX = (Math.round(coordX * 100)/100);
+		this.coordinateY = (Math.round(coordY * 100)/100);
 	}
 	
 	public double getLength() {

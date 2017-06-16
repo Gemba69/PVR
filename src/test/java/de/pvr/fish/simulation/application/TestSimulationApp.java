@@ -52,6 +52,7 @@ public class TestSimulationApp {
 	
 	@Test
 	public void testSimulation10SpecificFishes() {
+		FishParameter.resetValuesToDefault();
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes2();
 		
 		field.nextInteration();

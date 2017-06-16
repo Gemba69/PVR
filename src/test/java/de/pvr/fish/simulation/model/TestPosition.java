@@ -74,7 +74,7 @@ public class TestPosition {
 	@Test
 	public void testAddSpecificAngle() {
 		Position p = new Position(2, 2);
-		Position targetPosition = new Position (3, 0);
+		Position targetPosition = new Position (2, 0);
 		
 		p.addSpecificAngle(45);
 		

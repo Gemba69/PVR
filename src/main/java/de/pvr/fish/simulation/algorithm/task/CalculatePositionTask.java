@@ -45,7 +45,7 @@ public class CalculatePositionTask extends FishTask {
 		if (neighbourFishes.size() < FishParameter.NUMBER_OF_NEIGHBOURS) {
 			neighbourFishes.addAll(searchInR3(fish, FishParameter.NUMBER_OF_NEIGHBOURS - neighbourFishes.size()));
 		}
-
+		LOG.debug("Number of Neigbours is: " + neighbourFishes.size());
 		return neighbourFishes;
 	}
 
@@ -122,6 +122,7 @@ public class CalculatePositionTask extends FishTask {
 				newAngle = (newAngle / neighbourFishes.size());
 			}
 		}
+		LOG.debug("The fish turns at: " + newAngle);
 		return newAngle;
 	}
 
