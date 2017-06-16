@@ -323,50 +323,35 @@ public class ViewControlerWindow extends Application {
 		// }
 
 		// Spalte 5
-		// Speedup
+		// Messwert1
 		GridPane.setHalignment(speedupLabel, HPos.LEFT);
 		topGrid.add(speedupLabel, 12, 1);
 		GridPane.setHalignment(speedupTextField, HPos.LEFT);
 		topGrid.add(speedupTextField, 13, 1);
-		speedupTextField.setEditable(false);
-		speedupTextField.setMouseTransparent(true);
-		speedupTextField.setFocusTraversable(false);
 
-		// Kappa
+		// Messwert2
 		GridPane.setHalignment(kappaLabel, HPos.LEFT);
 		topGrid.add(kappaLabel, 12, 2);
 		GridPane.setHalignment(kappaTextField, HPos.LEFT);
 		topGrid.add(kappaTextField, 13, 2);
-		kappaTextField.setEditable(false);
-		kappaTextField.setMouseTransparent(true);
-		kappaTextField.setFocusTraversable(false);
 
-		// Phi
+		// Messwert3
 		GridPane.setHalignment(phiLabel, HPos.LEFT);
 		topGrid.add(phiLabel, 12, 3);
 		GridPane.setHalignment(phiTextField, HPos.LEFT);
 		topGrid.add(phiTextField, 13, 3);
-		phiTextField.setEditable(false);
-		phiTextField.setMouseTransparent(true);
-		phiTextField.setFocusTraversable(false);
 
-		// Sigma
+		// Messwert4
 		GridPane.setHalignment(sigmaLabel, HPos.LEFT);
 		topGrid.add(sigmaLabel, 12, 4);
 		GridPane.setHalignment(sigmaTextField, HPos.LEFT);
 		topGrid.add(sigmaTextField, 13, 4);
-		sigmaTextField.setEditable(false);
-		sigmaTextField.setMouseTransparent(true);
-		sigmaTextField.setFocusTraversable(false);
 
 		// Messwert5
 		GridPane.setHalignment(mValue5Label, HPos.LEFT);
 		topGrid.add(mValue5Label, 12, 5);
 		GridPane.setHalignment(mValueTextField5, HPos.LEFT);
 		topGrid.add(mValueTextField5, 13, 5);
-		mValueTextField5.setEditable(false);
-		mValueTextField5.setMouseTransparent(true);
-		mValueTextField5.setFocusTraversable(false);
 
 		// Seperator1
 		Separator sepVert1 = new Separator();
