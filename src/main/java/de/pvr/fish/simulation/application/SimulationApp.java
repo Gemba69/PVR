@@ -59,7 +59,7 @@ public class SimulationApp {
 		FishParameter.THREADS = threads;
 		FishParameter.NUMBER_FISH = fishNumber;
 		FishParameter.FIELD_LENGTH = fieldLength;
-		FishParameter.FIELD_HEIGHT = fieldLength;
+		FishParameter.FIELD_HEIGHT = fieldHeight;
 		FishParameter.NUMBER_OF_NEIGHBOURS = neighbours;
 		FishParameter.DEATH_ANGLE = deathAngle;
 		FishParameter.RADIUS1 = r1;
