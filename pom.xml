@@ -45,7 +45,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.3</version>
+				<version>3.0.0</version>
 				<executions>
 					<execution>
 						<id>build-gui</id>
@@ -75,8 +75,7 @@
 				<version>0.7.9</version>
 				<configuration>
 					<excludes>
-						<exclude>**/gui/**</exclude>
-						<exclude>**/*Application.*</exclude>
+						<exclude>**/view/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>
