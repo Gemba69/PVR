@@ -1,5 +1,7 @@
 package de.pvr.fish.simulation.model;
 
+import static de.pvr.fish.simulation.util.WatchAreaType.*;
+
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -10,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
 import de.pvr.fish.simulation.algorithm.task.FishTask;
 import de.pvr.fish.simulation.algorithm.task.SetNewPositionTask;
+import de.pvr.fish.simulation.util.MeasureUtil;
 
 public class Field {
 
@@ -23,6 +26,8 @@ public class Field {
 	private ExecutorService executorService;
 	private ArrayList<FishTask> calcTasks;
 	private ArrayList<FishTask> newPositionTasks;
+	
+	public static MeasureUtil measureUtil;
 
 	private static final Logger LOG = LogManager.getLogger(Field.class);
 
@@ -32,10 +37,13 @@ public class Field {
 		this.fishNumber = fishNumber;
 		this.threads = threads;
 		fishes = new ArrayList<Fish>();
-
+		
+		//Overhead
+		MeasureUtil.startWatch(KAPPA);
 		this.executorService = Executors.newFixedThreadPool(threads);
 		this.calcTasks = new ArrayList<FishTask>();
 		this.newPositionTasks = new ArrayList<FishTask>();
+		MeasureUtil.suspend(KAPPA);
 
 	}
 

@@ -9,16 +9,16 @@ public class MeasureUtil {
 	// TODO 3 implement this class
 	private static final Logger LOG = LogManager.getLogger(MeasureUtil.class);
 
-	public static StopWatch speedup;;
-	public static StopWatch sigma;
-	public static StopWatch kappa;
-	public static StopWatch phi;
-	public static StopWatch simulation;
-	public static StopWatch thread;
-	public static StopWatch iteration;
+	public static StopWatch runtime = new StopWatch();
+	public static StopWatch sigma = new StopWatch();
+	public static StopWatch kappa = new StopWatch();
+	public static StopWatch phi = new StopWatch();
+	public static StopWatch simulation = new StopWatch();
+	public static StopWatch thread = new StopWatch();
+	public static StopWatch iteration = new StopWatch();
 
-	public MeasureUtil() {
-		this.speedup = new StopWatch();
+	public void resetAllWatches() {
+		this.runtime = new StopWatch();
 		this.sigma = new StopWatch();
 		this.kappa = new StopWatch();
 		this.phi = new StopWatch();
@@ -27,35 +27,24 @@ public class MeasureUtil {
 		this.iteration = new StopWatch();
 	}
 
-	public void startWatch(WatchAreaType type) {
+	public static void startWatch(WatchAreaType type) {
 		if (!getWatchAreaType(type).isStarted()) {
 			getWatchAreaType(type).start();
 		} else {
 			getWatchAreaType(type).resume();
 		}
 	}
-	// methode zum getNanotime (double )
 
+	public static void suspend(WatchAreaType type) {
+		StopWatch watch = getWatchAreaType(type);
+		watch.suspend();
+		LOG.debug("Time of watch is: " + watch + watch.getTime());
+	}
 
-
-	/*
-	 * public void saveSpecificWatch(WatchAreaType type) {
-	 * 
-	 * }
-	 * 
-	 * public void logSpecificWatch(WatchAreaType watcharea) {
-	 * 
-	 * }
-	 * 
-	 * public void logAllWatches(WatchAreaType watcharea) {
-	 * 
-	 * }
-	 */
-
-	public StopWatch getWatchAreaType(WatchAreaType type) {
+	public static StopWatch getWatchAreaType(WatchAreaType type) {
 		switch (type) {
-		case SPEEDUP:
-			return speedup;
+		case RUNTIME:
+			return runtime;
 		case SIGMA:
 			return sigma;
 		case KAPPA:

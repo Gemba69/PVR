@@ -1,11 +1,15 @@
 package de.pvr.fish.simulation.application;
 
+import static de.pvr.fish.simulation.util.WatchAreaType.*;
+import org.apache.commons.lang3.time.StopWatch;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
+import de.pvr.fish.simulation.util.MeasureUtil;
 import de.pvr.fish.simulation.util.RandomGenerator;
 
 public class SimulationApp {
@@ -20,8 +24,14 @@ public class SimulationApp {
 		//TODO 4 Parameter validieren
 		
 		//SimulationApp app = new SimulationApp(FishParameter.FIELD_LENGTH, FishParameter.FIELD_HEIGHT, FishParameter.NUMBER_FISH, FishParameter.THREADS, FishParameter.ITERATIONS);
+		MeasureUtil.startWatch(SIGMA);
+		
 		SimulationApp app = new SimulationApp(600, 600, 1100, 8, 3, 4, 30, 2, 4,6,1);
+		
+		MeasureUtil.startWatch(KAPPA);
 		app.startIterations();
+		MeasureUtil.suspend(KAPPA);
+		MeasureUtil.suspend(SIGMA);
 	}
 	
 	public SimulationApp(int iterations) {
@@ -45,8 +55,10 @@ public class SimulationApp {
 	}
 	
 	public void startIterations() {
+		MeasureUtil.startWatch(KAPPA);
 		for (int i = 0; i < this.iterations; i++) {
 			this.field.nextInteration();
+		MeasureUtil.suspend(KAPPA);
 		}
 	}
 	
@@ -95,4 +107,5 @@ public class SimulationApp {
 	public void setIterations(int iterations) {
 		this.iterations = iterations;
 	}
+	
 }

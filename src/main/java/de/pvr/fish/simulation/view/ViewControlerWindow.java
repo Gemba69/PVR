@@ -1,19 +1,20 @@
 package de.pvr.fish.simulation.view;
 
-import java.util.ArrayList;
+import static de.pvr.fish.simulation.util.WatchAreaType.PHI;
+import static de.pvr.fish.simulation.util.WatchAreaType.SIGMA;
+import static de.pvr.fish.simulation.util.WatchAreaType.KAPPA;
+import static de.pvr.fish.simulation.util.WatchAreaType.RUNTIME;
 
-import org.apache.commons.lang.time.StopWatch;
 
+import org.apache.commons.lang3.time.StopWatch;
 import de.pvr.fish.simulation.application.SimulationApp;
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.util.WatchAreaType;
 import de.pvr.fish.simulation.util.MeasureUtil;
-import javafx.animation.SequentialTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -25,9 +26,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -44,8 +43,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -63,6 +60,7 @@ public class ViewControlerWindow extends Application {
 	// Double.parseDouble(fieldWidthTextField.getText()));
 	private SimulationApp fieldWindow;
 	private GraphicsContext gc = fishCanvas.getGraphicsContext2D();
+	private static MeasureUtil measureUtil;
 
 	TextField iterationTextField;
 	TextField threadTextField;
@@ -75,11 +73,11 @@ public class ViewControlerWindow extends Application {
 	TextField r1TextField;
 	TextField r2TextField;
 	TextField r3TextField;
-	TextField speedupTextField;
+	TextField runtimeTextField;
 	TextField kappaTextField;
 	TextField phiTextField;
 	TextField sigmaTextField;
-	TextField mValueTextField5;
+	TextField clockTexField;
 
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -218,16 +216,16 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(measuredValueHeading, 12, 0);
 
 		// Spalte 5
-		Label speedupLabel = new Label("Speedup:");
-		TextField speedupTextField = new TextField();
-		Label kappaLabel = new Label("Kappa:");
+		Label runtimeLabel = new Label("Laufzeit:");
+		TextField runtimeTextField = new TextField();
+		Label kappaLabel = new Label("Sigma:");
 		TextField kappaTextField = new TextField();
 		Label phiLabel = new Label("Phi:");
 		TextField phiTextField = new TextField();
-		Label sigmaLabel = new Label("Sigma:");
+		Label sigmaLabel = new Label("Kappa:");
 		TextField sigmaTextField = new TextField();
-		Label mValue5Label = new Label("Messwert5:");
-		TextField mValueTextField5 = new TextField();
+		Label clockLabel = new Label("Zeit:");
+		TextField clockTextField = new TextField();
 
 		// -----------------------------------------------
 
@@ -344,25 +342,27 @@ public class ViewControlerWindow extends Application {
 		// }
 
 		// Spalte 5
-		// Speedup
-		GridPane.setHalignment(speedupLabel, HPos.LEFT);
-		topGrid.add(speedupLabel, 12, 1);
-		GridPane.setHalignment(speedupTextField, HPos.LEFT);
-		topGrid.add(speedupTextField, 13, 1);
-		speedupTextField.setEditable(false);
-		speedupTextField.setMouseTransparent(true);
-		speedupTextField.setFocusTraversable(false);
+		// Laufzeit
+		GridPane.setHalignment(runtimeLabel, HPos.LEFT);
+		topGrid.add(runtimeLabel, 12, 1);
+		GridPane.setHalignment(runtimeTextField, HPos.LEFT);
+		topGrid.add(runtimeTextField, 13, 1);
+		runtimeTextField.setEditable(false);
+		runtimeTextField.setMouseTransparent(true);
+		runtimeTextField.setFocusTraversable(false);
+		runtimeTextField.setText("0,00");
+		runtimeTextField.getText();
 
-		// Kappa
-		GridPane.setHalignment(kappaLabel, HPos.LEFT);
-		topGrid.add(kappaLabel, 12, 2);
-		GridPane.setHalignment(kappaTextField, HPos.LEFT);
-		topGrid.add(kappaTextField, 13, 2);
-		kappaTextField.setEditable(false);
-		kappaTextField.setMouseTransparent(true);
-		kappaTextField.setFocusTraversable(false);
-		kappaTextField.setText("Milli-Sek");
-		kappaTextField.getText();
+		// Sigma
+		GridPane.setHalignment(sigmaLabel, HPos.LEFT);
+		topGrid.add(sigmaLabel, 12, 2);
+		GridPane.setHalignment(sigmaTextField, HPos.LEFT);
+		topGrid.add(sigmaTextField, 13, 2);
+		sigmaTextField.setEditable(false);
+		sigmaTextField.setMouseTransparent(true);
+		sigmaTextField.setFocusTraversable(false);
+		sigmaTextField.setText("0,00");
+		sigmaTextField.getText();
 
 		// Phi
 		GridPane.setHalignment(phiLabel, HPos.LEFT);
@@ -372,24 +372,26 @@ public class ViewControlerWindow extends Application {
 		phiTextField.setEditable(false);
 		phiTextField.setMouseTransparent(true);
 		phiTextField.setFocusTraversable(false);
+		phiTextField.setText("0,00");
+		phiTextField.getText();
 
-		// Sigma
-		GridPane.setHalignment(sigmaLabel, HPos.LEFT);
-		topGrid.add(sigmaLabel, 12, 4);
-		GridPane.setHalignment(sigmaTextField, HPos.LEFT);
-		topGrid.add(sigmaTextField, 13, 4);
-		sigmaTextField.setEditable(false);
-		sigmaTextField.setMouseTransparent(true);
-		sigmaTextField.setFocusTraversable(false);
+		// Kappa
+		GridPane.setHalignment(kappaLabel, HPos.LEFT);
+		topGrid.add(kappaLabel, 12, 4);
+		GridPane.setHalignment(kappaTextField, HPos.LEFT);
+		topGrid.add(kappaTextField, 13, 4);
+		kappaTextField.setEditable(false);
+		kappaTextField.setMouseTransparent(true);
+		kappaTextField.setFocusTraversable(false);
 
-		// Messwert5
-		GridPane.setHalignment(mValue5Label, HPos.LEFT);
-		topGrid.add(mValue5Label, 12, 5);
-		GridPane.setHalignment(mValueTextField5, HPos.LEFT);
-		topGrid.add(mValueTextField5, 13, 5);
-		mValueTextField5.setEditable(false);
-		mValueTextField5.setMouseTransparent(true);
-		mValueTextField5.setFocusTraversable(false);
+		// Uhr
+		GridPane.setHalignment(clockLabel, HPos.LEFT);
+		topGrid.add(clockLabel, 12, 5);
+		GridPane.setHalignment(clockTextField, HPos.LEFT);
+		topGrid.add(clockTextField, 13, 5);
+		clockTextField.setEditable(false);
+		clockTextField.setMouseTransparent(true);
+		clockTextField.setFocusTraversable(false);
 
 		// Seperator1
 		Separator sepVert1 = new Separator();
@@ -464,46 +466,37 @@ public class ViewControlerWindow extends Application {
 			System.exit(0);
 		});
 	}
-
+	
+	
 	/*
-	 * public boolean checkParamter(){ if (fishField.getText() && ()); return
-	 * false;
+	 * public static boolean isNumeric(String str) { return
+	 * str.matches("-?\\d+(\\.\\d+)?"); }
 	 * 
+	 * private boolean checkTextFieldInput() { if
+	 * (isNumeric(iterationTextField.getText()) &&
+	 * isNumeric(threadTextField.getText()) && isNumeric(fishField.getText()) &&
+	 * isNumeric(fieldLengthTextField.getText()) &&
+	 * isNumeric(fieldWidthTextField.getText()) &&
+	 * isNumeric(deathAngelTextField.getText()) &&
+	 * isNumeric(neighbourFishTextField.getText()) &&
+	 * isNumeric(fishLengthTextField.getText()) &&
+	 * isNumeric(r1TextField.getText()) && isNumeric(r2TextField.getText()) &&
+	 * isNumeric(r3TextField.getText()))
 	 * 
-	 * }
+	 * return true; return false; }
 	 */
-	public static boolean isNumeric(String str) {
-		return str.matches("-?\\d+(\\.\\d+)?");
-	}
 
-	private boolean checkTextFieldInput() {
-		if (isNumeric(iterationTextField.getText()) && isNumeric(threadTextField.getText())
-				&& isNumeric(fishField.getText()) && isNumeric(fieldLengthTextField.getText())
-				&& isNumeric(fieldWidthTextField.getText()) && isNumeric(deathAngelTextField.getText())
-				&& isNumeric(neighbourFishTextField.getText()) && isNumeric(fishLengthTextField.getText())
-				&& isNumeric(r1TextField.getText()) && isNumeric(r2TextField.getText())
-				&& isNumeric(r3TextField.getText()))
-
-			return true;
-		return false;
-	}
-
-	// 01 0+0 1+1
 	private void drawFish(double x1, double y1, double x2, double y2) {
 		this.gc.strokeLine(x1, y1, x2, y2);
 		this.gc.strokeOval(x1 - 1, y1 - 1, 3, 3);
 
 	}
 
-	public void showAllMeasures(WatchAreaType type) {
-	//speedupTextField.setText(StopWatch(type).getNanoTime() / 1000000);
-	//(double) (type).WatchAreaType(kappa).getNanoseconds / 1000000;
-	//((double) getWatchAreaType(type).WatchAreaType(phi).getNanoseconds / 1000000);
-	
-	// Eventuell Laufzeit
-	//((double) getWatchAreaType(type).WatchAreaType(SIGMA).getNanoseconds / 1000000);
-	}
+	//	clockTexField.setText(String.valueOf(MeasureUti));
+	//	kappaTextField.setText(Integer.toString((int) (MeasureUtil.kappa.getNanoTime() / 1000000)));
+	//	phiTextField.setText(Integer.toString((int) (MeasureUtil.phi.getNanoTime() / 1000000)));
 
+	
 	/*
 	 * // Größe ändern nachdem Start gedrückt wird private void
 	 * redrawFish(double x1, double y1, double x2, double y2) {
@@ -513,12 +506,12 @@ public class ViewControlerWindow extends Application {
 	 */
 	public void createFieldWindow(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
 			int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
+		MeasureUtil.startWatch(RUNTIME);
 		if (this.gc != null && this.fieldWindow != null) {
 			this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
 		}
 		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
 				deathAngle, r1, r2, r3, bodyLength);
-
 		this.fishCanvas = new Canvas(fieldLength, fieldHeight);
 
 		drawAllFishes();
@@ -526,8 +519,17 @@ public class ViewControlerWindow extends Application {
 			this.fieldWindow.startIteration();
 			drawAllFishes();
 		}
-	}
+		MeasureUtil.suspend(RUNTIME);
+		showAllMeasures();
 
+		}
+		
+	public void showAllMeasures() {
+		runtimeTextField.setText(String.valueOf(MeasureUtil.runtime.getNanoTime() / 1000000));
+		sigmaTextField.setText(String.valueOf(MeasureUtil.sigma.getNanoTime() / 1000000));
+		phiTextField.setText(String.valueOf(MeasureUtil.phi.getNanoTime() / 1000000));
+		kappaTextField.setText(String.valueOf(MeasureUtil.kappa.getNanoTime() / 1000000));
+	}
 	public void iterateOnce() {
 		this.fieldWindow.startIteration();
 		drawAllFishes();
@@ -547,7 +549,6 @@ public class ViewControlerWindow extends Application {
 		}
 
 	}
-
 	private void drawAllFishes() {
 		this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
 		for (Fish fish : this.fieldWindow.getField().getFishes()) {
@@ -569,4 +570,5 @@ public class ViewControlerWindow extends Application {
 		this.r2TextField.setText(Integer.toString(FishParameter.DEFAULT_RADIUS2));
 		this.r3TextField.setText(Integer.toString(FishParameter.DEFAULT_RADIUS3));
 	}
+	
 }

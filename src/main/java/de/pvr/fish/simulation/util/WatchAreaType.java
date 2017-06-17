@@ -2,7 +2,7 @@ package de.pvr.fish.simulation.util;
 
 public enum WatchAreaType {
 
-	SPEEDUP,
+	RUNTIME,
 	SIGMA,
 	KAPPA,
 	PHI,
