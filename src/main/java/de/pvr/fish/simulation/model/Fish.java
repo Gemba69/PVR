@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.config.FishParameter;
-import de.pvr.fish.simulation.util.CommonUtil;
 import de.pvr.fish.simulation.util.RandomGenerator;
 
 public class Fish {
@@ -105,7 +104,7 @@ public class Fish {
 	}
 
 	public double getNewSpeed() {
-		return (RandomGenerator.getRandomSpeed(maxSpedMultiplicator - 1) + 1 ) * FishParameter.FISH_BODY_LENGTH;
+		return (RandomGenerator.getRandomSpeed(maxSpedMultiplicator - 1) + 1) * FishParameter.FISH_BODY_LENGTH;
 	}
 
 	public void goToNextPosition(double speed) {
@@ -119,9 +118,9 @@ public class Fish {
 		this.nextPosition = newPosition;
 		turnAt(angle - 180);
 		// prevent that fish can not swim out of the aquarium
-		if (isFishOutOfAquariumX() || isFishOutOfAquariumY()) {
-			//turnAround();
-		}
+		isFishOutOfAquariumX();
+		isFishOutOfAquariumY();
+			// turnAround();
 		this.calcNextPosition = new Position(this.nextPosition.getCoordinateX(), this.nextPosition.getCoordinateY());
 		LOG.debug("Ending go to next Position: " + this);
 	}
@@ -143,7 +142,8 @@ public class Fish {
 	}
 
 	public boolean isFishOutOfAquariumX() {
-		if (this.position.getCoordinateX() < 0 || this.position.getCoordinateX() > FishParameter.FIELD_LENGTH - 1) {
+		if (this.position.getCoordinateX() < 0 + FishParameter.FISH_BODY_LENGTH
+				|| this.position.getCoordinateX() > FishParameter.FIELD_LENGTH - 1 - FishParameter.FISH_BODY_LENGTH) {
 			setFishFromOutInAquariumX();
 			return true;
 		} else {
@@ -152,7 +152,8 @@ public class Fish {
 	}
 
 	public boolean isFishOutOfAquariumY() {
-		if (this.position.getCoordinateY() < 0 || this.position.getCoordinateY() > FishParameter.FIELD_HEIGHT - 1) {
+		if (this.position.getCoordinateY() < 0 + FishParameter.FISH_BODY_LENGTH
+				|| this.position.getCoordinateY() > FishParameter.FIELD_HEIGHT - 1 - FishParameter.FISH_BODY_LENGTH) {
 			setFishFromOutInAquariumY();
 			return true;
 		} else {
@@ -161,18 +162,18 @@ public class Fish {
 	}
 
 	public void setFishFromOutInAquariumX() {
-		if (this.position.getCoordinateX() < 0) {
-			this.position.setCoordinateX(0);
-		} else if (this.position.getCoordinateX() > FishParameter.FIELD_LENGTH - 1) {
-			this.position.setCoordinateX(FishParameter.FIELD_LENGTH - 1);
+		if (this.position.getCoordinateX() < 0 + FishParameter.FISH_BODY_LENGTH) {
+			this.position.setCoordinateX(0 + FishParameter.FISH_BODY_LENGTH);
+		} else if (this.position.getCoordinateX() > FishParameter.FIELD_LENGTH - 1 - FishParameter.FISH_BODY_LENGTH) {
+			this.position.setCoordinateX(FishParameter.FIELD_LENGTH - 1 - FishParameter.FISH_BODY_LENGTH);
 		}
 	}
 
 	public void setFishFromOutInAquariumY() {
-		if (this.position.getCoordinateY() < 0) {
-			this.position.setCoordinateY(0);
-		} else if (this.position.getCoordinateY() > FishParameter.FIELD_HEIGHT - 1) {
-			this.position.setCoordinateY(FishParameter.FIELD_HEIGHT - 1);
+		if (this.position.getCoordinateY() < 0 + FishParameter.FISH_BODY_LENGTH) {
+			this.position.setCoordinateY(0 + FishParameter.FISH_BODY_LENGTH);
+		} else if (this.position.getCoordinateY() > FishParameter.FIELD_HEIGHT - 1 - FishParameter.FISH_BODY_LENGTH) {
+			this.position.setCoordinateY(FishParameter.FIELD_HEIGHT - 1 - FishParameter.FISH_BODY_LENGTH);
 		}
 	}
 
