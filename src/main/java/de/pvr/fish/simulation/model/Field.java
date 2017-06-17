@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
 import de.pvr.fish.simulation.algorithm.task.FishTask;
 import de.pvr.fish.simulation.algorithm.task.SetNewPositionTask;
+import de.pvr.fish.simulation.util.ThreadPoolSingleton;
 
 public class Field {
 
@@ -20,7 +21,6 @@ public class Field {
 	private int threads;
 	private int fishNumber;
 
-	private ExecutorService executorService;
 	private ArrayList<FishTask> calcTasks;
 	private ArrayList<FishTask> newPositionTasks;
 
@@ -33,7 +33,6 @@ public class Field {
 		this.threads = threads;
 		fishes = new ArrayList<Fish>();
 
-		this.executorService = Executors.newFixedThreadPool(threads);
 		this.calcTasks = new ArrayList<FishTask>();
 		this.newPositionTasks = new ArrayList<FishTask>();
 
@@ -52,17 +51,17 @@ public class Field {
 		LOG.info("Starting overall Iteration");
 		// Execution
 		try {
-			this.executorService.invokeAll(this.calcTasks);
+			ThreadPoolSingleton.getExecutorService().invokeAll(this.calcTasks);
 		} catch (InterruptedException e) {
 			LOG.error(e.getMessage());
 		}
 		// 2. Execution
 		try {
-			this.executorService.invokeAll(this.newPositionTasks);
+			ThreadPoolSingleton.getExecutorService().invokeAll(this.newPositionTasks);
 		} catch (InterruptedException e) {
 			LOG.error(e.getMessage());
 		}
-		logFishes(); // only fpr debugging
+		//logFishes(); // only for debugging
 	}
 
 	public void prepareTaskLists() {
@@ -124,14 +123,6 @@ public class Field {
 
 	public void setHeight(int height) {
 		this.height = height;
-	}
-
-	public ExecutorService getExecutorService() {
-		return executorService;
-	}
-
-	public void setExecutorService(ExecutorService executorService) {
-		this.executorService = executorService;
 	}
 
 	public ArrayList<FishTask> getCalcTasks() {

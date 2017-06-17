@@ -13,6 +13,7 @@ import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
 import de.pvr.fish.simulation.application.SimulationApp;
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Fish;
+import de.pvr.fish.simulation.util.ThreadPoolSingleton;
 import de.pvr.fish.simulation.util.WatchAreaType;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
@@ -87,7 +88,8 @@ public class ViewControlerWindow extends Application {
 	TextField sigmaTextField;
 	TextField mValueTextField5;
 	
-	DrawControler drawWorker;
+	private DrawControler drawWorker;
+	private FutureTask<Boolean> drawTask;
 
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -522,39 +524,52 @@ public class ViewControlerWindow extends Application {
 
 		this.fishCanvas = new Canvas(fieldLength, fieldHeight);
 		this.drawWorker = new DrawControler(this.fishCanvas, this.fieldWindow, this.gc);
+		this.drawTask = new FutureTask<>(this.drawWorker);
 		LOG.debug("Start to create Fishes at start position");
-		drawAllFishes();
-		for (int i = 0; i < iterations; i++) {
-			this.fieldWindow.startIteration();
-			drawAllFishes();
-		}
+//		drawAllFishes();
+//		for (int i = 0; i < iterations; i++) {
+//			this.fieldWindow.startIteration();
+//			drawAllFishes();
+//		}
+		createSimulationAndSimulate(this.fieldWindow.getIterations());
 	}
 
 	public void iterateOnce() {
-		this.fieldWindow.startIteration();
-		drawAllFishes();
+		createSimulationAndSimulate(1);
 	}
 
 	public void iterateTenTimes() {
-		for (int i = 0; i < 10; i++) {
-			this.fieldWindow.startIteration();
-			drawAllFishes();
-		}
+		createSimulationAndSimulate(10);
 	}
 
 	public void iterateTwentyFiveTimes() {
-		for (int i = 0; i < 25; i++) {
-			this.fieldWindow.startIteration();
-			drawAllFishes();
-		}
+		createSimulationAndSimulate(25);
 
 	}
 
-	private void drawAllFishes() {
-		LOG.debug("Starting initialize worker");
-        FutureTask<Boolean> drawTask = new FutureTask<>(this.drawWorker);
-        Platform.runLater(drawTask);
-		Executors.newFixedThreadPool(1).execute(drawTask);
+	private void createSimulationAndSimulate(int iterations) {
+//		LOG.debug("Starting initialize worker");
+//        ArrayList<DrawControler> tasks = new ArrayList<DrawControler>();
+//        tasks.add(this.drawWorker);
+//        Platform.runLater(drawTask);
+////        try {
+////			ThreadPoolSingleton.getExecutorService().invokeAll(tasks);
+////			Thread.sleep(3000);
+////		} catch (InterruptedException e) {
+////			// TODO Auto-generated catch block
+////			e.printStackTrace();
+////		}
+//        
+//        try {
+//			drawTask.get();
+//		} catch (InterruptedException | ExecutionException e) {
+//			// TODO Auto-generated catch block
+//			LOG.error(e);
+//		}
+		
+		GuiWorker worker = new GuiWorker(fishCanvas, fieldWindow, gc, fieldWindow, iterations);
+        Thread workerThread = new Thread(worker);
+        workerThread.start();
     }
 
 	private void setDefaultValues() {
