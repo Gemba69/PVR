@@ -38,7 +38,7 @@ public class SimulationApp {
 		this.iterations = iterations;
 	}
 	
-	public SimulationApp(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations, int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
+	public SimulationApp(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations, int neighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
 		this.iterations = iterations;
 		
 		setParametersInFischParameters(fieldLength, fieldHeight, fishNumber, threads, neighbours, deathAngle, r1, r2, r3, bodyLength);
@@ -66,7 +66,7 @@ public class SimulationApp {
 		this.field.nextInteration();
 	}
 	
-	public void setParametersInFischParameters(int fieldLength, int fieldHeight, int fishNumber, int threads, int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
+	public void setParametersInFischParameters(int fieldLength, int fieldHeight, int fishNumber, int threads, int neighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
 		FishParameter.ITERATIONS = this.iterations;
 		FishParameter.THREADS = threads;
 		FishParameter.NUMBER_FISH = fishNumber;

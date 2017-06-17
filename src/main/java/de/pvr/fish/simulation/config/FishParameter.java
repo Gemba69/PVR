@@ -16,11 +16,11 @@ public class FishParameter {
 	
 	public static int DEFAULT_DEATH_ANGLE = 30;
 	
-	public static int DEFAULT_RADIUS1 = 1;
-	public static int DEFAULT_RADIUS2 = 3;
-	public static int DEFAULT_RADIUS3 = 5;
+	public static double DEFAULT_RADIUS1 = 0.5;
+	public static double DEFAULT_RADIUS2 = 2;
+	public static double DEFAULT_RADIUS3 = 5;
 	
-	public static int DEFAULT_FISH_BODY_LENGTH = 6;
+	public static int DEFAULT_FISH_BODY_LENGTH = 8;
 	
 	public static int DEFAULT_MAX_SPEED_MULTIPLICATOR = 2;
 	
@@ -39,9 +39,9 @@ public class FishParameter {
 	
 	public static int DEATH_ANGLE = DEFAULT_DEATH_ANGLE;
 	
-	public static int RADIUS1 = DEFAULT_RADIUS1;
-	public static int RADIUS2 = DEFAULT_RADIUS2;
-	public static int RADIUS3 = DEFAULT_RADIUS3;
+	public static double RADIUS1 = DEFAULT_RADIUS1;
+	public static double RADIUS2 = DEFAULT_RADIUS2;
+	public static double RADIUS3 = DEFAULT_RADIUS3;
 	
 	public static int FISH_BODY_LENGTH = DEFAULT_FISH_BODY_LENGTH;
 	
