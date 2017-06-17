@@ -3,6 +3,10 @@ package de.pvr.fish.simulation.view;
 import static de.pvr.fish.simulation.util.WatchAreaType.*;
 
 import org.apache.commons.lang3.time.StopWatch;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -53,6 +57,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class ViewControlerWindow extends Application {
@@ -195,6 +200,7 @@ public class ViewControlerWindow extends Application {
 		this.fieldLengthTextField = new TextField();
 		Label fieldWidthLabel = new Label("Feld Breite:");
 		this.fieldWidthTextField = new TextField();
+		Button saveAsTextButton = new Button("Speichern");
 
 		// Titel Spalte 3 und 4
 		Text fishConfigurationHeading = new Text("Fisch Konfiguration");
@@ -310,6 +316,33 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(fieldWidthLabel, 3, 3);
 		GridPane.setHalignment(fieldWidthTextField, HPos.LEFT);
 		topGrid.add(fieldWidthTextField, 4, 3);
+		
+		//Speichern der Daten
+		GridPane.setHalignment(saveAsTextButton, HPos.RIGHT);
+		topGrid.add(saveAsTextButton, 4, 5);
+		saveAsTextButton.setMinSize(100, 20);
+		saveAsTextButton.setAlignment(Pos.BASELINE_CENTER);
+		saveAsTextButton.setOnAction((ActionEvent event) -> {
+            FileChooser fileChooser = new FileChooser();
+             
+            //Set extension filter
+            FileChooser.ExtensionFilter extFilter = 
+                new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+            fileChooser.getExtensionFilters().add(extFilter);
+             
+            //Show save file dialog
+            File file = fileChooser.showSaveDialog(primaryStage);
+             
+            if(file != null){
+            	// Erster Wert nur zum Testen --> bekomme noch keine Messwerte , wollte gucken obs klappt  
+            	SaveFile(fieldLengthTextField.getText(), file);
+                /*
+            	SaveFile(runtimeTextField.getText(), file);
+                SaveFile(sigmaTextField.getText(), file);
+                SaveFile(phiTextField.getText(), file);
+                SaveFile(kappaTextField.getText(), file); */
+            }}
+            );
 
 		// Spalte 3
 		// DeathAngel
@@ -472,6 +505,18 @@ public class ViewControlerWindow extends Application {
 		});
 	}
 
+	private void SaveFile(String content, File file){
+        try {
+            FileWriter fileWriter;
+              
+            fileWriter = new FileWriter(file);
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (IOException ex) {
+         
+        }
+          
+    }
 	/*
 	 * public static boolean isNumeric(String str) { return
 	 * str.matches("-?\\d+(\\.\\d+)?"); }
