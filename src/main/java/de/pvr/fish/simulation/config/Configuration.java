@@ -30,7 +30,7 @@ public class Configuration {
 
 	public Configuration(int iteration, int threads, int fishNumber, int fieldLength, int fieldHeight,
 			int numberOfNeighbours, int deathAngle, double r1, double r2, double r3, int bodyLength,
-			int maxSpeedMultiplicator, double runtime, double kappa, double sigma, double phi) {
+			 double runtime, double kappa, double sigma, double phi) {
 		this.iteration = iteration;
 		this.threads = threads;
 		this.fishNumber = fishNumber;
@@ -42,11 +42,29 @@ public class Configuration {
 		this.r2 = r2;
 		this.r3 = r3;
 		this.bodyLength = bodyLength;
-		this.maxSpeedMultiplicator = maxSpeedMultiplicator;
 		this.runtime = runtime;
 		this.kappa = kappa;
 		this.sigma = sigma;
 		this.phi = phi;
+	}
+	
+	public Configuration(int iteration, int threads, int fishNumber, int fieldLength, int fieldHeight,
+			int numberOfNeighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
+		this.iteration = iteration;
+		this.threads = threads;
+		this.fishNumber = fishNumber;
+		this.fieldLength = fieldLength;
+		this.fieldHeight = fieldHeight;
+		this.numberOfNeighbours = numberOfNeighbours;
+		this.deathAngle = deathAngle;
+		this.r1 = r1;
+		this.r2 = r2;
+		this.r3 = r3;
+		this.bodyLength = bodyLength;
+		this.runtime = 0;
+		this.kappa = 0;
+		this.sigma = 0;
+		this.phi = 0;
 	}
 
 	public int getIteration() {
@@ -191,6 +209,98 @@ public class Configuration {
 
 	public void setSpeedup(double speedup) {
 		this.speedup = speedup;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + bodyLength;
+		result = prime * result + deathAngle;
+		result = prime * result + fieldHeight;
+		result = prime * result + fieldLength;
+		result = prime * result + fishNumber;
+		result = prime * result + iteration;
+		long temp;
+		temp = Double.doubleToLongBits(kappa);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + maxSpeedMultiplicator;
+		result = prime * result + numberOfNeighbours;
+		temp = Double.doubleToLongBits(phi);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + proccesors;
+		temp = Double.doubleToLongBits(r1);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(r2);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(r3);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(runtime);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(sigma);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(speedup);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + threads;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Configuration other = (Configuration) obj;
+		if (bodyLength != other.bodyLength)
+			return false;
+		if (deathAngle != other.deathAngle)
+			return false;
+		if (fieldHeight != other.fieldHeight)
+			return false;
+		if (fieldLength != other.fieldLength)
+			return false;
+		if (fishNumber != other.fishNumber)
+			return false;
+		if (iteration != other.iteration)
+			return false;
+		if (Double.doubleToLongBits(kappa) != Double.doubleToLongBits(other.kappa))
+			return false;
+		if (maxSpeedMultiplicator != other.maxSpeedMultiplicator)
+			return false;
+		if (numberOfNeighbours != other.numberOfNeighbours)
+			return false;
+		if (Double.doubleToLongBits(phi) != Double.doubleToLongBits(other.phi))
+			return false;
+		if (proccesors != other.proccesors)
+			return false;
+		if (Double.doubleToLongBits(r1) != Double.doubleToLongBits(other.r1))
+			return false;
+		if (Double.doubleToLongBits(r2) != Double.doubleToLongBits(other.r2))
+			return false;
+		if (Double.doubleToLongBits(r3) != Double.doubleToLongBits(other.r3))
+			return false;
+		if (Double.doubleToLongBits(runtime) != Double.doubleToLongBits(other.runtime))
+			return false;
+		if (Double.doubleToLongBits(sigma) != Double.doubleToLongBits(other.sigma))
+			return false;
+		if (Double.doubleToLongBits(speedup) != Double.doubleToLongBits(other.speedup))
+			return false;
+		if (threads != other.threads)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Configuration [iteration=" + iteration + ", threads=" + threads + ", fishNumber=" + fishNumber
+				+ ", fieldLength=" + fieldLength + ", fieldHeight=" + fieldHeight + ", numberOfNeighbours="
+				+ numberOfNeighbours + ", deathAngle=" + deathAngle + ", r1=" + r1 + ", r2=" + r2 + ", r3=" + r3
+				+ ", bodyLength=" + bodyLength + ", maxSpeedMultiplicator=" + maxSpeedMultiplicator + ", runtime="
+				+ runtime + ", kappa=" + kappa + ", sigma=" + sigma + ", phi=" + phi + ", proccesors=" + proccesors
+				+ ", speedup=" + speedup + "]";
 	}
 	
 	

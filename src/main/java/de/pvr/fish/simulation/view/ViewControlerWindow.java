@@ -17,12 +17,14 @@ import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.algorithm.task.CalculateNewPositionTask;
 import de.pvr.fish.simulation.application.SimulationApp;
+import de.pvr.fish.simulation.config.Configuration;
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.config.ThreadPoolSingleton;
 import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.util.WatchAreaType;
 import de.pvr.fish.simulation.util.MeasureUtil;
+import de.pvr.fish.simulation.util.ResultLogging;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -335,7 +337,7 @@ public class ViewControlerWindow extends Application {
              
             if(file != null){
             	// Erster Wert nur zum Testen --> bekomme noch keine Messwerte , wollte gucken obs klappt  
-            	SaveFile(fieldLengthTextField.getText(), file);
+            	saveFile(fieldLengthTextField.getText(), file);
                 /*
             	SaveFile(runtimeTextField.getText(), file);
                 SaveFile(sigmaTextField.getText(), file);
@@ -505,18 +507,12 @@ public class ViewControlerWindow extends Application {
 		});
 	}
 
-	private void SaveFile(String content, File file){
-        try {
-            FileWriter fileWriter;
-              
-            fileWriter = new FileWriter(file);
-            fileWriter.write(content);
-            fileWriter.close();
-        } catch (IOException ex) {
-         
+	private void saveFile(String content, File file){
+		ResultLogging resulLogging = new ResultLogging();
+		resulLogging.addConfig(new Configuration(10, 4, 20, 300, 300, 4, 30, 0.5, 2, 5, 8));
+		resulLogging.writeToCSV(file.getAbsolutePath());
         }
-          
-    }
+
 	/*
 	 * public static boolean isNumeric(String str) { return
 	 * str.matches("-?\\d+(\\.\\d+)?"); }
