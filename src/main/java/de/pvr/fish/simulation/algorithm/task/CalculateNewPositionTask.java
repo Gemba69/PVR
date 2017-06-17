@@ -19,7 +19,8 @@ public class CalculateNewPositionTask extends FishTask {
 
 	private static final Logger LOG = LogManager.getLogger(CalculateNewPositionTask.class);
 
-	public CalculateNewPositionTask(ArrayList<Fish> fishes, ArrayList<Fish> subFishes, int startPositon, int endPosition) {
+	public CalculateNewPositionTask(ArrayList<Fish> fishes, ArrayList<Fish> subFishes, int startPositon,
+			int endPosition) {
 		super(fishes, subFishes, startPositon, endPosition);
 	}
 
@@ -71,22 +72,17 @@ public class CalculateNewPositionTask extends FishTask {
 
 	private ArrayList<Pair<Fish, Radius>> searchInSpecificRadius(Fish fish, int freeCapacity, double minRadusLength,
 			double radiusLength, Radius radius) {
+		LOG.debug("Searchin for Radous " + radius + " from " + minRadusLength + " to " + radiusLength + " with freeCapacity: " + freeCapacity);
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
-
+		double distance;
 		for (Fish potencialNeighbour : fishes) {
-			if (potencialNeighbour != fish
-					&& fish.getPosition().getDiffBetweenPositions(potencialNeighbour.getPosition())
-							.getLength() >= minRadusLength
-					&& fish.getPosition().getDiffBetweenPositions(potencialNeighbour.getPosition())
-							.getLength() < radiusLength
+			distance = fish.getPosition().getDiffBetweenPositions(potencialNeighbour.getPosition()).getLength();
+			if (potencialNeighbour != fish && distance >= minRadusLength && distance < radiusLength
 					&& !fish.isInDeathAngle(potencialNeighbour.getPosition())) {
 				neighbourFishes.add(Pair.of(potencialNeighbour, radius));
 			}
 
 		}
-		// while (neighbourFishes.size() > freeCapacity) {
-		// neighbourFishes.remove(0);
-		// }
 		if (neighbourFishes.size() > freeCapacity) {
 			Collections.sort(neighbourFishes, new Comparator<Pair<Fish, Radius>>() {
 				@Override
@@ -108,12 +104,9 @@ public class CalculateNewPositionTask extends FishTask {
 			for (Pair<Fish, Radius> pair : neighbourFishes) {
 				switch (pair.getRight()) {
 				case R1:
-					newAngle = newAngle
-							+ (Math.min(
-									(CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition())
-											+ 90),
-									(CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition())
-											- 90)));
+					newAngle = newAngle + (Math.min(
+							(CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition()) + 90),
+							(CommonUtil.getAngle(fish.getDiffPosition(), pair.getLeft().getDiffPosition()) - 90)));
 					break;
 				case R2:
 					newAngle = newAngle

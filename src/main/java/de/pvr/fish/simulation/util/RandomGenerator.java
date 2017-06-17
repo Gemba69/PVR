@@ -63,11 +63,8 @@ public class RandomGenerator {
 	
 	public static double getRandomRangeNumber() {
 		LOG.debug("Fish body length: " + FishParameter.FISH_BODY_LENGTH);
-		LOG.debug("Random Speed for Range: " + ((getRandomSpeed(FishParameter.MAX_SPEED_MULTIPLICATOR - 1) + 1) * FishParameter.FISH_BODY_LENGTH));
 		double speed = ((getRandomSpeed(FishParameter.MAX_SPEED_MULTIPLICATOR - 1) + 1) * FishParameter.FISH_BODY_LENGTH);
 		return (getRandomRangeNumber((int) speed * 2) - speed);
-		
-		//return getRandomRangeNumber((int) (getRandomSpeed(FishParameter.MAX_SPEED_MULTIPLICATOR - 1) + 1 ) * FishParameter.FISH_BODY_LENGTH);
 	}
 	
 	public static int getRandomRangeNumber(int number) {

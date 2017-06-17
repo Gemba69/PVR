@@ -121,6 +121,18 @@ public class TestFish {
 		fish = new Fish(new Position(100, 100), new Position(104, 102));
 		targetPosition = new Position (4, 2);
 		assertEquals(targetPosition, fish.getDiffPosition());
+		
+		fish = new Fish(new Position(100, 100), new Position(98, 96));
+		targetPosition = new Position (-2, -4);
+		assertEquals(targetPosition, fish.getDiffPosition());
+		
+		fish = new Fish(new Position(100, 100), new Position(100, 102));
+		targetPosition = new Position (0, 2);
+		assertEquals(targetPosition, fish.getDiffPosition());
+		
+		fish = new Fish(new Position(99,99), new Position(100, 102));
+		targetPosition = new Position (1, 3);
+		assertEquals(targetPosition, fish.getDiffPosition());
 	}
 	
 	@Test

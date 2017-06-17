@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 
 public class MeasureUtil {
 
-	// TODO 3 implement this class
 	private static final Logger LOG = LogManager.getLogger(MeasureUtil.class);
 
 	private static StopWatch runtime = new StopWatch();

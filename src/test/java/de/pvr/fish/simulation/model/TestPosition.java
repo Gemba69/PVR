@@ -68,7 +68,13 @@ public class TestPosition {
 		Position p2 = new Position(102, 102);
 		Position targetPosition = new Position (2, 2);
 		
-		assertEquals(p.getDiffBetweenPositions(p2), targetPosition);
+		assertEquals(targetPosition, p.getDiffBetweenPositions(p2));
+		
+		p = new Position(100, 100);
+		p2 = new Position(98, 98);
+		targetPosition = new Position (-2, -2);
+		
+		assertEquals(targetPosition, p.getDiffBetweenPositions(p2));
 	}
 	
 	@Test

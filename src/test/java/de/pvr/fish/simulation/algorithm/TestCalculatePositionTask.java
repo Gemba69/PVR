@@ -117,4 +117,49 @@ public class TestCalculatePositionTask {
 		
 		assertEquals(72 , iterationTask.calculateNewAngle(fish, neighbourFishes));
 	}
+	
+	@Test
+	public void testCommonUtilgetAngle() {
+		Position p1 = new Position (50, 50);
+		Position p2 = new Position(60, 60);
+		
+		assertEquals(225, CommonUtil.getAngle(p1, p2));
+		assertEquals(45, CommonUtil.getAngle(p2, p1));
+		
+		p1 = new Position (2, 0);
+		p2 = new Position(-3, -7);
+		
+		assertEquals(55, CommonUtil.getAngle(p1, p2));
+		assertEquals(234, CommonUtil.getAngle(p2, p1));
+		
+		p1 = new Position (2, 0);
+		p2 = new Position(1, 0);
+		
+		assertEquals(0, CommonUtil.getAngle(p1, p2));
+		assertEquals(180, CommonUtil.getAngle(p2, p1));
+		
+		p1 = new Position (2, 0);
+		p2 = new Position(1, 3);
+		
+		assertEquals(288, CommonUtil.getAngle(p1, p2));
+		assertEquals(109, CommonUtil.getAngle(p2, p1));
+		
+		p1 = new Position (0, 2);
+		p2 = new Position(1, 3);
+		
+		assertEquals(225, CommonUtil.getAngle(p1, p2));
+		assertEquals(45, CommonUtil.getAngle(p2, p1));
+		
+		p1 = new Position (0, 2);
+		p2 = new Position(1, 0);
+		
+		assertEquals(117, CommonUtil.getAngle(p1, p2));
+		assertEquals(296, CommonUtil.getAngle(p2, p1));
+		
+		p1 = new Position (0, 2);
+		p2 = new Position(1, 3);
+		
+		assertEquals(225, CommonUtil.getAngle(p1, p2));
+		assertEquals(45, CommonUtil.getAngle(p2, p1));
+	}
 }
