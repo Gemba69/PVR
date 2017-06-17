@@ -41,7 +41,10 @@ public class MeasureUtil {
 			watch.suspend();
 			LOG.debug("Time of watch is: " + watch + watch.getTime());
 		}
-
+	}
+	
+	public static void reset(WatchAreaType type) {
+		getWatch(type).reset();
 	}
 
 	public static StopWatch getWatch(WatchAreaType type) {
@@ -132,7 +135,7 @@ public class MeasureUtil {
 		return LOG;
 	}
 	
-    public static long getMeasuredTimeFor(WatchAreaType type) {
+    public static double getMeasuredTimeFor(WatchAreaType type) {
         StopWatch watch = getWatch(type);
         return watch.getNanoTime() / 1000000;
     }

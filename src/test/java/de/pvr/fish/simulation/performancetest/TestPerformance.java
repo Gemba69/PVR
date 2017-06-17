@@ -14,7 +14,6 @@ public class TestPerformance {
 		//MeasureUtil.startWatch(SIGMA);
 
 		SimulationApp appTest = new SimulationApp(600, 600, 1100, 8, 3, 4, 30, 2, 4, 6, 5);
-		appTest.createField(600, 600, 1100, 8);
 		//MeasureUtil.suspend(SIGMA);
 		appTest.startIterations();
 	}

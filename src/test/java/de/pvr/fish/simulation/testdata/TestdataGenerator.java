@@ -14,7 +14,7 @@ public class TestdataGenerator {
 	}
 	
 	public static Field getEmptyField() {
-		Field field = new Field(FishParameter.FIELD_LENGTH, FishParameter.FIELD_HEIGHT, 10 , 2);
+		Field field = new Field(FishParameter.FIELD_LENGTH, FishParameter.FIELD_HEIGHT, 10 );
 		return field;
 	}
 	

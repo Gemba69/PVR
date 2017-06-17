@@ -11,6 +11,7 @@ import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.util.MeasureUtil;
 import de.pvr.fish.simulation.util.RandomGenerator;
+import de.pvr.fish.simulation.util.ThreadPoolSingleton;
 
 public class SimulationApp {
 	
@@ -20,43 +21,31 @@ public class SimulationApp {
 	
 	private static final Logger LOG = LogManager.getLogger(SimulationApp.class);
 
-	public static void main(String[] args) {
-		//TODO 4 Parameter validieren
-		
-		//SimulationApp app = new SimulationApp(FishParameter.FIELD_LENGTH, FishParameter.FIELD_HEIGHT, FishParameter.NUMBER_FISH, FishParameter.THREADS, FishParameter.ITERATIONS);
-		MeasureUtil.startWatch(SIGMA);
-		
-		SimulationApp app = new SimulationApp(600, 600, 1100, 8, 3, 4, 30, 2, 4,6,1);
-		
-		MeasureUtil.startWatch(KAPPA);
-		app.startIterations();
-		MeasureUtil.suspend(KAPPA);
-		MeasureUtil.suspend(SIGMA);
-	}
-	
 	public SimulationApp(int iterations) {
 		this.iterations = iterations;
 	}
 	
 	public SimulationApp(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations, int neighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
+		MeasureUtil.resetAllWatches();
 		this.iterations = iterations;
 		
 		setParametersInFischParameters(fieldLength, fieldHeight, fishNumber, threads, neighbours, deathAngle, r1, r2, r3, bodyLength);
-		createField(fieldLength, fieldHeight, fishNumber, threads);
+		createFieldAndRandomFishes(fieldLength, fieldHeight, fishNumber);
 		
-		LOG.info("Creating new Field " + fieldLength + " x " + fieldHeight + " with " + fishNumber + " Fishes and " + threads + " threads and "+ this.iterations + "iterations." );
+		LOG.info("Created new Field " + fieldLength + " x " + fieldHeight + " with " + fishNumber + " Fishes and " + threads + " threads and "+ this.iterations + "iterations." );
 		LOG.info("Specific Fish Parameters: Body Length: " + bodyLength + ", Neigbours " + neighbours + ", Death Angel: " + deathAngle + " and Radius: " + r1 + " " + r2 + " "+ r3);
+		
+		prepareFieldForThreading(threads);
 	}
 	
-	public void createField(int fieldLength, int fieldHeight, int fishNumber, int threads) {
-		this.field = new Field(fieldLength, fieldHeight, fishNumber, threads);
+	public void createFieldAndRandomFishes(int fieldLength, int fieldHeight, int fishNumber) {
+		this.field = new Field(fieldLength, fieldHeight, fishNumber);
 		createRandomFishes(fishNumber, field.getLength(), field.getHeight());
-		this.field.prepareTaskLists();
 	}
 	
 	public void startIterations() {
 		for (int i = 0; i < this.iterations; i++) {
-			this.field.nextInteration();
+			startIteration();
 		}
 	}
 	
@@ -76,6 +65,14 @@ public class SimulationApp {
 		FishParameter.RADIUS2 = r2;
 		FishParameter.RADIUS3 = r3;
 		FishParameter.FISH_BODY_LENGTH = bodyLength;
+	}
+	
+	private void prepareFieldForThreading(int threads) {
+		LOG.debug("Staring Measuring Kappa");
+		MeasureUtil.startWatch(KAPPA);
+		ThreadPoolSingleton.createNewExecutorService(threads);
+		this.field.prepareTaskLists();
+		MeasureUtil.suspend(KAPPA);
 	}
 
 	private void createRandomFishes(int fishNumber, int fieldLength, int fieldHeight) {

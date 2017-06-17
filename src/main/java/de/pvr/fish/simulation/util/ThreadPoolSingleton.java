@@ -15,11 +15,11 @@ public class ThreadPoolSingleton {
 	}
 
 	public static void createNewExecutorService(int newThreads) {
-		if (threads != newThreads) {
+		//if (threads != newThreads) { -- would be the efficient way, but for meausring it disabled
 			threads = newThreads;
 			FishParameter.THREADS = newThreads;
 			executorService = Executors.newFixedThreadPool(threads);
-		}
+		//}
 	}
 
 	public static int getThreads() {

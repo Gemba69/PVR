@@ -229,11 +229,11 @@ public class ViewControlerWindow extends Application {
 		// Spalte 5
 		Label runtimeLabel = new Label("Laufzeit:");
 		this.runtimeTextField = new TextField();
-		Label kappaLabel = new Label("Sigma:");
+		Label kappaLabel = new Label("Kappa:");
 		this.kappaTextField = new TextField();
 		Label phiLabel = new Label("Phi:");
 		this.phiTextField = new TextField();
-		Label sigmaLabel = new Label("Kappa:");
+		Label sigmaLabel = new Label("Sigma:");
 		this.sigmaTextField = new TextField();
 		Label clockLabel = new Label("Zeit:");
 		this.clockTextField = new TextField();
@@ -424,7 +424,7 @@ public class ViewControlerWindow extends Application {
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				createFieldWindow(Integer.parseInt(fieldLengthTextField.getText()),
+				createAndStartSimulation(Integer.parseInt(fieldLengthTextField.getText()),
 						Integer.parseInt(fieldWidthTextField.getText()), Integer.parseInt(fishField.getText()),
 						Integer.parseInt(threadTextField.getText()), Integer.parseInt(iterationTextField.getText()),
 						Integer.parseInt(neighbourFishTextField.getText()),
@@ -490,7 +490,7 @@ public class ViewControlerWindow extends Application {
 	 * return true; return false; }
 	 */
 
-	public void createFieldWindow(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
+	public void createAndStartSimulation(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
 			int neighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
 		if (this.gc != null && this.fieldWindow != null) {
 			this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
@@ -502,22 +502,22 @@ public class ViewControlerWindow extends Application {
 
 		this.drawWorker = new DrawStep(this.fishCanvas, this.fieldWindow, this.gc);
 		LOG.debug("Start to create Fishes at start position");
-		createSimulationAndSimulate(this.fieldWindow.getIterations());
+		iterateAndDraw(this.fieldWindow.getIterations());
 	}
 
 	public void iterateOnce() {
-		createSimulationAndSimulate(1);
+		iterateAndDraw(1);
 	}
 
 	public void iterateTenTimes() {
-		createSimulationAndSimulate(10);
+		iterateAndDraw(10);
 	}
 
 	public void iterateTwentyFiveTimes() {
-		createSimulationAndSimulate(25);
+		iterateAndDraw(25);
 	}
 
-	private void createSimulationAndSimulate(int iterations) {
+	private void iterateAndDraw(int iterations) {
 
 		GuiTask worker = new GuiTask(fishCanvas, gc, fieldWindow, iterations);
 		Thread workerThread = new Thread(worker);

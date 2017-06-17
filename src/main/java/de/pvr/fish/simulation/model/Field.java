@@ -30,20 +30,12 @@ public class Field {
 
 	private static final Logger LOG = LogManager.getLogger(Field.class);
 
-	public Field(int length, int height, int fishNumber, int threads) {
+	public Field(int length, int height, int fishNumber) {
 		this.length = length;
 		this.height = height;
 		this.fishNumber = fishNumber;
 		fishes = new ArrayList<Fish>();
-		//Overhead
-		MeasureUtil.startWatch(KAPPA);
-		ThreadPoolSingleton.createNewExecutorService(threads);
-		this.calcTasks = new ArrayList<FishTask>();
-		this.newPositionTasks = new ArrayList<FishTask>();
-		MeasureUtil.suspend(KAPPA);
-		this.calcTasks = new ArrayList<FishTask>();
-		this.newPositionTasks = new ArrayList<FishTask>();
-		
+
 	}
 
 	public boolean addNewFishToField(Fish fish) {
@@ -58,6 +50,9 @@ public class Field {
 	public void nextInteration() {
 		LOG.info("Starting overall Iteration");
 		// Execution
+		MeasureUtil.startWatch(SIGMA);
+		MeasureUtil.startWatch(PHI);
+
 		try {
 			ThreadPoolSingleton.getExecutorService().invokeAll(this.calcTasks);
 		} catch (InterruptedException e) {
@@ -70,11 +65,13 @@ public class Field {
 			LOG.error(e.getMessage());
 		}
 		//logFishes(); // only for debugging
+		MeasureUtil.suspend(SIGMA);
+		MeasureUtil.suspend(PHI);
 	}
 
 	public void prepareTaskLists() {
-		this.calcTasks.clear();
-		this.newPositionTasks.clear();
+		this.calcTasks = new ArrayList<FishTask>();
+		this.newPositionTasks = new ArrayList<FishTask>();
 		// split Task
 		int startPosition = 0;
 		ArrayList<Integer> positions = splitTasks();

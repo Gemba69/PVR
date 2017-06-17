@@ -18,7 +18,7 @@ public class TestSimulationApp {
 	public void testCreateRandomFishes() {
 		SimulationApp app = new SimulationApp(600, 600, 1100, 8, 3, 4, 30, 2, 4,6,5);
 		
-		app.createField(600, 600, 1100, 8);
+		app.createFieldAndRandomFishes(600, 600, 1100);
 		
 		FishParameter.resetValuesToDefault();
 		

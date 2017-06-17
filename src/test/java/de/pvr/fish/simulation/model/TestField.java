@@ -17,6 +17,8 @@ public class TestField {
 	public void testSplitTasks() {
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
 		
+		ThreadPoolSingleton.createNewExecutorService(2);
+		
 		ArrayList<Integer> targetList = new ArrayList<Integer>();
 		targetList.add(5);
 		targetList.add(10);
@@ -38,7 +40,7 @@ public class TestField {
 	
 	@Test
 	public void testAddNewFishToField() {
-		Field field = new Field(10, 10, 10, 2);
+		Field field = new Field(10, 10, 10);
 		Fish fish = new Fish(new Position(8, 8), new Position(10, 8));	
 		assertTrue(field.addNewFishToField(fish));
 		
