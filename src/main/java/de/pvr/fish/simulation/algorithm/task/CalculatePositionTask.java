@@ -45,7 +45,7 @@ public class CalculatePositionTask extends FishTask {
 		if (neighbourFishes.size() < FishParameter.NUMBER_OF_NEIGHBOURS) {
 			neighbourFishes.addAll(searchInR3(fish, FishParameter.NUMBER_OF_NEIGHBOURS - neighbourFishes.size()));
 		}
-		LOG.debug("Number of Neigbours is: " + neighbourFishes.size());
+		LOG.debug("Number of Neigbours is: " + neighbourFishes.size() + " and List is " + neighbourFishes);
 		return neighbourFishes;
 	}
 
@@ -69,8 +69,8 @@ public class CalculatePositionTask extends FishTask {
 				FishParameter.RADIUS3 * FishParameter.FISH_BODY_LENGTH, Radius.R3);
 	}
 
-	private ArrayList<Pair<Fish, Radius>> searchInSpecificRadius(Fish fish, int freeCapacity, int minRadusLength,
-			int radiusLength, Radius radius) {
+	private ArrayList<Pair<Fish, Radius>> searchInSpecificRadius(Fish fish, int freeCapacity, double minRadusLength,
+			double radiusLength, Radius radius) {
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
 
 		for (Fish potencialNeighbour : fishes) {

@@ -124,7 +124,7 @@ public class TestFish {
 	
 	@Test
 	public void testGetLengthPosition() {
-		FishParameter.FISH_BODY_LENGTH = FishParameter.DEFAULT_FISH_BODY_LENGTH;
+		FishParameter.FISH_BODY_LENGTH = 6;
 		Fish fish = new Fish(new Position(100, 100), new Position(100, 102));
 		Position targetPosition = new Position(100, 94);
 		assertEquals(targetPosition, fish.getLengthPosition());
@@ -144,6 +144,8 @@ public class TestFish {
 		fish = new Fish(new Position(100, 100), new Position(98, 98));
 		targetPosition = new Position(104, 104);
 		assertEquals(targetPosition, fish.getLengthPosition());
+
+		FishParameter.FISH_BODY_LENGTH = FishParameter.DEFAULT_FISH_BODY_LENGTH;
 	}
 	
 	@Test

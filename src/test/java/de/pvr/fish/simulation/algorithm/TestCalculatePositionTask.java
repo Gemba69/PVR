@@ -34,6 +34,7 @@ public class TestCalculatePositionTask {
 	@Test
 	public void testFindNeighbours() {
 		FishParameter.FISH_BODY_LENGTH = 1;
+		FishParameter.RADIUS2 = 3;
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
 		
 		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
@@ -48,6 +49,7 @@ public class TestCalculatePositionTask {
 		
 		assertEquals(targetNeighbourhood, neighbourhood);
 		FishParameter.FISH_BODY_LENGTH = FishParameter.DEFAULT_FISH_BODY_LENGTH;
+		FishParameter.RADIUS2 = FishParameter.DEFAULT_RADIUS2;
 	}
 	
 	@Test

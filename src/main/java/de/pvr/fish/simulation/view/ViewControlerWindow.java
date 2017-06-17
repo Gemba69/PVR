@@ -420,8 +420,8 @@ public class ViewControlerWindow extends Application {
 						Integer.parseInt(fieldWidthTextField.getText()), Integer.parseInt(fishField.getText()),
 						Integer.parseInt(threadTextField.getText()), Integer.parseInt(iterationTextField.getText()),
 						Integer.parseInt(neighbourFishTextField.getText()),
-						Integer.parseInt(deathAngelTextField.getText()), Integer.parseInt(r1TextField.getText()),
-						Integer.parseInt(r2TextField.getText()), Integer.parseInt(r3TextField.getText()),
+						Integer.parseInt(deathAngelTextField.getText()), Double.parseDouble(r1TextField.getText()),
+						Double.parseDouble(r2TextField.getText()), Double.parseDouble(r3TextField.getText()),
 						Integer.parseInt(fishLengthTextField.getText()));
 
 			}
@@ -510,7 +510,7 @@ public class ViewControlerWindow extends Application {
 	 * this.gc.strokeOval(x1, y1, 2, 2); }
 	 */
 	public void createFieldWindow(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
-			int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
+			int neighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
 		if (this.gc != null && this.fieldWindow != null) {
 			this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
 		}
@@ -563,8 +563,8 @@ public class ViewControlerWindow extends Application {
 		this.deathAngelTextField.setText(Integer.toString(FishParameter.DEFAULT_DEATH_ANGLE));
 		this.neighbourFishTextField.setText(Integer.toString(FishParameter.DEFAULT_NUMBER_OF_NEIGHBOURS));
 		this.fishLengthTextField.setText(Integer.toString(FishParameter.DEFAULT_FISH_BODY_LENGTH));
-		this.r1TextField.setText(Integer.toString(FishParameter.DEFAULT_RADIUS1));
-		this.r2TextField.setText(Integer.toString(FishParameter.DEFAULT_RADIUS2));
-		this.r3TextField.setText(Integer.toString(FishParameter.DEFAULT_RADIUS3));
+		this.r1TextField.setText(String.valueOf(FishParameter.DEFAULT_RADIUS1));
+		this.r2TextField.setText(String.valueOf(FishParameter.DEFAULT_RADIUS2));
+		this.r3TextField.setText(String.valueOf(FishParameter.DEFAULT_RADIUS3));
 	}
 }
