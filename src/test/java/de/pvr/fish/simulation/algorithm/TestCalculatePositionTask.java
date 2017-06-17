@@ -3,7 +3,7 @@ package de.pvr.fish.simulation.algorithm;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
-import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
+import de.pvr.fish.simulation.algorithm.task.CalculateNewPositionTask;
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
@@ -23,7 +23,7 @@ public class TestCalculatePositionTask {
 	
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes2();
 		ArrayList<Fish> fishes = field.getFishes();
-		CalculatePositionTask task = new CalculatePositionTask(fishes, new ArrayList<Fish>(fishes.subList(0, 5)), 0, 5);
+		CalculateNewPositionTask task = new CalculateNewPositionTask(fishes, new ArrayList<Fish>(fishes.subList(0, 5)), 0, 5);
 		try {
 			task.call();
 		} catch (Exception e) {
@@ -37,7 +37,7 @@ public class TestCalculatePositionTask {
 		FishParameter.RADIUS2 = 3;
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
 		
-		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
+		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
 
 		ArrayList<Pair<Fish, Radius>> neighbourhood = iterationTask.findNeighbours(field.getFishes().get(0));
 		
@@ -57,7 +57,7 @@ public class TestCalculatePositionTask {
 		FishParameter.FISH_BODY_LENGTH = 1;
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
 		
-		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
+		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		Fish fish = field.getFishes().get(0);
 		Fish targetFish = new Fish(new Position (100, 100), new Position(100, 102), new Position(99,100));
 
@@ -70,7 +70,7 @@ public class TestCalculatePositionTask {
 	@Test
 	public void testCalculateNewAngle() {
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
-		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
+		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		
 		Fish fish = field.getFishes().get(0);
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
@@ -85,7 +85,7 @@ public class TestCalculatePositionTask {
 	@Test
 	public void testMovementR1() {
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
-		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
+		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		
 		Fish fish = field.getFishes().get(0);
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
@@ -97,7 +97,7 @@ public class TestCalculatePositionTask {
 	@Test
 	public void testMovementR2() {
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
-		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
+		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		
 		Fish fish = field.getFishes().get(0);
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
@@ -109,7 +109,7 @@ public class TestCalculatePositionTask {
 	@Test
 	public void testMovementR3() {
 		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
-		CalculatePositionTask iterationTask = new CalculatePositionTask(field.getFishes(), field.getFishes(), 0, 600);
+		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		
 		Fish fish = field.getFishes().get(0);
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();

@@ -7,11 +7,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.config.FishParameter;
+import de.pvr.fish.simulation.config.ThreadPoolSingleton;
 import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.util.MeasureUtil;
 import de.pvr.fish.simulation.util.RandomGenerator;
-import de.pvr.fish.simulation.util.ThreadPoolSingleton;
 
 public class SimulationApp {
 	

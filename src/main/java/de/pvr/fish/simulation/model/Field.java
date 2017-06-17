@@ -9,11 +9,11 @@ import java.util.concurrent.Executors;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
+import de.pvr.fish.simulation.algorithm.task.CalculateNewPositionTask;
 import de.pvr.fish.simulation.algorithm.task.FishTask;
 import de.pvr.fish.simulation.algorithm.task.SetNewPositionTask;
+import de.pvr.fish.simulation.config.ThreadPoolSingleton;
 import de.pvr.fish.simulation.util.MeasureUtil;
-import de.pvr.fish.simulation.util.ThreadPoolSingleton;
 
 public class Field {
 
@@ -76,7 +76,7 @@ public class Field {
 		int startPosition = 0;
 		ArrayList<Integer> positions = splitTasks();
 		for (Integer endPosition : positions) {
-			this.calcTasks.add(new CalculatePositionTask(this.fishes,
+			this.calcTasks.add(new CalculateNewPositionTask(this.fishes,
 					new ArrayList<Fish>(this.fishes.subList(startPosition, endPosition)), startPosition, endPosition));
 			startPosition = endPosition;
 		}

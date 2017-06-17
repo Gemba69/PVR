@@ -11,12 +11,12 @@ import java.util.concurrent.FutureTask;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
+import de.pvr.fish.simulation.algorithm.task.CalculateNewPositionTask;
 import de.pvr.fish.simulation.application.SimulationApp;
 import de.pvr.fish.simulation.config.FishParameter;
+import de.pvr.fish.simulation.config.ThreadPoolSingleton;
 import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
-import de.pvr.fish.simulation.util.ThreadPoolSingleton;
 import de.pvr.fish.simulation.util.WatchAreaType;
 import de.pvr.fish.simulation.util.MeasureUtil;
 import javafx.application.Application;

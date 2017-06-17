@@ -1,9 +1,7 @@
-package de.pvr.fish.simulation.util;
+package de.pvr.fish.simulation.config;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import de.pvr.fish.simulation.config.FishParameter;
 
 public class ThreadPoolSingleton {
 

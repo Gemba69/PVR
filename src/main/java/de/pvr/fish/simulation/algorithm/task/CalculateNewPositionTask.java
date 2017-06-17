@@ -15,11 +15,11 @@ import de.pvr.fish.simulation.util.RandomGenerator;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-public class CalculatePositionTask extends FishTask {
+public class CalculateNewPositionTask extends FishTask {
 
-	private static final Logger LOG = LogManager.getLogger(CalculatePositionTask.class);
+	private static final Logger LOG = LogManager.getLogger(CalculateNewPositionTask.class);
 
-	public CalculatePositionTask(ArrayList<Fish> fishes, ArrayList<Fish> subFishes, int startPositon, int endPosition) {
+	public CalculateNewPositionTask(ArrayList<Fish> fishes, ArrayList<Fish> subFishes, int startPositon, int endPosition) {
 		super(fishes, subFishes, startPositon, endPosition);
 	}
 
