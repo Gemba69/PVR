@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.model.Fish;
 
+
 public class SetNewPositionTask extends FishTask{
 	
 	public SetNewPositionTask(ArrayList<Fish> fishes, ArrayList<Fish> subFishes, int startPositon, int endPosition) {

@@ -7,7 +7,6 @@ import org.apache.commons.lang.time.StopWatch;
 import de.pvr.fish.simulation.application.SimulationApp;
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Fish;
-import de.pvr.fish.simulation.util.MeasureUtil;
 import de.pvr.fish.simulation.util.WatchAreaType;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;

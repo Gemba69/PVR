@@ -3,7 +3,6 @@ package de.pvr.fish.simulation.model;
 import org.junit.Test;
 
 import de.pvr.fish.simulation.model.Fish;
-import de.pvr.fish.simulation.model.Position;
 import de.pvr.fish.simulation.testdata.TestdataGenerator;
 
 import static org.junit.Assert.*;
