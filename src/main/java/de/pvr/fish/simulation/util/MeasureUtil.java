@@ -9,22 +9,22 @@ public class MeasureUtil {
 	// TODO 3 implement this class
 	private static final Logger LOG = LogManager.getLogger(MeasureUtil.class);
 
-	public static StopWatch runtime = new StopWatch();
-	public static StopWatch sigma = new StopWatch();
-	public static StopWatch kappa = new StopWatch();
-	public static StopWatch phi = new StopWatch();
-	public static StopWatch simulation = new StopWatch();
-	public static StopWatch thread = new StopWatch();
-	public static StopWatch iteration = new StopWatch();
+	private static StopWatch runtime = new StopWatch();
+	private static StopWatch sigma = new StopWatch();
+	private static StopWatch kappa = new StopWatch();
+	private static StopWatch phi = new StopWatch();
+	private static StopWatch simulation = new StopWatch();
+	private static StopWatch thread = new StopWatch();
+	private static StopWatch iteration = new StopWatch();
 
-	public void resetAllWatches() {
-		this.runtime = new StopWatch();
-		this.sigma = new StopWatch();
-		this.kappa = new StopWatch();
-		this.phi = new StopWatch();
-		this.simulation = new StopWatch();
-		this.thread = new StopWatch();
-		this.iteration = new StopWatch();
+	public static void resetAllWatches() {
+		runtime = new StopWatch();
+		sigma = new StopWatch();
+		kappa = new StopWatch();
+		phi = new StopWatch();
+		simulation = new StopWatch();
+		thread = new StopWatch();
+		iteration = new StopWatch();
 	}
 
 	public static void startWatch(WatchAreaType type) {
@@ -64,4 +64,76 @@ public class MeasureUtil {
 			return null;
 		}
 	}
+	
+	public static void logAllWatches() {
+		LOG.info("Time of Runtime is: " + runtime.getTime());
+		LOG.info("Time of Sigma is: " + sigma.getTime());
+		LOG.info("Time of Kappa is: " + kappa.getTime());
+		LOG.info("Time of Phi is: " + phi.getTime());
+	}
+
+	public static StopWatch getRuntime() {
+		return runtime;
+	}
+
+	public static void setRuntime(StopWatch runtime) {
+		MeasureUtil.runtime = runtime;
+	}
+
+	public static StopWatch getSigma() {
+		return sigma;
+	}
+
+	public static void setSigma(StopWatch sigma) {
+		MeasureUtil.sigma = sigma;
+	}
+
+	public static StopWatch getKappa() {
+		return kappa;
+	}
+
+	public static void setKappa(StopWatch kappa) {
+		MeasureUtil.kappa = kappa;
+	}
+
+	public static StopWatch getPhi() {
+		return phi;
+	}
+
+	public static void setPhi(StopWatch phi) {
+		MeasureUtil.phi = phi;
+	}
+
+	public static StopWatch getSimulation() {
+		return simulation;
+	}
+
+	public static void setSimulation(StopWatch simulation) {
+		MeasureUtil.simulation = simulation;
+	}
+
+	public static StopWatch getThread() {
+		return thread;
+	}
+
+	public static void setThread(StopWatch thread) {
+		MeasureUtil.thread = thread;
+	}
+
+	public static StopWatch getIteration() {
+		return iteration;
+	}
+
+	public static void setIteration(StopWatch iteration) {
+		MeasureUtil.iteration = iteration;
+	}
+
+	public static Logger getLog() {
+		return LOG;
+	}
+	
+    public static long getMeasuredTimeFor(WatchAreaType type) {
+        StopWatch watch = getWatch(type);
+        return watch.getNanoTime() / 1000000;
+    }
 }

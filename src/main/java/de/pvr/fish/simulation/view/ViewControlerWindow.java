@@ -21,6 +21,7 @@ import de.pvr.fish.simulation.util.WatchAreaType;
 import de.pvr.fish.simulation.util.MeasureUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -70,26 +71,24 @@ public class ViewControlerWindow extends Application {
 	private GraphicsContext gc = fishCanvas.getGraphicsContext2D();
 	private static MeasureUtil measureUtil;
 
-	TextField iterationTextField;
-	TextField threadTextField;
-	TextField fishField;
-	TextField fieldLengthTextField;
-	TextField fieldWidthTextField;
-	TextField deathAngelTextField;
-	TextField neighbourFishTextField;
-	TextField fishLengthTextField;
-	TextField r1TextField;
-	TextField r2TextField;
-	TextField r3TextField;
-	TextField runtimeTextField;
-	TextField kappaTextField;
-	TextField phiTextField;
-	TextField sigmaTextField;
-	TextField clockTexField;
-	TextField mValueTextField5;
+	private TextField iterationTextField;
+	private TextField threadTextField;
+	private TextField fishField;
+	private TextField fieldLengthTextField;
+	private TextField fieldWidthTextField;
+	private TextField deathAngelTextField;
+	private TextField neighbourFishTextField;
+	private TextField fishLengthTextField;
+	private TextField r1TextField;
+	private TextField r2TextField;
+	private TextField r3TextField;
+	private TextField runtimeTextField;
+	private TextField kappaTextField;
+	private TextField phiTextField;
+	private TextField sigmaTextField;
+	private TextField clockTextField;
 
-	private DrawControler drawWorker;
-	private FutureTask<Boolean> drawTask;
+	private DrawStep drawWorker;
 
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -229,15 +228,15 @@ public class ViewControlerWindow extends Application {
 
 		// Spalte 5
 		Label runtimeLabel = new Label("Laufzeit:");
-		TextField runtimeTextField = new TextField();
+		this.runtimeTextField = new TextField();
 		Label kappaLabel = new Label("Sigma:");
-		TextField kappaTextField = new TextField();
+		this.kappaTextField = new TextField();
 		Label phiLabel = new Label("Phi:");
-		TextField phiTextField = new TextField();
+		this.phiTextField = new TextField();
 		Label sigmaLabel = new Label("Kappa:");
-		TextField sigmaTextField = new TextField();
+		this.sigmaTextField = new TextField();
 		Label clockLabel = new Label("Zeit:");
-		TextField clockTextField = new TextField();
+		this.clockTextField = new TextField();
 
 		// -----------------------------------------------
 
@@ -362,8 +361,6 @@ public class ViewControlerWindow extends Application {
 		runtimeTextField.setEditable(false);
 		runtimeTextField.setMouseTransparent(true);
 		runtimeTextField.setFocusTraversable(false);
-		runtimeTextField.setText("0,00");
-		runtimeTextField.getText();
 
 		// Sigma
 		GridPane.setHalignment(sigmaLabel, HPos.LEFT);
@@ -373,8 +370,6 @@ public class ViewControlerWindow extends Application {
 		sigmaTextField.setEditable(false);
 		sigmaTextField.setMouseTransparent(true);
 		sigmaTextField.setFocusTraversable(false);
-		sigmaTextField.setText("0,00");
-		sigmaTextField.getText();
 
 		// Phi
 		GridPane.setHalignment(phiLabel, HPos.LEFT);
@@ -384,8 +379,6 @@ public class ViewControlerWindow extends Application {
 		phiTextField.setEditable(false);
 		phiTextField.setMouseTransparent(true);
 		phiTextField.setFocusTraversable(false);
-		phiTextField.setText("0,00");
-		phiTextField.getText();
 
 		// Kappa
 		GridPane.setHalignment(kappaLabel, HPos.LEFT);
@@ -401,7 +394,7 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(clockLabel, 12, 5);
 		GridPane.setHalignment(clockTextField, HPos.LEFT);
 		topGrid.add(clockTextField, 13, 5);
-		clockTextField.setEditable(false);
+		//clockTextField.setEditable(false);
 		clockTextField.setMouseTransparent(true);
 		clockTextField.setFocusTraversable(false);
 
@@ -435,8 +428,8 @@ public class ViewControlerWindow extends Application {
 						Integer.parseInt(fieldWidthTextField.getText()), Integer.parseInt(fishField.getText()),
 						Integer.parseInt(threadTextField.getText()), Integer.parseInt(iterationTextField.getText()),
 						Integer.parseInt(neighbourFishTextField.getText()),
-						Integer.parseInt(deathAngelTextField.getText()), Integer.parseInt(r1TextField.getText()),
-						Integer.parseInt(r2TextField.getText()), Integer.parseInt(r3TextField.getText()),
+						Integer.parseInt(deathAngelTextField.getText()), Double.parseDouble(r1TextField.getText()),
+						Double.parseDouble(r2TextField.getText()), Double.parseDouble(r3TextField.getText()),
 						Integer.parseInt(fishLengthTextField.getText()));
 
 			}
@@ -498,8 +491,7 @@ public class ViewControlerWindow extends Application {
 	 */
 
 	public void createFieldWindow(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
-			int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
-		MeasureUtil.startWatch(RUNTIME);
+			int neighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
 		if (this.gc != null && this.fieldWindow != null) {
 			this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
 		}
@@ -508,20 +500,9 @@ public class ViewControlerWindow extends Application {
 				deathAngle, r1, r2, r3, bodyLength);
 		this.fishCanvas = new Canvas(fieldLength, fieldHeight);
 
-		this.drawWorker = new DrawControler(this.fishCanvas, this.fieldWindow, this.gc);
-		this.drawTask = new FutureTask<>(this.drawWorker);
+		this.drawWorker = new DrawStep(this.fishCanvas, this.fieldWindow, this.gc);
 		LOG.debug("Start to create Fishes at start position");
 		createSimulationAndSimulate(this.fieldWindow.getIterations());
-		MeasureUtil.suspend(RUNTIME);
-		showAllMeasures();
-
-	}
-
-	public void showAllMeasures() {
-		runtimeTextField.setText(String.valueOf(MeasureUtil.runtime.getNanoTime() / 1000000));
-		sigmaTextField.setText(String.valueOf(MeasureUtil.sigma.getNanoTime() / 1000000));
-		phiTextField.setText(String.valueOf(MeasureUtil.phi.getNanoTime() / 1000000));
-		kappaTextField.setText(String.valueOf(MeasureUtil.kappa.getNanoTime() / 1000000));
 	}
 
 	public void iterateOnce() {
@@ -534,12 +515,11 @@ public class ViewControlerWindow extends Application {
 
 	public void iterateTwentyFiveTimes() {
 		createSimulationAndSimulate(25);
-
 	}
 
 	private void createSimulationAndSimulate(int iterations) {
 
-		GuiWorker worker = new GuiWorker(fishCanvas, fieldWindow, gc, fieldWindow, iterations);
+		GuiTask worker = new GuiTask(fishCanvas, gc, fieldWindow, iterations);
 		Thread workerThread = new Thread(worker);
 		workerThread.start();
 	}
@@ -557,5 +537,50 @@ public class ViewControlerWindow extends Application {
 		this.r2TextField.setText(String.valueOf(FishParameter.DEFAULT_RADIUS2));
 		this.r3TextField.setText(String.valueOf(FishParameter.DEFAULT_RADIUS3));
 	}
+	
+	private class GuiTask extends Task<Void> {
 
+		private Canvas fishCanvas;
+		private GraphicsContext gc;
+		private SimulationApp app;
+		private int iterations;
+
+		
+
+		public GuiTask(Canvas fishCanvas, GraphicsContext gc, SimulationApp app, int iterations) {
+			super();
+			this.fishCanvas = fishCanvas;
+			this.gc = gc;
+			this.app = app;
+			this.iterations = iterations;
+		}
+
+		@Override
+		protected Void call() throws Exception {
+			DrawStep drawWorker = new DrawStep(fishCanvas, app, gc);
+			MeasureUtil.resetAllWatches();
+			MeasureUtil.startWatch(RUNTIME);
+			for (int i = 0; i < this.iterations; i++) {
+				this.app.startIteration();
+				FutureTask<Boolean> drawTask = new FutureTask<>(drawWorker);
+				Platform.runLater(drawTask);
+				try {
+					drawTask.get();
+				} catch (InterruptedException | ExecutionException e) {
+					LOG.error(e);
+				}
+			}
+			MeasureUtil.suspend(RUNTIME);
+			showAllMeasures();
+			return null;
+		}
+	    
+		private void showAllMeasures() {
+			MeasureUtil.logAllWatches();
+			runtimeTextField.setText(String.valueOf(MeasureUtil.getMeasuredTimeFor(RUNTIME)));
+			sigmaTextField.setText(String.valueOf(MeasureUtil.getMeasuredTimeFor(SIGMA)));
+			phiTextField.setText(String.valueOf(MeasureUtil.getMeasuredTimeFor(PHI)));
+			kappaTextField.setText(String.valueOf(MeasureUtil.getMeasuredTimeFor(KAPPA)));
+		}
+	}
 }

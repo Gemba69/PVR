@@ -13,15 +13,15 @@ import javafx.scene.canvas.GraphicsContext;
 
 import javafx.application.Platform;
 
-public class DrawControler implements Callable<Boolean> {
+public class DrawStep implements Callable<Boolean> {
 
-	private static final Logger LOG = LogManager.getLogger(DrawControler.class);
+	private static final Logger LOG = LogManager.getLogger(DrawStep.class);
 
 	private Canvas fishCanvas;
 	private SimulationApp fieldWindow;
 	private GraphicsContext gc;
 
-	public DrawControler(Canvas fishCanvas, SimulationApp fieldWindow, GraphicsContext gc) {
+	public DrawStep(Canvas fishCanvas, SimulationApp fieldWindow, GraphicsContext gc) {
 		super();
 		this.fishCanvas = fishCanvas;
 		this.fieldWindow = fieldWindow;
