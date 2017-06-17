@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.testdata.TestdataGenerator;
+import de.pvr.fish.simulation.util.ThreadPoolSingleton;
 
 import static org.junit.Assert.*;
 
@@ -22,7 +23,7 @@ public class TestField {
 		assertEquals(targetList, field.splitTasks());
 		
 		field.setFishNumber(120);
-		field.setThreads(7);
+		ThreadPoolSingleton.createNewExecutorService(7);
 		targetList = new ArrayList<Integer>();
 		targetList.add(17);
 		targetList.add(34);
@@ -32,6 +33,7 @@ public class TestField {
 		targetList.add(102);
 		targetList.add(120);
 		assertEquals(targetList, field.splitTasks());
+		ThreadPoolSingleton.reset();
 	}
 	
 	@Test

@@ -526,11 +526,6 @@ public class ViewControlerWindow extends Application {
 		this.drawWorker = new DrawControler(this.fishCanvas, this.fieldWindow, this.gc);
 		this.drawTask = new FutureTask<>(this.drawWorker);
 		LOG.debug("Start to create Fishes at start position");
-//		drawAllFishes();
-//		for (int i = 0; i < iterations; i++) {
-//			this.fieldWindow.startIteration();
-//			drawAllFishes();
-//		}
 		createSimulationAndSimulate(this.fieldWindow.getIterations());
 	}
 
@@ -548,24 +543,6 @@ public class ViewControlerWindow extends Application {
 	}
 
 	private void createSimulationAndSimulate(int iterations) {
-//		LOG.debug("Starting initialize worker");
-//        ArrayList<DrawControler> tasks = new ArrayList<DrawControler>();
-//        tasks.add(this.drawWorker);
-//        Platform.runLater(drawTask);
-////        try {
-////			ThreadPoolSingleton.getExecutorService().invokeAll(tasks);
-////			Thread.sleep(3000);
-////		} catch (InterruptedException e) {
-////			// TODO Auto-generated catch block
-////			e.printStackTrace();
-////		}
-//        
-//        try {
-//			drawTask.get();
-//		} catch (InterruptedException | ExecutionException e) {
-//			// TODO Auto-generated catch block
-//			LOG.error(e);
-//		}
 		
 		GuiWorker worker = new GuiWorker(fishCanvas, fieldWindow, gc, fieldWindow, iterations);
         Thread workerThread = new Thread(worker);

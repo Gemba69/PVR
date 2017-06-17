@@ -18,7 +18,6 @@ public class Field {
 	private int length;
 	private int height;
 
-	private int threads;
 	private int fishNumber;
 
 	private ArrayList<FishTask> calcTasks;
@@ -30,11 +29,12 @@ public class Field {
 		this.length = length;
 		this.height = height;
 		this.fishNumber = fishNumber;
-		this.threads = threads;
 		fishes = new ArrayList<Fish>();
 
 		this.calcTasks = new ArrayList<FishTask>();
 		this.newPositionTasks = new ArrayList<FishTask>();
+		
+		ThreadPoolSingleton.createNewExecutorService(threads);
 
 	}
 
@@ -85,8 +85,8 @@ public class Field {
 
 	public ArrayList<Integer> splitTasks() {
 		ArrayList<Integer> positions = new ArrayList<Integer>();
-		for (int i = 0; i < threads - 1; i++) {
-			positions.add(fishNumber / threads * (i + 1));
+		for (int i = 0; i < ThreadPoolSingleton.getThreads() - 1; i++) {
+			positions.add(fishNumber / ThreadPoolSingleton.getThreads() * (i + 1));
 		}
 		positions.add(fishNumber);
 		return positions;
@@ -143,14 +143,6 @@ public class Field {
 
 	public static Logger getLog() {
 		return LOG;
-	}
-
-	public int getThreads() {
-		return threads;
-	}
-
-	public void setThreads(int threads) {
-		this.threads = threads;
 	}
 
 	public int getFishNumber() {
