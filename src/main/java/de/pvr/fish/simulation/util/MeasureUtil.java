@@ -28,20 +28,23 @@ public class MeasureUtil {
 	}
 
 	public static void startWatch(WatchAreaType type) {
-		if (!getWatchAreaType(type).isStarted()) {
-			getWatchAreaType(type).start();
+		if (!getWatch(type).isStarted()) {
+			getWatch(type).start();
 		} else {
-			getWatchAreaType(type).resume();
+			getWatch(type).resume();
 		}
 	}
 
 	public static void suspend(WatchAreaType type) {
-		StopWatch watch = getWatchAreaType(type);
-		watch.suspend();
-		LOG.debug("Time of watch is: " + watch + watch.getTime());
+		StopWatch watch = getWatch(type);
+		if (watch.isStarted()) {
+			watch.suspend();
+			LOG.debug("Time of watch is: " + watch + watch.getTime());
+		}
+
 	}
 
-	public static StopWatch getWatchAreaType(WatchAreaType type) {
+	public static StopWatch getWatch(WatchAreaType type) {
 		switch (type) {
 		case RUNTIME:
 			return runtime;

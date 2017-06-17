@@ -1,16 +1,22 @@
 package de.pvr.fish.simulation.view;
 
-import static de.pvr.fish.simulation.util.WatchAreaType.PHI;
-import static de.pvr.fish.simulation.util.WatchAreaType.SIGMA;
-import static de.pvr.fish.simulation.util.WatchAreaType.KAPPA;
-import static de.pvr.fish.simulation.util.WatchAreaType.RUNTIME;
-
+import static de.pvr.fish.simulation.util.WatchAreaType.*;
 
 import org.apache.commons.lang3.time.StopWatch;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
 import de.pvr.fish.simulation.application.SimulationApp;
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
+import de.pvr.fish.simulation.util.ThreadPoolSingleton;
 import de.pvr.fish.simulation.util.WatchAreaType;
 import de.pvr.fish.simulation.util.MeasureUtil;
 import javafx.application.Application;
@@ -50,6 +56,8 @@ import javafx.stage.Stage;
 
 public class ViewControlerWindow extends Application {
 
+	private static final Logger LOG = LogManager.getLogger(ViewControlerWindow.class);
+
 	private static double Width = 600;
 	private static double Height = 600;
 	private GridPane topGrid;
@@ -78,6 +86,10 @@ public class ViewControlerWindow extends Application {
 	TextField phiTextField;
 	TextField sigmaTextField;
 	TextField clockTexField;
+	TextField mValueTextField5;
+
+	private DrawControler drawWorker;
+	private FutureTask<Boolean> drawTask;
 
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -466,8 +478,7 @@ public class ViewControlerWindow extends Application {
 			System.exit(0);
 		});
 	}
-	
-	
+
 	/*
 	 * public static boolean isNumeric(String str) { return
 	 * str.matches("-?\\d+(\\.\\d+)?"); }
@@ -486,75 +497,51 @@ public class ViewControlerWindow extends Application {
 	 * return true; return false; }
 	 */
 
-	private void drawFish(double x1, double y1, double x2, double y2) {
-		this.gc.strokeLine(x1, y1, x2, y2);
-		this.gc.strokeOval(x1 - 1, y1 - 1, 3, 3);
-
-	}
-
-	//	clockTexField.setText(String.valueOf(MeasureUti));
-	//	kappaTextField.setText(Integer.toString((int) (MeasureUtil.kappa.getNanoTime() / 1000000)));
-	//	phiTextField.setText(Integer.toString((int) (MeasureUtil.phi.getNanoTime() / 1000000)));
-
-	
-	/*
-	 * // Größe ändern nachdem Start gedrückt wird private void
-	 * redrawFish(double x1, double y1, double x2, double y2) {
-	 * gc.setStroke(Color.ALICEBLUE); gc.fillRect(0, 0, bottomCanvas.getWidth(),
-	 * bottomCanvas.getHeight()); this.gc.strokeLine(x1, y1, x2, y2);
-	 * this.gc.strokeOval(x1, y1, 2, 2); }
-	 */
 	public void createFieldWindow(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
 			int neighbours, int deathAngle, int r1, int r2, int r3, int bodyLength) {
 		MeasureUtil.startWatch(RUNTIME);
 		if (this.gc != null && this.fieldWindow != null) {
 			this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
 		}
+		LOG.debug("Start to create a new SimulationApp");
 		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
 				deathAngle, r1, r2, r3, bodyLength);
 		this.fishCanvas = new Canvas(fieldLength, fieldHeight);
 
-		drawAllFishes();
-		for (int i = 0; i < iterations; i++) {
-			this.fieldWindow.startIteration();
-			drawAllFishes();
-		}
+		this.drawWorker = new DrawControler(this.fishCanvas, this.fieldWindow, this.gc);
+		this.drawTask = new FutureTask<>(this.drawWorker);
+		LOG.debug("Start to create Fishes at start position");
+		createSimulationAndSimulate(this.fieldWindow.getIterations());
 		MeasureUtil.suspend(RUNTIME);
 		showAllMeasures();
 
-		}
-		
+	}
+
 	public void showAllMeasures() {
 		runtimeTextField.setText(String.valueOf(MeasureUtil.runtime.getNanoTime() / 1000000));
 		sigmaTextField.setText(String.valueOf(MeasureUtil.sigma.getNanoTime() / 1000000));
 		phiTextField.setText(String.valueOf(MeasureUtil.phi.getNanoTime() / 1000000));
 		kappaTextField.setText(String.valueOf(MeasureUtil.kappa.getNanoTime() / 1000000));
 	}
+
 	public void iterateOnce() {
-		this.fieldWindow.startIteration();
-		drawAllFishes();
+		createSimulationAndSimulate(1);
 	}
 
 	public void iterateTenTimes() {
-		for (int i = 0; i < 10; i++) {
-			this.fieldWindow.startIteration();
-			drawAllFishes();
-		}
+		createSimulationAndSimulate(10);
 	}
 
 	public void iterateTwentyFiveTimes() {
-		for (int i = 0; i < 25; i++) {
-			this.fieldWindow.startIteration();
-			drawAllFishes();
-		}
+		createSimulationAndSimulate(25);
 
 	}
-	private void drawAllFishes() {
-		this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
-		for (Fish fish : this.fieldWindow.getField().getFishes()) {
-			drawFish(fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY(),
-					fish.getLengthPosition().getCoordinateX(), fish.getLengthPosition().getCoordinateY());
-		}
+
+	private void createSimulationAndSimulate(int iterations) {
+
+		GuiWorker worker = new GuiWorker(fishCanvas, fieldWindow, gc, fieldWindow, iterations);
+		Thread workerThread = new Thread(worker);
+		workerThread.start();
 	}
 
 	private void setDefaultValues() {
@@ -566,9 +553,9 @@ public class ViewControlerWindow extends Application {
 		this.deathAngelTextField.setText(Integer.toString(FishParameter.DEFAULT_DEATH_ANGLE));
 		this.neighbourFishTextField.setText(Integer.toString(FishParameter.DEFAULT_NUMBER_OF_NEIGHBOURS));
 		this.fishLengthTextField.setText(Integer.toString(FishParameter.DEFAULT_FISH_BODY_LENGTH));
-		this.r1TextField.setText(Integer.toString(FishParameter.DEFAULT_RADIUS1));
-		this.r2TextField.setText(Integer.toString(FishParameter.DEFAULT_RADIUS2));
-		this.r3TextField.setText(Integer.toString(FishParameter.DEFAULT_RADIUS3));
+		this.r1TextField.setText(String.valueOf(FishParameter.DEFAULT_RADIUS1));
+		this.r2TextField.setText(String.valueOf(FishParameter.DEFAULT_RADIUS2));
+		this.r3TextField.setText(String.valueOf(FishParameter.DEFAULT_RADIUS3));
 	}
-	
+
 }

@@ -8,22 +8,15 @@ import org.junit.Test;
 
 public class TestPerformance {
 
-	private MeasureUtil measureUtil;
-
 	@Test
 	public void TestPerformance() {
 
-		this.measureUtil = new MeasureUtil();
+		//MeasureUtil.startWatch(SIGMA);
 
-		this.measureUtil.startWatch(SIGMA);
-
-		SimulationApp appTest = new SimulationApp(600, 600, 1100, 8, 3, 4, 30, 2, 4, 6, 1);
+		SimulationApp appTest = new SimulationApp(600, 600, 1100, 8, 3, 4, 30, 2, 4, 6, 5);
 		appTest.createField(600, 600, 1100, 8);
-		measureUtil.suspend(SIGMA);
+		//MeasureUtil.suspend(SIGMA);
 		appTest.startIterations();
-
-		
-
 	}
 
 	// TODO implement Measuring test

@@ -55,10 +55,8 @@ public class SimulationApp {
 	}
 	
 	public void startIterations() {
-		MeasureUtil.startWatch(KAPPA);
 		for (int i = 0; i < this.iterations; i++) {
 			this.field.nextInteration();
-		MeasureUtil.suspend(KAPPA);
 		}
 	}
 	

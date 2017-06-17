@@ -16,7 +16,7 @@ public class TestSimulationApp {
 	
 	@Test
 	public void testCreateRandomFishes() {
-		SimulationApp app = new SimulationApp(600, 600, 1100, 8, 3, 4, 30, 2, 4,6,1);
+		SimulationApp app = new SimulationApp(600, 600, 1100, 8, 3, 4, 30, 2, 4,6,5);
 		
 		app.createField(600, 600, 1100, 8);
 		
@@ -26,7 +26,7 @@ public class TestSimulationApp {
 	
 	@Test
 	public void testThreeIterations() {
-		SimulationApp app = new SimulationApp(600, 600, 10, 8, 3, 4, 30, 2, 4,6,1);
+		SimulationApp app = new SimulationApp(600, 600, 10, 8, 3, 4, 30, 2, 4,6,5);
 		app.setField(TestdataGenerator.getFieldWithSpecific10Fishes());
 		ArrayList<Fish> fishes = TestdataGenerator.getFieldWithSpecific10Fishes().getFishes();
 		app.startIteration();

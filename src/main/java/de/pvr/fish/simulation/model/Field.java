@@ -13,6 +13,7 @@ import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
 import de.pvr.fish.simulation.algorithm.task.FishTask;
 import de.pvr.fish.simulation.algorithm.task.SetNewPositionTask;
 import de.pvr.fish.simulation.util.MeasureUtil;
+import de.pvr.fish.simulation.util.ThreadPoolSingleton;
 
 public class Field {
 
@@ -20,10 +21,8 @@ public class Field {
 	private int length;
 	private int height;
 
-	private int threads;
 	private int fishNumber;
 
-	private ExecutorService executorService;
 	private ArrayList<FishTask> calcTasks;
 	private ArrayList<FishTask> newPositionTasks;
 	
@@ -35,16 +34,16 @@ public class Field {
 		this.length = length;
 		this.height = height;
 		this.fishNumber = fishNumber;
-		this.threads = threads;
 		fishes = new ArrayList<Fish>();
-		
 		//Overhead
 		MeasureUtil.startWatch(KAPPA);
-		this.executorService = Executors.newFixedThreadPool(threads);
+		ThreadPoolSingleton.createNewExecutorService(threads);
 		this.calcTasks = new ArrayList<FishTask>();
 		this.newPositionTasks = new ArrayList<FishTask>();
 		MeasureUtil.suspend(KAPPA);
-
+		this.calcTasks = new ArrayList<FishTask>();
+		this.newPositionTasks = new ArrayList<FishTask>();
+		
 	}
 
 	public boolean addNewFishToField(Fish fish) {
@@ -60,17 +59,17 @@ public class Field {
 		LOG.info("Starting overall Iteration");
 		// Execution
 		try {
-			this.executorService.invokeAll(this.calcTasks);
+			ThreadPoolSingleton.getExecutorService().invokeAll(this.calcTasks);
 		} catch (InterruptedException e) {
 			LOG.error(e.getMessage());
 		}
 		// 2. Execution
 		try {
-			this.executorService.invokeAll(this.newPositionTasks);
+			ThreadPoolSingleton.getExecutorService().invokeAll(this.newPositionTasks);
 		} catch (InterruptedException e) {
 			LOG.error(e.getMessage());
 		}
-		logFishes(); // only fpr debugging
+		//logFishes(); // only for debugging
 	}
 
 	public void prepareTaskLists() {
@@ -94,8 +93,8 @@ public class Field {
 
 	public ArrayList<Integer> splitTasks() {
 		ArrayList<Integer> positions = new ArrayList<Integer>();
-		for (int i = 0; i < threads - 1; i++) {
-			positions.add(fishNumber / threads * (i + 1));
+		for (int i = 0; i < ThreadPoolSingleton.getThreads() - 1; i++) {
+			positions.add(fishNumber / ThreadPoolSingleton.getThreads() * (i + 1));
 		}
 		positions.add(fishNumber);
 		return positions;
@@ -134,14 +133,6 @@ public class Field {
 		this.height = height;
 	}
 
-	public ExecutorService getExecutorService() {
-		return executorService;
-	}
-
-	public void setExecutorService(ExecutorService executorService) {
-		this.executorService = executorService;
-	}
-
 	public ArrayList<FishTask> getCalcTasks() {
 		return calcTasks;
 	}
@@ -160,14 +151,6 @@ public class Field {
 
 	public static Logger getLog() {
 		return LOG;
-	}
-
-	public int getThreads() {
-		return threads;
-	}
-
-	public void setThreads(int threads) {
-		this.threads = threads;
 	}
 
 	public int getFishNumber() {

@@ -1,5 +1,6 @@
 package de.pvr.fish.simulation.testdata;
 
+import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Field;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
@@ -9,12 +10,11 @@ public class TestdataGenerator {
 
 	
 	public static Fish generateRandomFish() {
-		Position p = RandomGenerator.getRandomPosition();
-		return new Fish(p, RandomGenerator.getRandomNextPosition(p));
+		return RandomGenerator.getRandomFish(FishParameter.FIELD_LENGTH, FishParameter.FIELD_HEIGHT);
 	}
 	
 	public static Field getEmptyField() {
-		Field field = new Field(1000, 1000, 10 , 2);
+		Field field = new Field(FishParameter.FIELD_LENGTH, FishParameter.FIELD_HEIGHT, 10 , 2);
 		return field;
 	}
 	

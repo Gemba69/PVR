@@ -8,6 +8,7 @@ import de.pvr.fish.simulation.config.FishParameter;
 
 
 
+
 public class TestFish {
 	
 	@Test
@@ -183,12 +184,12 @@ public class TestFish {
 	@Test
 	public void testSetFishFromOutInAquariumX() {
 		Fish fish = new Fish(new Position(302, 299), new Position (298, 298));
-		Fish targetFish = new Fish(new Position(299, 299), new Position (298, 298));
+		Fish targetFish = new Fish(new Position(291, 299), new Position (298, 298));
 		fish.setFishFromOutInAquariumX();
 		assertEquals(targetFish, fish);
 		
-		fish = new Fish(new Position(-2, 299), new Position (298, 298));
-		targetFish = new Fish(new Position(0, 299), new Position (298, 298));
+		fish = new Fish(new Position(-2, 291), new Position (298, 298));
+		targetFish = new Fish(new Position(8, 291), new Position (298, 298));
 		fish.setFishFromOutInAquariumX();
 		assertEquals(targetFish, fish);
 	}
@@ -196,12 +197,12 @@ public class TestFish {
 	@Test
 	public void testSetFishFromOutInAquariumY() {
 		Fish fish = new Fish(new Position(299, 303), new Position (298, 298));
-		Fish targetFish = new Fish(new Position(299, 299), new Position (298, 298));
+		Fish targetFish = new Fish(new Position(299, 291), new Position (298, 298));
 		fish.setFishFromOutInAquariumY();
 		assertEquals(targetFish, fish);
 		
 		fish = new Fish(new Position(0, -3), new Position (298, 298));
-		targetFish = new Fish(new Position(0, 0), new Position (298, 298));
+		targetFish = new Fish(new Position(0, 8), new Position (298, 298));
 		fish.setFishFromOutInAquariumY();
 		assertEquals(targetFish, fish);
 	}
@@ -209,19 +210,25 @@ public class TestFish {
 	@Test
 	public void testSetFishFromOutInAquariumXY() {
 		Fish fish = new Fish(new Position(302, 302), new Position (298, 298));
-		Fish targetFish = new Fish(new Position(299, 299), new Position (298, 298));
+		Fish targetFish = new Fish(new Position(291, 291), new Position (298, 298));
 		fish.setFishFromOutInAquariumX();
 		fish.setFishFromOutInAquariumY();
 		assertEquals(targetFish, fish);
 		
 		fish = new Fish(new Position(-2, 302), new Position (298, 298));
-		targetFish = new Fish(new Position(0, 299), new Position (298, 298));
+		targetFish = new Fish(new Position(8, 291), new Position (298, 298));
 		fish.setFishFromOutInAquariumX();
 		fish.setFishFromOutInAquariumY();
 		assertEquals(targetFish, fish);
 		
 		fish = new Fish(new Position(302, -1), new Position (298, 298));
-		targetFish = new Fish(new Position(299, 0), new Position (298, 298));
+		targetFish = new Fish(new Position(291, 8), new Position (298, 298));
+		fish.setFishFromOutInAquariumX();
+		fish.setFishFromOutInAquariumY();
+		assertEquals(targetFish, fish);
+		
+		fish = new Fish(new Position(302, -1), new Position (298, 298));
+		targetFish = new Fish(new Position(291, 8), new Position (298, 298));
 		fish.setFishFromOutInAquariumX();
 		fish.setFishFromOutInAquariumY();
 		assertEquals(targetFish, fish);
