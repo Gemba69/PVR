@@ -1,9 +1,15 @@
 package de.pvr.fish.simulation.view;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 
 import org.apache.commons.lang.time.StopWatch;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import de.pvr.fish.simulation.algorithm.task.CalculatePositionTask;
 import de.pvr.fish.simulation.application.SimulationApp;
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.model.Fish;
@@ -50,6 +56,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ViewControlerWindow extends Application {
+	
+	private static final Logger LOG = LogManager.getLogger(ViewControlerWindow.class);
 
 	private static double Width = 600;
 	private static double Height = 600;
@@ -78,6 +86,8 @@ public class ViewControlerWindow extends Application {
 	TextField phiTextField;
 	TextField sigmaTextField;
 	TextField mValueTextField5;
+	
+	DrawControler drawWorker;
 
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -486,13 +496,6 @@ public class ViewControlerWindow extends Application {
 		return false;
 	}
 
-	// 01 0+0 1+1
-	private void drawFish(double x1, double y1, double x2, double y2) {
-		this.gc.strokeLine(x1, y1, x2, y2);
-		this.gc.strokeOval(x1 - 1, y1 - 1, 3, 3);
-
-	}
-
 	public void showAllMeasures(WatchAreaType type) {
 	//speedupTextField.setText(StopWatch(type).getNanoTime() / 1000000);
 	//(double) (type).WatchAreaType(kappa).getNanoseconds / 1000000;
@@ -513,11 +516,13 @@ public class ViewControlerWindow extends Application {
 		if (this.gc != null && this.fieldWindow != null) {
 			this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
 		}
+		LOG.debug("Start to create a new SimulationApp");
 		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
 				deathAngle, r1, r2, r3, bodyLength);
 
 		this.fishCanvas = new Canvas(fieldLength, fieldHeight);
-
+		this.drawWorker = new DrawControler(this.fishCanvas, this.fieldWindow, this.gc);
+		LOG.debug("Start to create Fishes at start position");
 		drawAllFishes();
 		for (int i = 0; i < iterations; i++) {
 			this.fieldWindow.startIteration();
@@ -546,12 +551,11 @@ public class ViewControlerWindow extends Application {
 	}
 
 	private void drawAllFishes() {
-		this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
-		for (Fish fish : this.fieldWindow.getField().getFishes()) {
-			drawFish(fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY(),
-					fish.getLengthPosition().getCoordinateX(), fish.getLengthPosition().getCoordinateY());
-		}
-	}
+		LOG.debug("Starting initialize worker");
+        FutureTask<Boolean> drawTask = new FutureTask<>(this.drawWorker);
+        Platform.runLater(drawTask);
+		Executors.newFixedThreadPool(1).execute(drawTask);
+    }
 
 	private void setDefaultValues() {
 		this.iterationTextField.setText(Integer.toString(FishParameter.DEFAULT_ITERATIONS));
