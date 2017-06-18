@@ -185,7 +185,7 @@ public class TestFish {
 		Fish fish = new Fish(new Position(100, 100), new Position (100, 98));
 		assertFalse(fish.isFishOutOfAquariumX());
 		
-		fish = new Fish(new Position(300, 300), new Position (298, 298));
+		fish = new Fish(new Position(1202, 400), new Position (298, 298));
 		assertTrue(fish.isFishOutOfAquariumX());
 	}
 	
@@ -194,14 +194,14 @@ public class TestFish {
 		Fish fish = new Fish(new Position(100, 100), new Position (100, 98));
 		assertFalse(fish.isFishOutOfAquariumY());
 		
-		fish = new Fish(new Position(300, 300), new Position (298, 298));
+		fish = new Fish(new Position(1200, 400), new Position (298, 298));
 		assertTrue(fish.isFishOutOfAquariumY());
 	}
 	
 	@Test
 	public void testSetFishFromOutInAquariumX() {
-		Fish fish = new Fish(new Position(302, 299), new Position (298, 298));
-		Fish targetFish = new Fish(new Position(291, 299), new Position (298, 298));
+		Fish fish = new Fish(new Position(1202, 399), new Position (298, 298));
+		Fish targetFish = new Fish(new Position(1191, 399), new Position (298, 298));
 		fish.setFishFromOutInAquariumX();
 		assertEquals(targetFish, fish);
 		
@@ -213,8 +213,8 @@ public class TestFish {
 	
 	@Test
 	public void testSetFishFromOutInAquariumY() {
-		Fish fish = new Fish(new Position(299, 303), new Position (298, 298));
-		Fish targetFish = new Fish(new Position(299, 291), new Position (298, 298));
+		Fish fish = new Fish(new Position(1199, 403), new Position (298, 298));
+		Fish targetFish = new Fish(new Position(1199, 391), new Position (298, 298));
 		fish.setFishFromOutInAquariumY();
 		assertEquals(targetFish, fish);
 		
@@ -226,6 +226,8 @@ public class TestFish {
 	
 	@Test
 	public void testSetFishFromOutInAquariumXY() {
+		FishParameter.FIELD_LENGTH = 300;
+		FishParameter.FIELD_HEIGHT = 300;
 		Fish fish = new Fish(new Position(302, 302), new Position (298, 298));
 		Fish targetFish = new Fish(new Position(291, 291), new Position (298, 298));
 		fish.setFishFromOutInAquariumX();
@@ -255,6 +257,8 @@ public class TestFish {
 		fish.setFishFromOutInAquariumX();
 		fish.setFishFromOutInAquariumY();
 		assertEquals(targetFish, fish);
+		
+		FishParameter.resetValuesToDefault();
 	}
 	
 

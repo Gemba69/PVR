@@ -9,8 +9,8 @@ public class FishParameter {
 	
 	public static int DEFAULT_NUMBER_FISH = 20;
 
-	public static int DEFAULT_FIELD_LENGTH = 300;
-	public static int DEFAULT_FIELD_HEIGHT = 300;
+	public static int DEFAULT_FIELD_LENGTH = 1200;
+	public static int DEFAULT_FIELD_HEIGHT = 400;
 
 	public static int DEFAULT_NUMBER_OF_NEIGHBOURS = 4;
 	
@@ -18,7 +18,7 @@ public class FishParameter {
 	
 	public static double DEFAULT_RADIUS1 = 0.5;
 	public static double DEFAULT_RADIUS2 = 2;
-	public static double DEFAULT_RADIUS3 = 5;
+	public static double DEFAULT_RADIUS3 = 7;
 	
 	public static int DEFAULT_FISH_BODY_LENGTH = 8;
 	

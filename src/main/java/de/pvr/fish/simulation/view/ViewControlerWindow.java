@@ -80,7 +80,6 @@ public class ViewControlerWindow extends Application {
 	// Double.parseDouble(fieldWidthTextField.getText()));
 	private SimulationApp fieldWindow;
 	private GraphicsContext gc = fishCanvas.getGraphicsContext2D();
-	private static MeasureUtil measureUtil;
 
 	private ResultLogging resultLogger = new ResultLogging();
 
@@ -613,7 +612,6 @@ public class ViewControlerWindow extends Application {
 	}
 
 	private void iterateAndDraw(int iterations) {
-
 		GuiTask worker = new GuiTask(this.fishCanvas, this.gc, fieldWindow, iterations);
 		Thread workerThread = new Thread(worker);
 		// ThreadPoolSingleton.getExecutorService().execute(workerThread);
@@ -724,6 +722,7 @@ public class ViewControlerWindow extends Application {
 
 		@Override
 		protected Void call() throws Exception {
+			LOG.debug("Start iteration multi = " + this.multiSimulationFlag);
 			if (this.multiSimulationFlag) {
 				ArrayList<Configuration> configs = resultLogger.getConfigs();
 				for (Configuration conf : configs) {
@@ -743,10 +742,12 @@ public class ViewControlerWindow extends Application {
 		}
 
 		private void iterateAndDraw(int iteration) {
+			LOG.debug("Start iteration multi with iteration = " + iteration);
 			DrawStep drawWorker = new DrawStep(fishCanvas, app, gc);
 			MeasureUtil.resetAllWatches();
 			MeasureUtil.startWatch(RUNTIME);
 			for (int i = 0; i < iteration; i++) {
+				LOG.debug("Start iteration number " + i);
 				this.app.startIteration();
 				FutureTask<Boolean> drawTask = new FutureTask<>(drawWorker);
 				Platform.runLater(drawTask);

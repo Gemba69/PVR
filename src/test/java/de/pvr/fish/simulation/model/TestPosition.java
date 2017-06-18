@@ -4,10 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import de.pvr.fish.simulation.config.FishParameter;
+
 public class TestPosition {
 
 	@Test
 	public void testNextPosition() {
+		FishParameter.FIELD_HEIGHT = 1000;
+		FishParameter.FIELD_LENGTH = 1000;
 		Position p = new Position(100, 100);
 		Position targetPosition = new Position (100, 101);
 		p.nextPosition();
@@ -25,6 +29,8 @@ public class TestPosition {
 		p.nextPosition();
 		
 		assertEquals(targetPosition, p);
+		
+		FishParameter.resetValuesToDefault();
 	}
 	
 	@Test
