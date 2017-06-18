@@ -100,10 +100,6 @@ public class ViewControlerWindow extends Application {
 	private TextField phiTextField;
 	private TextField sigmaTextField;
 	private TextField clockTextField;
-	
-	private String useStartConfigFilename = "";
-
-	private DrawStep drawWorker;
 
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -348,16 +344,11 @@ public class ViewControlerWindow extends Application {
              
             if(file != null){
             	// Erster Wert nur zum Testen --> bekomme noch keine Messwerte , wollte gucken obs klappt  
-            	saveFile(fieldLengthTextField.getText(), file);
-                /*
-            	SaveFile(runtimeTextField.getText(), file);
-                SaveFile(sigmaTextField.getText(), file);
-                SaveFile(phiTextField.getText(), file);
-                SaveFile(kappaTextField.getText(), file); */
+            	saveFile( file);
             }}
             );
 		
-		// Öffnen
+		// Laden
 		GridPane.setHalignment(openFileButton, HPos.RIGHT);
 		topGrid.add(openFileButton, 4, 5);
 		openFileButton.setMinSize(80, 20);
@@ -368,7 +359,8 @@ public class ViewControlerWindow extends Application {
 	                FileChooser fileChooser = new FileChooser();
 	                File file = fileChooser.showOpenDialog(primaryStage);
 	                if (file != null) {
-	                    useStartConfigFilename = file.getAbsolutePath();
+	                   resultLogger.readFromCSV(file.getAbsolutePath());
+	                   setValues(resultLogger.getConfigs().get(1));
 	                }
 	            }
 	        });
@@ -377,6 +369,12 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(startMeasureButton, 4, 6);
 		startMeasureButton.setMinSize(170, 20);
 		startMeasureButton.setAlignment(Pos.BASELINE_CENTER);
+		startMeasureButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				simulateMultiConfigs();
+			}
+		});
 
 		// Spalte 3
 		// DeathAngel
@@ -539,7 +537,7 @@ public class ViewControlerWindow extends Application {
 		});
 	}
 
-	private void saveFile(String content, File file) {
+	private void saveFile(File file) {
 		// this.resultLogger.addConfig(new Configuration(10, 4, 20, 300, 300, 4,
 		// 30, 0.5, 2, 5, 8));
 		this.resultLogger.writeToCSV(file.getAbsolutePath());
@@ -564,6 +562,12 @@ public class ViewControlerWindow extends Application {
 
 	public void createAndStartSimulation(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
 			int neighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
+		createSimulation(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours, deathAngle, r1, r2, r3, bodyLength);
+		iterateAndDraw(this.fieldWindow.getIterations());
+	}
+	
+	public void createSimulation(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
+			int neighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
 		if (this.gc != null && this.fieldWindow != null) {
 			this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
 		}
@@ -571,10 +575,6 @@ public class ViewControlerWindow extends Application {
 		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
 				deathAngle, r1, r2, r3, bodyLength);
 		this.fishCanvas = new Canvas(fieldLength, fieldHeight);
-
-		this.drawWorker = new DrawStep(this.fishCanvas, this.fieldWindow, this.gc);
-		LOG.debug("Start to create Fishes at start position");
-		iterateAndDraw(this.fieldWindow.getIterations());
 	}
 	
 	public void createAndStartSimulation(Configuration conf) {
@@ -597,6 +597,7 @@ public class ViewControlerWindow extends Application {
 
 		GuiTask worker = new GuiTask(fishCanvas, gc, fieldWindow, iterations);
 		Thread workerThread = new Thread(worker);
+		//ThreadPoolSingleton.getExecutorService().execute(workerThread);
 		workerThread.start();
 	}
 
@@ -648,13 +649,22 @@ public class ViewControlerWindow extends Application {
 
 		this.resultLogger.addConfig(conf);
 	}
+	
+	private void addConfigToConfigList(Configuration conf) {
+		conf.setRuntime(Double.parseDouble(this.runtimeTextField.getText()));
+		conf.setKappa(Double.parseDouble(this.kappaTextField.getText()));
+		conf.setSigma(Double.parseDouble(this.sigmaTextField.getText()));
+		conf.setPhi(Double.parseDouble(this.phiTextField.getText()));
+		this.resultLogger.addConfig(conf);
+	}
 
 	private void simulateMultiConfigs() {
-		for (Configuration conf : this.resultLogger.getConfigs()) {
+		ArrayList<Configuration> configs = this.resultLogger.getConfigs();
+		for (Configuration conf : configs) {
 			this.resultLogger.removeIfContains(conf);
 			setValues(conf);
 			createAndStartSimulation(conf);
-			addConfigToConfigList();
+			//addConfigToConfigList(conf);
 		}
 	}
 
