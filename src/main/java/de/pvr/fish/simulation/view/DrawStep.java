@@ -18,13 +18,13 @@ public class DrawStep implements Callable<Boolean> {
 	private static final Logger LOG = LogManager.getLogger(DrawStep.class);
 
 	private Canvas fishCanvas;
-	private SimulationApp fieldWindow;
+	private SimulationApp app;
 	private GraphicsContext gc;
 
 	public DrawStep(Canvas fishCanvas, SimulationApp fieldWindow, GraphicsContext gc) {
 		super();
 		this.fishCanvas = fishCanvas;
-		this.fieldWindow = fieldWindow;
+		this.app = fieldWindow;
 		this.gc = gc;
 	}
 
@@ -32,8 +32,8 @@ public class DrawStep implements Callable<Boolean> {
 	public Boolean call() throws Exception {
 		LOG.debug("Start to draw Fishes");
 		if (Platform.isFxApplicationThread()) {
-			this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
-			for (Fish fish : this.fieldWindow.getField().getFishes()) {
+			this.gc.clearRect(0, 0, this.app.getAquarium().getLength(), this.app.getAquarium().getHeight());
+			for (Fish fish : this.app.getAquarium().getFishes()) {
 				drawFish(fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY(),
 						fish.getLengthPosition().getCoordinateX(), fish.getLengthPosition().getCoordinateY());
 			}

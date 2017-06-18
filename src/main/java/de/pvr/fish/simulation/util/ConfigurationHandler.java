@@ -12,9 +12,9 @@ import org.apache.logging.log4j.Logger;
 
 import de.pvr.fish.simulation.config.Configuration;
 
-public class ResultLogging {
+public class ConfigurationHandler {
 
-	private static final Logger LOG = LogManager.getLogger(ResultLogging.class);
+	private static final Logger LOG = LogManager.getLogger(ConfigurationHandler.class);
 
 	ArrayList<Configuration> configs;
 
@@ -33,7 +33,7 @@ public class ResultLogging {
 	private static final int COL_R3 = 9;
 	private static final int COL_BODYLENGTH = 10;
 
-	public ResultLogging() {
+	public ConfigurationHandler() {
 		configs = new ArrayList<Configuration>();
 	}
 
@@ -41,7 +41,7 @@ public class ResultLogging {
 		FileWriter fileWriter = null;
 		try {
 			fileWriter = new FileWriter(fileName);
-
+			LOG.info("Start writing " + fileName);
 			setHeaders(fileWriter);
 
 			for (Configuration conf : configs) {
@@ -56,6 +56,7 @@ public class ResultLogging {
 			try {
 				fileWriter.flush();
 				fileWriter.close();
+				LOG.info("Writing successfully" + fileName);
 			} catch (IOException e) {
 				LOG.error("Error while flushing/closing fileWriter !!!");
 				e.printStackTrace();
@@ -70,7 +71,7 @@ public class ResultLogging {
 		try {
 			fileReader = new BufferedReader(new FileReader(fileName));
 			fileReader.readLine();
-
+			LOG.info("Start reading " + fileName);
 			while ((line = fileReader.readLine()) != null) {
 				String[] tokens = line.split(DELIMITER);
 				if (tokens.length > 0) {
@@ -91,6 +92,7 @@ public class ResultLogging {
 		} finally {
 			try {
 				fileReader.close();
+				LOG.info("Reading successfully " + fileName);
 			} catch (IOException e) {
 				LOG.error("Error while closing fileReader !!!");
 				e.printStackTrace();
@@ -104,13 +106,13 @@ public class ResultLogging {
 			configs.add(config);
 		}
 	}
-	
+
 	public void removeIfContains(Configuration config) {
 		if (configs.contains(config)) {
 			configs.remove(config);
 		}
 	}
-	
+
 	public ArrayList<Configuration> getConfigs() {
 		return this.configs;
 	}

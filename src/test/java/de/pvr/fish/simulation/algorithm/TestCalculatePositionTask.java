@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import de.pvr.fish.simulation.algorithm.task.CalculateNewPositionTask;
 import de.pvr.fish.simulation.config.FishParameter;
-import de.pvr.fish.simulation.model.Field;
+import de.pvr.fish.simulation.model.Aquarium;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.model.Position;
 import de.pvr.fish.simulation.testdata.TestdataGenerator;
@@ -21,7 +21,7 @@ public class TestCalculatePositionTask {
 	@Test
 	public void testCall() {
 	
-		Field field = TestdataGenerator.getFieldWithSpecific10Fishes2();
+		Aquarium field = TestdataGenerator.getAquariumWith10SpecificFishes2();
 		ArrayList<Fish> fishes = field.getFishes();
 		CalculateNewPositionTask task = new CalculateNewPositionTask(fishes, new ArrayList<Fish>(fishes.subList(0, 5)), 0, 5);
 		try {
@@ -35,7 +35,7 @@ public class TestCalculatePositionTask {
 	public void testFindNeighbours() {
 		FishParameter.FISH_BODY_LENGTH = 1;
 		FishParameter.RADIUS2 = 3;
-		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
+		Aquarium field = TestdataGenerator.getAquariumWith10SpecificFishes();
 		
 		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
 
@@ -55,7 +55,7 @@ public class TestCalculatePositionTask {
 	@Test
 	public void testCalculateNewPlace() {
 		FishParameter.FISH_BODY_LENGTH = 1;
-		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
+		Aquarium field = TestdataGenerator.getAquariumWith10SpecificFishes();
 		
 		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		Fish fish = field.getFishes().get(0);
@@ -69,7 +69,7 @@ public class TestCalculatePositionTask {
 	
 	@Test
 	public void testCalculateNewAngle() {
-		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
+		Aquarium field = TestdataGenerator.getAquariumWith10SpecificFishes();
 		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		
 		Fish fish = field.getFishes().get(0);
@@ -84,7 +84,7 @@ public class TestCalculatePositionTask {
 	
 	@Test
 	public void testMovementR1() {
-		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
+		Aquarium field = TestdataGenerator.getAquariumWith10SpecificFishes();
 		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		
 		Fish fish = field.getFishes().get(0);
@@ -96,7 +96,7 @@ public class TestCalculatePositionTask {
 	
 	@Test
 	public void testMovementR2() {
-		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
+		Aquarium field = TestdataGenerator.getAquariumWith10SpecificFishes();
 		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		
 		Fish fish = field.getFishes().get(0);
@@ -108,7 +108,7 @@ public class TestCalculatePositionTask {
 	
 	@Test
 	public void testMovementR3() {
-		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
+		Aquarium field = TestdataGenerator.getAquariumWith10SpecificFishes();
 		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		
 		Fish fish = field.getFishes().get(0);
@@ -120,7 +120,7 @@ public class TestCalculatePositionTask {
 	
 	@Test
 	public void testMovementIntegrated() {
-		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
+		Aquarium field = TestdataGenerator.getAquariumWith10SpecificFishes();
 		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
 		
 		Fish fish = field.getFishes().get(0);

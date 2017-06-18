@@ -15,7 +15,7 @@ import de.pvr.fish.simulation.algorithm.task.SetNewPositionTask;
 import de.pvr.fish.simulation.config.ThreadPoolSingleton;
 import de.pvr.fish.simulation.util.MeasureUtil;
 
-public class Field {
+public class Aquarium {
 
 	private ArrayList<Fish> fishes;
 	private int length;
@@ -25,12 +25,12 @@ public class Field {
 
 	private ArrayList<FishTask> calcTasks;
 	private ArrayList<FishTask> newPositionTasks;
-	
+
 	public static MeasureUtil measureUtil;
 
-	private static final Logger LOG = LogManager.getLogger(Field.class);
+	private static final Logger LOG = LogManager.getLogger(Aquarium.class);
 
-	public Field(int length, int height, int fishNumber) {
+	public Aquarium(int length, int height, int fishNumber) {
 		this.length = length;
 		this.height = height;
 		this.fishNumber = fishNumber;
@@ -47,7 +47,7 @@ public class Field {
 		}
 	}
 
-	public void nextInteration() {
+	public void nextIteration() {
 		LOG.info("Starting overall Iteration");
 		// Execution
 		MeasureUtil.startWatch(SIGMA);
@@ -64,7 +64,7 @@ public class Field {
 		} catch (InterruptedException e) {
 			LOG.error(e.getMessage());
 		}
-		//logFishes(); // only for debugging
+		// logFishes(); // only for debugging
 		MeasureUtil.suspend(SIGMA);
 		MeasureUtil.suspend(PHI);
 	}

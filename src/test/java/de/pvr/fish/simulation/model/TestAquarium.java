@@ -11,11 +11,11 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 
-public class TestField {
+public class TestAquarium {
 
 	@Test
 	public void testSplitTasks() {
-		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
+		Aquarium field = TestdataGenerator.getAquariumWith10SpecificFishes();
 		
 		ThreadPoolSingleton.createNewExecutorService(2);
 		
@@ -40,7 +40,7 @@ public class TestField {
 	
 	@Test
 	public void testAddNewFishToField() {
-		Field field = new Field(10, 10, 10);
+		Aquarium field = new Aquarium(10, 10, 10);
 		Fish fish = new Fish(new Position(8, 8), new Position(10, 8));	
 		assertTrue(field.addNewFishToField(fish));
 		
@@ -55,10 +55,10 @@ public class TestField {
 	
 	@Test
 	public void testNextIteration() {
-		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
-		field.nextInteration();
+		Aquarium field = TestdataGenerator.getAquariumWith10SpecificFishes();
+		field.nextIteration();
 		assertEquals(10, field.getFishes().size());
-		field.nextInteration();
+		field.nextIteration();
 		assertEquals(10, field.getFishes().size());
 	}
 	

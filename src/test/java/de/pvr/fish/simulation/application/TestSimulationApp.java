@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import de.pvr.fish.simulation.config.FishParameter;
-import de.pvr.fish.simulation.model.Field;
+import de.pvr.fish.simulation.model.Aquarium;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.testdata.TestdataGenerator;
 
@@ -18,7 +18,7 @@ public class TestSimulationApp {
 	public void testCreateRandomFishes() {
 		SimulationApp app = new SimulationApp(600, 600, 1100, 8, 3, 4, 30, 2, 4,6,5);
 		
-		app.createFieldAndRandomFishes(600, 600, 1100);
+		app.createAquariumsAndRandomFishes(600, 600, 1100);
 		
 		FishParameter.resetValuesToDefault();
 		
@@ -27,39 +27,39 @@ public class TestSimulationApp {
 	@Test
 	public void testThreeIterations() {
 		SimulationApp app = new SimulationApp(600, 600, 10, 8, 3, 4, 30, 2, 4,6,5);
-		app.setField(TestdataGenerator.getFieldWithSpecific10Fishes());
-		ArrayList<Fish> fishes = TestdataGenerator.getFieldWithSpecific10Fishes().getFishes();
+		app.setAquarium(TestdataGenerator.getAquariumWith10SpecificFishes());
+		ArrayList<Fish> fishes = TestdataGenerator.getAquariumWith10SpecificFishes().getFishes();
 		app.startIteration();
-		assertNotEquals(fishes, app.getField().getFishes());
-		Field field2 = TestdataGenerator.getFieldWithSpecific10Fishes();
-		field2.nextInteration();
+		assertNotEquals(fishes, app.getAquarium().getFishes());
+		Aquarium field2 = TestdataGenerator.getAquariumWith10SpecificFishes();
+		field2.nextIteration();
 		fishes = field2.getFishes();
 		app.startIteration();
-		assertNotEquals(fishes, app.getField().getFishes());
+		assertNotEquals(fishes, app.getAquarium().getFishes());
 		
 		FishParameter.resetValuesToDefault();
 	}
 	
 	@Test
 	public void testSimulation10RandomFishes() {
-		Field field = TestdataGenerator.getFieldWith10Fishes();
+		Aquarium field = TestdataGenerator.getAquariumWith10RandomFishes();
 		
-		field.nextInteration();
-		field.nextInteration();
-		field.nextInteration();
-		field.nextInteration();
+		field.nextIteration();
+		field.nextIteration();
+		field.nextIteration();
+		field.nextIteration();
 	}
 	
 	@Test
 	public void testSimulation10SpecificFishes() {
 		FishParameter.resetValuesToDefault();
-		Field field = TestdataGenerator.getFieldWithSpecific10Fishes2();
+		Aquarium field = TestdataGenerator.getAquariumWith10SpecificFishes2();
 		ArrayList<Fish> fishes = new ArrayList<Fish>(field.getFishes());
 		 
-		field.nextInteration();
+		field.nextIteration();
 		assertEquals(fishes, field.getFishes());
-		field.nextInteration();
-		field.nextInteration();
-		field.nextInteration();
+		field.nextIteration();
+		field.nextIteration();
+		field.nextIteration();
 	}
 }

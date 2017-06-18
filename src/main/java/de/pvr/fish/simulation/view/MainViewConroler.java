@@ -24,11 +24,11 @@ import de.pvr.fish.simulation.application.SimulationApp;
 import de.pvr.fish.simulation.config.Configuration;
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.config.ThreadPoolSingleton;
-import de.pvr.fish.simulation.model.Field;
+import de.pvr.fish.simulation.model.Aquarium;
 import de.pvr.fish.simulation.model.Fish;
 import de.pvr.fish.simulation.util.WatchAreaType;
 import de.pvr.fish.simulation.util.MeasureUtil;
-import de.pvr.fish.simulation.util.ResultLogging;
+import de.pvr.fish.simulation.util.ConfigurationHandler;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -66,9 +66,9 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class ViewControlerWindow extends Application {
+public class MainViewConroler extends Application {
 
-	private static final Logger LOG = LogManager.getLogger(ViewControlerWindow.class);
+	private static final Logger LOG = LogManager.getLogger(MainViewConroler.class);
 
 	private static double Width = 1200;
 	private static double Height = 400;
@@ -78,10 +78,10 @@ public class ViewControlerWindow extends Application {
 	// Canvas bottomCanvas = new
 	// Canvas(Double.parseDouble(fieldLengthTextField.getText()),
 	// Double.parseDouble(fieldWidthTextField.getText()));
-	private SimulationApp fieldWindow;
+	private SimulationApp app;
 	private GraphicsContext gc = fishCanvas.getGraphicsContext2D();
 
-	private ResultLogging resultLogger = new ResultLogging();
+	private ConfigurationHandler configHandler = new ConfigurationHandler();
 
 	private TextField iterationTextField;
 	private TextField threadTextField;
@@ -98,7 +98,6 @@ public class ViewControlerWindow extends Application {
 	private TextField kappaTextField;
 	private TextField phiTextField;
 	private TextField sigmaTextField;
-	private TextField clockTextField;
 
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -248,8 +247,6 @@ public class ViewControlerWindow extends Application {
 		this.phiTextField = new TextField();
 		Label sigmaLabel = new Label("Sigma:");
 		this.sigmaTextField = new TextField();
-		Label clockLabel = new Label("Zeit:");
-		this.clockTextField = new TextField();
 
 		// -----------------------------------------------
 
@@ -357,8 +354,8 @@ public class ViewControlerWindow extends Application {
 				FileChooser fileChooser = new FileChooser();
 				File file = fileChooser.showOpenDialog(primaryStage);
 				if (file != null) {
-					resultLogger.readFromCSV(file.getAbsolutePath());
-					setValues(resultLogger.getConfigs().get(1));
+					configHandler.readFromCSV(file.getAbsolutePath());
+					setValues(configHandler.getConfigs().get(1));
 				}
 			}
 		});
@@ -452,15 +449,6 @@ public class ViewControlerWindow extends Application {
 		kappaTextField.setMouseTransparent(true);
 		kappaTextField.setFocusTraversable(false);
 
-		// Uhr
-		GridPane.setHalignment(clockLabel, HPos.LEFT);
-		topGrid.add(clockLabel, 12, 5);
-		GridPane.setHalignment(clockTextField, HPos.LEFT);
-		topGrid.add(clockTextField, 13, 5);
-		// clockTextField.setEditable(false);
-		clockTextField.setMouseTransparent(true);
-		clockTextField.setFocusTraversable(false);
-
 		// Seperator1
 		Separator sepVert1 = new Separator();
 		sepVert1.setOrientation(Orientation.VERTICAL);
@@ -538,7 +526,7 @@ public class ViewControlerWindow extends Application {
 	private void saveFile(File file) {
 		// this.resultLogger.addConfig(new Configuration(10, 4, 20, 300, 300, 4,
 		// 30, 0.5, 2, 5, 8));
-		this.resultLogger.writeToCSV(file.getAbsolutePath());
+		this.configHandler.writeToCSV(file.getAbsolutePath());
 	}
 	/*
 	 * public static boolean isNumeric(String str) { return
@@ -562,25 +550,25 @@ public class ViewControlerWindow extends Application {
 			int neighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
 		createSimulation(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours, deathAngle, r1, r2, r3,
 				bodyLength);
-		iterateAndDraw(this.fieldWindow.getIterations());
+		iterateAndDraw(this.app.getIterations());
 	}
 
 	public void createSimulation(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
 			int neighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
-		if (this.gc != null && this.fieldWindow != null) {
-			this.gc.clearRect(0, 0, this.fieldWindow.getField().getLength(), this.fieldWindow.getField().getHeight());
+		if (this.gc != null && this.app != null) {
+			this.gc.clearRect(0, 0, this.app.getAquarium().getLength(), this.app.getAquarium().getHeight());
 		}
 		LOG.debug("Start to create a new SimulationApp");
-		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
-				deathAngle, r1, r2, r3, bodyLength);
+		this.app = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours, deathAngle,
+				r1, r2, r3, bodyLength);
 		this.fishCanvas = new Canvas(fieldLength, fieldHeight);
-		//this.gc = fishCanvas.getGraphicsContext2D();
-		for (Fish fish : this.fieldWindow.getField().getFishes()) {
+		// this.gc = fishCanvas.getGraphicsContext2D();
+		for (Fish fish : this.app.getAquarium().getFishes()) {
 			drawFish(fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY(),
 					fish.getLengthPosition().getCoordinateX(), fish.getLengthPosition().getCoordinateY());
 		}
 	}
-	
+
 	private void drawFish(double x1, double y1, double x2, double y2) {
 		this.gc.strokeLine(x1, y1, x2, y2);
 		this.gc.strokeOval(x1 - 1, y1 - 1, 3, 3);
@@ -596,7 +584,7 @@ public class ViewControlerWindow extends Application {
 		createSimulation(conf.getFieldLength(), conf.getFieldHeight(), conf.getFishNumber(), conf.getThreads(),
 				conf.getIteration(), conf.getNumberOfNeighbours(), conf.getDeathAngle(), conf.getR1(), conf.getR2(),
 				conf.getR3(), conf.getBodyLength());
-		return this.fieldWindow;
+		return this.app;
 	}
 
 	public void iterateOnce() {
@@ -612,7 +600,7 @@ public class ViewControlerWindow extends Application {
 	}
 
 	private void iterateAndDraw(int iterations) {
-		GuiTask worker = new GuiTask(this.fishCanvas, this.gc, fieldWindow, iterations);
+		GuiTask worker = new GuiTask(this.fishCanvas, this.gc, app, iterations);
 		Thread workerThread = new Thread(worker);
 		// ThreadPoolSingleton.getExecutorService().execute(workerThread);
 		workerThread.start();
@@ -671,7 +659,7 @@ public class ViewControlerWindow extends Application {
 				Double.parseDouble(this.runtimeTextField.getText()), Double.parseDouble(this.kappaTextField.getText()),
 				Double.parseDouble(this.sigmaTextField.getText()), Double.parseDouble(this.phiTextField.getText()));
 
-		this.resultLogger.addConfig(conf);
+		this.configHandler.addConfig(conf);
 	}
 
 	private void addResultValuesToConf(Configuration conf) {
@@ -724,12 +712,12 @@ public class ViewControlerWindow extends Application {
 		protected Void call() throws Exception {
 			LOG.debug("Start iteration multi = " + this.multiSimulationFlag);
 			if (this.multiSimulationFlag) {
-				ArrayList<Configuration> configs = resultLogger.getConfigs();
+				ArrayList<Configuration> configs = configHandler.getConfigs();
 				for (Configuration conf : configs) {
-					//resultLogger.removeIfContains(conf);
+					// resultLogger.removeIfContains(conf);
 					this.app = createSimulation(conf);
 					this.fishCanvas = new Canvas(conf.getFieldLength(), conf.getFieldHeight());
-					//this.gc = fishCanvas.getGraphicsContext2D();
+					// this.gc = fishCanvas.getGraphicsContext2D();
 					setValues(conf);
 					iterateAndDraw(conf.getIteration());
 					addResultValuesToConf(conf);
