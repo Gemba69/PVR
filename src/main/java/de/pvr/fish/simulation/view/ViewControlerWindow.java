@@ -78,6 +78,8 @@ public class ViewControlerWindow extends Application {
 	private GraphicsContext gc = fishCanvas.getGraphicsContext2D();
 	private static MeasureUtil measureUtil;
 
+	private ResultLogging resultLogger = new ResultLogging();
+
 	private TextField iterationTextField;
 	private TextField threadTextField;
 	private TextField fishField;
@@ -318,33 +320,34 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(fieldWidthLabel, 3, 3);
 		GridPane.setHalignment(fieldWidthTextField, HPos.LEFT);
 		topGrid.add(fieldWidthTextField, 4, 3);
-		
-		//Speichern der Daten
+
+		// Speichern der Daten
 		GridPane.setHalignment(saveAsTextButton, HPos.RIGHT);
 		topGrid.add(saveAsTextButton, 4, 5);
 		saveAsTextButton.setMinSize(100, 20);
 		saveAsTextButton.setAlignment(Pos.BASELINE_CENTER);
 		saveAsTextButton.setOnAction((ActionEvent event) -> {
-            FileChooser fileChooser = new FileChooser();
-             
-            //Set extension filter
-            FileChooser.ExtensionFilter extFilter = 
-                new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-            fileChooser.getExtensionFilters().add(extFilter);
-             
-            //Show save file dialog
-            File file = fileChooser.showSaveDialog(primaryStage);
-             
-            if(file != null){
-            	// Erster Wert nur zum Testen --> bekomme noch keine Messwerte , wollte gucken obs klappt  
-            	saveFile(fieldLengthTextField.getText(), file);
-                /*
-            	SaveFile(runtimeTextField.getText(), file);
-                SaveFile(sigmaTextField.getText(), file);
-                SaveFile(phiTextField.getText(), file);
-                SaveFile(kappaTextField.getText(), file); */
-            }}
-            );
+			FileChooser fileChooser = new FileChooser();
+
+			// Set extension filter
+			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+			fileChooser.getExtensionFilters().add(extFilter);
+
+			// Show save file dialog
+			File file = fileChooser.showSaveDialog(primaryStage);
+
+			if (file != null) {
+				// Erster Wert nur zum Testen --> bekomme noch keine Messwerte ,
+				// wollte gucken obs klappt
+				saveFile(fieldLengthTextField.getText(), file);
+				/*
+				 * SaveFile(runtimeTextField.getText(), file);
+				 * SaveFile(sigmaTextField.getText(), file);
+				 * SaveFile(phiTextField.getText(), file);
+				 * SaveFile(kappaTextField.getText(), file);
+				 */
+			}
+		});
 
 		// Spalte 3
 		// DeathAngel
@@ -429,7 +432,7 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(clockLabel, 12, 5);
 		GridPane.setHalignment(clockTextField, HPos.LEFT);
 		topGrid.add(clockTextField, 13, 5);
-		//clockTextField.setEditable(false);
+		// clockTextField.setEditable(false);
 		clockTextField.setMouseTransparent(true);
 		clockTextField.setFocusTraversable(false);
 
@@ -507,11 +510,11 @@ public class ViewControlerWindow extends Application {
 		});
 	}
 
-	private void saveFile(String content, File file){
-		ResultLogging resulLogging = new ResultLogging();
-		resulLogging.addConfig(new Configuration(10, 4, 20, 300, 300, 4, 30, 0.5, 2, 5, 8));
-		resulLogging.writeToCSV(file.getAbsolutePath());
-        }
+	private void saveFile(String content, File file) {
+		// this.resultLogger.addConfig(new Configuration(10, 4, 20, 300, 300, 4,
+		// 30, 0.5, 2, 5, 8));
+		this.resultLogger.writeToCSV(file.getAbsolutePath());
+	}
 
 	/*
 	 * public static boolean isNumeric(String str) { return
@@ -544,6 +547,10 @@ public class ViewControlerWindow extends Application {
 		this.drawWorker = new DrawStep(this.fishCanvas, this.fieldWindow, this.gc);
 		LOG.debug("Start to create Fishes at start position");
 		iterateAndDraw(this.fieldWindow.getIterations());
+	}
+	
+	public void createAndStartSimulation(Configuration conf) {
+		createAndStartSimulation(conf.getFieldLength(), conf.getFieldHeight(), conf.getFishNumber(), conf.getThreads(), conf.getIteration(), conf.getNumberOfNeighbours(), conf.getDeathAngle(), conf.getR1(), conf.getR2(), conf.getR3(), conf.getBodyLength());
 	}
 
 	public void iterateOnce() {
@@ -578,15 +585,57 @@ public class ViewControlerWindow extends Application {
 		this.r2TextField.setText(String.valueOf(FishParameter.DEFAULT_RADIUS2));
 		this.r3TextField.setText(String.valueOf(FishParameter.DEFAULT_RADIUS3));
 	}
-	
+
+	private void setValues(int iterations, int threads, int fishNumber, int fieldLength, int fieldHeight,
+			int deathAngel, int neighbours, int bodyLength, double r1, double r2, double r3) {
+		this.iterationTextField.setText(Integer.toString(iterations));
+		this.threadTextField.setText(Integer.toString(threads));
+		this.fishField.setText(Integer.toString(fishNumber));
+		this.fieldLengthTextField.setText(Integer.toString(fieldLength));
+		this.fieldWidthTextField.setText(Integer.toString(fieldHeight));
+		this.deathAngelTextField.setText(Integer.toString(deathAngel));
+		this.neighbourFishTextField.setText(Integer.toString(neighbours));
+		this.fishLengthTextField.setText(Integer.toString(bodyLength));
+		this.r1TextField.setText(String.valueOf(r1));
+		this.r2TextField.setText(String.valueOf(r2));
+		this.r3TextField.setText(String.valueOf(r3));
+	}
+
+	private void setValues(Configuration conf) {
+		setValues(conf.getIteration(), conf.getThreads(), conf.getFishNumber(), conf.getFieldLength(),
+				conf.getFieldHeight(), conf.getDeathAngle(), conf.getNumberOfNeighbours(), conf.getBodyLength(), conf.getR1(), conf.getR2(), conf.getR3());
+	}
+
+	private void addConfigToConfigList() {
+		Configuration conf = new Configuration(Integer.parseInt(this.iterationTextField.getText()),
+				Integer.parseInt(this.threadTextField.getText()), Integer.parseInt(this.fishField.getText()),
+				Integer.parseInt(this.fieldLengthTextField.getText()),
+				Integer.parseInt(this.fieldWidthTextField.getText()),
+				Integer.parseInt(this.neighbourFishTextField.getText()),
+				Integer.parseInt(this.deathAngelTextField.getText()), Double.parseDouble(this.r1TextField.getText()),
+				Double.parseDouble(this.r2TextField.getText()), Double.parseDouble(this.r3TextField.getText()),
+				Integer.parseInt(this.fishLengthTextField.getText()),
+				Double.parseDouble(this.runtimeTextField.getText()), Double.parseDouble(this.kappaTextField.getText()),
+				Double.parseDouble(this.sigmaTextField.getText()), Double.parseDouble(this.phiTextField.getText()));
+
+		this.resultLogger.addConfig(conf);
+	}
+
+	private void simulateMultiConfigs() {
+		for (Configuration conf : this.resultLogger.getConfigs()) {
+			this.resultLogger.removeIfContains(conf);
+			setValues(conf);
+			createAndStartSimulation(conf);
+			addConfigToConfigList();
+		}
+	}
+
 	private class GuiTask extends Task<Void> {
 
 		private Canvas fishCanvas;
 		private GraphicsContext gc;
 		private SimulationApp app;
 		private int iterations;
-
-		
 
 		public GuiTask(Canvas fishCanvas, GraphicsContext gc, SimulationApp app, int iterations) {
 			super();
@@ -615,13 +664,14 @@ public class ViewControlerWindow extends Application {
 			showAllMeasures();
 			return null;
 		}
-	    
+
 		private void showAllMeasures() {
 			MeasureUtil.logAllWatches();
 			runtimeTextField.setText(String.valueOf(MeasureUtil.getMeasuredTimeFor(RUNTIME)));
 			sigmaTextField.setText(String.valueOf(MeasureUtil.getMeasuredTimeFor(SIGMA)));
 			phiTextField.setText(String.valueOf(MeasureUtil.getMeasuredTimeFor(PHI)));
 			kappaTextField.setText(String.valueOf(MeasureUtil.getMeasuredTimeFor(KAPPA)));
+			addConfigToConfigList();
 		}
 	}
 }

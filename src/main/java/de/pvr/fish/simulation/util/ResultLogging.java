@@ -100,7 +100,19 @@ public class ResultLogging {
 	}
 
 	public void addConfig(Configuration config) {
-		configs.add(config);
+		if (!configs.contains(config)) {
+			configs.add(config);
+		}
+	}
+	
+	public void removeIfContains(Configuration config) {
+		if (configs.contains(config)) {
+			configs.remove(config);
+		}
+	}
+	
+	public ArrayList<Configuration> getConfigs() {
+		return this.configs;
 	}
 
 	private void setHeaders(FileWriter sb) throws IOException {
