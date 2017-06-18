@@ -5,9 +5,13 @@ import static de.pvr.fish.simulation.util.WatchAreaType.*;
 import org.apache.commons.lang3.time.StopWatch;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
@@ -94,6 +98,8 @@ public class ViewControlerWindow extends Application {
 	private TextField phiTextField;
 	private TextField sigmaTextField;
 	private TextField clockTextField;
+	
+	private String useStartConfigFilename = "";
 
 	private DrawStep drawWorker;
 
@@ -192,7 +198,7 @@ public class ViewControlerWindow extends Application {
 		this.threadTextField = new TextField();
 		Button oneIterationButton = new Button("1");
 		Button tenIterationButton = new Button("10");
-		Label iterationCounterLabel = new Label("Anzahl an Iterationen:");
+		Label iterationCounterLabel = new Label("Anzahl an Iterationen");
 		Button twentyfiveIterationButton = new Button("25");
 
 		// Spalte 2
@@ -203,6 +209,9 @@ public class ViewControlerWindow extends Application {
 		Label fieldWidthLabel = new Label("Feld Breite:");
 		this.fieldWidthTextField = new TextField();
 		Button saveAsTextButton = new Button("Speichern");
+        Button openFileButton = new Button("Laden");
+        Button startMeasureButton = new Button("Messungen durchführen");
+       
 
 		// Titel Spalte 3 und 4
 		Text fishConfigurationHeading = new Text("Fisch Konfiguration");
@@ -271,8 +280,8 @@ public class ViewControlerWindow extends Application {
 		GridPane.setHalignment(iterationCounterLabel, HPos.LEFT);
 		topGrid.add(iterationCounterLabel, 0, 5);
 		GridPane.setHalignment(oneIterationButton, HPos.LEFT);
-		topGrid.add(oneIterationButton, 1, 5);
-		oneIterationButton.setMinSize(10, 20);
+		topGrid.add(oneIterationButton, 0, 6);
+		oneIterationButton.setMinSize(40, 20);
 		oneIterationButton.setAlignment(Pos.BASELINE_CENTER);
 		oneIterationButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -282,9 +291,9 @@ public class ViewControlerWindow extends Application {
 		});
 
 		// TenIteration
-		GridPane.setHalignment(tenIterationButton, HPos.RIGHT);
-		topGrid.add(tenIterationButton, 1, 5);
-		tenIterationButton.setMinSize(10, 20);
+		GridPane.setHalignment(tenIterationButton, HPos.CENTER);
+		topGrid.add(tenIterationButton, 0, 6);
+		tenIterationButton.setMinSize(40, 20);
 		tenIterationButton.setAlignment(Pos.BASELINE_CENTER);
 		tenIterationButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -294,9 +303,9 @@ public class ViewControlerWindow extends Application {
 		});
 
 		// twentyFiveIteration
-		GridPane.setHalignment(twentyfiveIterationButton, HPos.LEFT);
-		topGrid.add(twentyfiveIterationButton, 3, 5);
-		twentyfiveIterationButton.setMinSize(10, 20);
+		GridPane.setHalignment(twentyfiveIterationButton, HPos.RIGHT);
+		topGrid.add(twentyfiveIterationButton, 0, 6);
+		twentyfiveIterationButton.setMinSize(40, 20);
 		twentyfiveIterationButton.setAlignment(Pos.BASELINE_CENTER);
 		twentyfiveIterationButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -320,9 +329,9 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(fieldWidthTextField, 4, 3);
 		
 		//Speichern der Daten
-		GridPane.setHalignment(saveAsTextButton, HPos.RIGHT);
-		topGrid.add(saveAsTextButton, 4, 5);
-		saveAsTextButton.setMinSize(100, 20);
+		GridPane.setHalignment(saveAsTextButton, HPos.LEFT);
+		topGrid.add(saveAsTextButton, 3, 5);
+		saveAsTextButton.setMinSize(80, 20);
 		saveAsTextButton.setAlignment(Pos.BASELINE_CENTER);
 		saveAsTextButton.setOnAction((ActionEvent event) -> {
             FileChooser fileChooser = new FileChooser();
@@ -345,6 +354,27 @@ public class ViewControlerWindow extends Application {
                 SaveFile(kappaTextField.getText(), file); */
             }}
             );
+		
+		// Öffnen
+		GridPane.setHalignment(openFileButton, HPos.RIGHT);
+		topGrid.add(openFileButton, 4, 5);
+		openFileButton.setMinSize(80, 20);
+		openFileButton.setAlignment(Pos.BASELINE_CENTER);
+		openFileButton.setOnAction(new EventHandler<ActionEvent>() {
+	            @Override
+	            public void handle(ActionEvent event) {
+	                FileChooser fileChooser = new FileChooser();
+	                File file = fileChooser.showOpenDialog(primaryStage);
+	                if (file != null) {
+	                    useStartConfigFilename = file.getAbsolutePath();
+	                }
+	            }
+	        });
+		
+		GridPane.setHalignment(startMeasureButton, HPos.RIGHT);
+		topGrid.add(startMeasureButton, 4, 6);
+		startMeasureButton.setMinSize(170, 20);
+		startMeasureButton.setAlignment(Pos.BASELINE_CENTER);
 
 		// Spalte 3
 		// DeathAngel
@@ -512,7 +542,7 @@ public class ViewControlerWindow extends Application {
 		resulLogging.addConfig(new Configuration(10, 4, 20, 300, 300, 4, 30, 0.5, 2, 5, 8));
 		resulLogging.writeToCSV(file.getAbsolutePath());
         }
-
+	
 	/*
 	 * public static boolean isNumeric(String str) { return
 	 * str.matches("-?\\d+(\\.\\d+)?"); }
