@@ -4,12 +4,12 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n{FATAL=red, ERROR=red, WARN=yellow bold}"/>
         </Console>
-        <File name="MyFile" fileName="all.log" immediateFlush="false" append="false">
+        <File name="MyFile" fileName="target/all.log" immediateFlush="false" append="false">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n{FATAL=red, ERROR=red, WARN=yellow bold}"/>
         </File>
     </Appenders>
     <Loggers>
-        <Root level="info">
+        <Root level="debug">
             <AppenderRef ref="Console" />
             <AppenderRef ref="MyFile"/>
         </Root>

@@ -575,6 +575,16 @@ public class ViewControlerWindow extends Application {
 		this.fieldWindow = new SimulationApp(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours,
 				deathAngle, r1, r2, r3, bodyLength);
 		this.fishCanvas = new Canvas(fieldLength, fieldHeight);
+		//this.gc = fishCanvas.getGraphicsContext2D();
+		for (Fish fish : this.fieldWindow.getField().getFishes()) {
+			drawFish(fish.getPosition().getCoordinateX(), fish.getPosition().getCoordinateY(),
+					fish.getLengthPosition().getCoordinateX(), fish.getLengthPosition().getCoordinateY());
+		}
+	}
+	
+	private void drawFish(double x1, double y1, double x2, double y2) {
+		this.gc.strokeLine(x1, y1, x2, y2);
+		this.gc.strokeOval(x1 - 1, y1 - 1, 3, 3);
 	}
 
 	public void createAndStartSimulation(Configuration conf) {
@@ -604,7 +614,7 @@ public class ViewControlerWindow extends Application {
 
 	private void iterateAndDraw(int iterations) {
 
-		GuiTask worker = new GuiTask(fishCanvas, gc, fieldWindow, iterations);
+		GuiTask worker = new GuiTask(this.fishCanvas, this.gc, fieldWindow, iterations);
 		Thread workerThread = new Thread(worker);
 		// ThreadPoolSingleton.getExecutorService().execute(workerThread);
 		workerThread.start();
@@ -613,7 +623,6 @@ public class ViewControlerWindow extends Application {
 	private void iterateAndDraw(int iterations, SimulationApp app) {
 		GuiTask worker = new GuiTask(fishCanvas, gc, app, iterations);
 		Thread workerThread = new Thread(worker);
-		// ThreadPoolSingleton.getExecutorService().execute(workerThread);
 		workerThread.start();
 	}
 
@@ -720,6 +729,8 @@ public class ViewControlerWindow extends Application {
 				for (Configuration conf : configs) {
 					//resultLogger.removeIfContains(conf);
 					this.app = createSimulation(conf);
+					this.fishCanvas = new Canvas(conf.getFieldLength(), conf.getFieldHeight());
+					//this.gc = fishCanvas.getGraphicsContext2D();
 					setValues(conf);
 					iterateAndDraw(conf.getIteration());
 					addResultValuesToConf(conf);
@@ -728,7 +739,6 @@ public class ViewControlerWindow extends Application {
 				iterateAndDraw(this.iterations);
 				addConfigToConfigList();
 			}
-
 			return null;
 		}
 

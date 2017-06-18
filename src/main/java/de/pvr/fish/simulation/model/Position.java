@@ -2,11 +2,15 @@ package de.pvr.fish.simulation.model;
 
 import java.util.Objects;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import de.pvr.fish.simulation.config.FishParameter;
 import de.pvr.fish.simulation.util.CommonUtil;
 
 public class Position {
 
+	private static final Logger LOG = LogManager.getLogger(Position.class);
 	
 	private double coordinateX;
 	private double coordinateY;
@@ -70,12 +74,12 @@ public class Position {
     }
 	
 	public void addPosition(Position p) {
-		this.coordinateX += p.getCoordinateX();
-		this.coordinateY += p.getCoordinateY();
+		this.coordinateX = CommonUtil.roundDouble(this.coordinateX += p.getCoordinateX());
+		this.coordinateY = CommonUtil.roundDouble(this.coordinateY += p.getCoordinateY());
 	}
 	
 	public void addLength(double length) {
-		this.coordinateX += length;
+		CommonUtil.roundDouble(this.coordinateX += length);
 	}
 	
 	public int getAngle(Position target) {
@@ -91,8 +95,12 @@ public class Position {
 		double coordX = this.coordinateX * Math.cos(Math.toRadians(angle)) + this.coordinateY * - Math.sin(Math.toRadians(angle));
 		double coordY = this.coordinateX * Math.sin(Math.toRadians(angle)) + this.coordinateY * Math.cos(Math.toRadians(angle));
 		
-		this.coordinateX = (Math.round(coordX * 100)/100);
-		this.coordinateY = (Math.round(coordY * 100)/100);
+		LOG.debug("New coordinate before rounding are: " + coordX + "/" + coordY);
+		
+		this.coordinateX = CommonUtil.roundDouble(coordX);
+		this.coordinateY = CommonUtil.roundDouble(coordY);
+		
+		LOG.debug("New coordinate are: " + this.coordinateX + "/" + this.coordinateY);
 	}
 	
 	public double getLength() {

@@ -50,6 +50,8 @@ public class TestFish {
 		
 		assertEquals(targetAngel, fish.getAngle() );
 		
+		fish.turnAt(72);
+		assertEquals(163, fish.getAngle());
 	}
 	
 	@Test
@@ -61,6 +63,9 @@ public class TestFish {
 		fish = new Fish(new Position(100, 100), new Position(100, 102));
 		
 		assertEquals(270, fish.getAngle());
+		
+		fish.turnAt(90);
+		assertEquals(0, fish.getAngle());
 	}
 	
 	@Test
@@ -97,7 +102,7 @@ public class TestFish {
 		assertEquals(targetFish, fish);
 		
 		fish.turnAtCalc(45);
-		targetFish = new Fish(new Position (96, 100), new Position(94, 98));
+		targetFish = new Fish(new Position (95.8787, 99.8787), new Position(93.7574, 97.7574));
 		fish.goToNextPosition(3);
 		assertEquals(targetFish, fish);
 	}
@@ -151,11 +156,11 @@ public class TestFish {
 		assertEquals(targetPosition, fish.getLengthPosition());
 		
 		fish = new Fish(new Position(100, 100), new Position(102, 103));
-		targetPosition = new Position(97, 96);
+		targetPosition = new Position(96.6448, 95.0258);
 		assertEquals(targetPosition, fish.getLengthPosition());
 		
 		fish = new Fish(new Position(100, 100), new Position(98, 98));
-		targetPosition = new Position(104, 104);
+		targetPosition = new Position(104.2426, 104.2426);
 		assertEquals(targetPosition, fish.getLengthPosition());
 
 		FishParameter.FISH_BODY_LENGTH = FishParameter.DEFAULT_FISH_BODY_LENGTH;
@@ -244,6 +249,13 @@ public class TestFish {
 		fish.setFishFromOutInAquariumX();
 		fish.setFishFromOutInAquariumY();
 		assertEquals(targetFish, fish);
+		
+		fish = new Fish(new Position(310, 310), new Position (298, 298));
+		targetFish = new Fish(new Position(291, 291), new Position (298, 298));
+		fish.setFishFromOutInAquariumX();
+		fish.setFishFromOutInAquariumY();
+		assertEquals(targetFish, fish);
 	}
+	
 
 }
