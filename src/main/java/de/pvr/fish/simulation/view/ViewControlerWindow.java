@@ -207,9 +207,8 @@ public class ViewControlerWindow extends Application {
 		Label fieldWidthLabel = new Label("Feld Breite:");
 		this.fieldWidthTextField = new TextField();
 		Button saveAsTextButton = new Button("Speichern");
-        Button openFileButton = new Button("Laden");
-        Button startMeasureButton = new Button("Messungen durchführen");
-       
+		Button openFileButton = new Button("Laden");
+		Button startMeasureButton = new Button("Messungen durchführen");
 
 		// Titel Spalte 3 und 4
 		Text fishConfigurationHeading = new Text("Fisch Konfiguration");
@@ -325,46 +324,46 @@ public class ViewControlerWindow extends Application {
 		topGrid.add(fieldWidthLabel, 3, 3);
 		GridPane.setHalignment(fieldWidthTextField, HPos.LEFT);
 		topGrid.add(fieldWidthTextField, 4, 3);
-		
-		//Speichern der Daten
+
+		// Speichern der Daten
 		GridPane.setHalignment(saveAsTextButton, HPos.LEFT);
 		topGrid.add(saveAsTextButton, 3, 5);
 		saveAsTextButton.setMinSize(80, 20);
 		saveAsTextButton.setAlignment(Pos.BASELINE_CENTER);
 		saveAsTextButton.setOnAction((ActionEvent event) -> {
-            FileChooser fileChooser = new FileChooser();
-             
-            //Set extension filter
-            FileChooser.ExtensionFilter extFilter = 
-                new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
-            fileChooser.getExtensionFilters().add(extFilter);
-             
-            //Show save file dialog
-            File file = fileChooser.showSaveDialog(primaryStage);
-             
-            if(file != null){
-            	// Erster Wert nur zum Testen --> bekomme noch keine Messwerte , wollte gucken obs klappt  
-            	saveFile( file);
-            }}
-            );
-		
+			FileChooser fileChooser = new FileChooser();
+
+			// Set extension filter
+			FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
+			fileChooser.getExtensionFilters().add(extFilter);
+
+			// Show save file dialog
+			File file = fileChooser.showSaveDialog(primaryStage);
+
+			if (file != null) {
+				// Erster Wert nur zum Testen --> bekomme noch keine Messwerte ,
+				// wollte gucken obs klappt
+				saveFile(file);
+			}
+		});
+
 		// Laden
 		GridPane.setHalignment(openFileButton, HPos.RIGHT);
 		topGrid.add(openFileButton, 4, 5);
 		openFileButton.setMinSize(80, 20);
 		openFileButton.setAlignment(Pos.BASELINE_CENTER);
 		openFileButton.setOnAction(new EventHandler<ActionEvent>() {
-	            @Override
-	            public void handle(ActionEvent event) {
-	                FileChooser fileChooser = new FileChooser();
-	                File file = fileChooser.showOpenDialog(primaryStage);
-	                if (file != null) {
-	                   resultLogger.readFromCSV(file.getAbsolutePath());
-	                   setValues(resultLogger.getConfigs().get(1));
-	                }
-	            }
-	        });
-		
+			@Override
+			public void handle(ActionEvent event) {
+				FileChooser fileChooser = new FileChooser();
+				File file = fileChooser.showOpenDialog(primaryStage);
+				if (file != null) {
+					resultLogger.readFromCSV(file.getAbsolutePath());
+					setValues(resultLogger.getConfigs().get(1));
+				}
+			}
+		});
+
 		GridPane.setHalignment(startMeasureButton, HPos.RIGHT);
 		topGrid.add(startMeasureButton, 4, 6);
 		startMeasureButton.setMinSize(170, 20);
@@ -562,10 +561,11 @@ public class ViewControlerWindow extends Application {
 
 	public void createAndStartSimulation(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
 			int neighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
-		createSimulation(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours, deathAngle, r1, r2, r3, bodyLength);
+		createSimulation(fieldLength, fieldHeight, fishNumber, threads, iterations, neighbours, deathAngle, r1, r2, r3,
+				bodyLength);
 		iterateAndDraw(this.fieldWindow.getIterations());
 	}
-	
+
 	public void createSimulation(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
 			int neighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
 		if (this.gc != null && this.fieldWindow != null) {
@@ -576,9 +576,18 @@ public class ViewControlerWindow extends Application {
 				deathAngle, r1, r2, r3, bodyLength);
 		this.fishCanvas = new Canvas(fieldLength, fieldHeight);
 	}
-	
+
 	public void createAndStartSimulation(Configuration conf) {
-		createAndStartSimulation(conf.getFieldLength(), conf.getFieldHeight(), conf.getFishNumber(), conf.getThreads(), conf.getIteration(), conf.getNumberOfNeighbours(), conf.getDeathAngle(), conf.getR1(), conf.getR2(), conf.getR3(), conf.getBodyLength());
+		createAndStartSimulation(conf.getFieldLength(), conf.getFieldHeight(), conf.getFishNumber(), conf.getThreads(),
+				conf.getIteration(), conf.getNumberOfNeighbours(), conf.getDeathAngle(), conf.getR1(), conf.getR2(),
+				conf.getR3(), conf.getBodyLength());
+	}
+
+	public SimulationApp createSimulation(Configuration conf) {
+		createSimulation(conf.getFieldLength(), conf.getFieldHeight(), conf.getFishNumber(), conf.getThreads(),
+				conf.getIteration(), conf.getNumberOfNeighbours(), conf.getDeathAngle(), conf.getR1(), conf.getR2(),
+				conf.getR3(), conf.getBodyLength());
+		return this.fieldWindow;
 	}
 
 	public void iterateOnce() {
@@ -597,7 +606,14 @@ public class ViewControlerWindow extends Application {
 
 		GuiTask worker = new GuiTask(fishCanvas, gc, fieldWindow, iterations);
 		Thread workerThread = new Thread(worker);
-		//ThreadPoolSingleton.getExecutorService().execute(workerThread);
+		// ThreadPoolSingleton.getExecutorService().execute(workerThread);
+		workerThread.start();
+	}
+
+	private void iterateAndDraw(int iterations, SimulationApp app) {
+		GuiTask worker = new GuiTask(fishCanvas, gc, app, iterations);
+		Thread workerThread = new Thread(worker);
+		// ThreadPoolSingleton.getExecutorService().execute(workerThread);
 		workerThread.start();
 	}
 
@@ -632,7 +648,8 @@ public class ViewControlerWindow extends Application {
 
 	private void setValues(Configuration conf) {
 		setValues(conf.getIteration(), conf.getThreads(), conf.getFishNumber(), conf.getFieldLength(),
-				conf.getFieldHeight(), conf.getDeathAngle(), conf.getNumberOfNeighbours(), conf.getBodyLength(), conf.getR1(), conf.getR2(), conf.getR3());
+				conf.getFieldHeight(), conf.getDeathAngle(), conf.getNumberOfNeighbours(), conf.getBodyLength(),
+				conf.getR1(), conf.getR2(), conf.getR3());
 	}
 
 	private void addConfigToConfigList() {
@@ -649,23 +666,18 @@ public class ViewControlerWindow extends Application {
 
 		this.resultLogger.addConfig(conf);
 	}
-	
-	private void addConfigToConfigList(Configuration conf) {
+
+	private void addResultValuesToConf(Configuration conf) {
 		conf.setRuntime(Double.parseDouble(this.runtimeTextField.getText()));
 		conf.setKappa(Double.parseDouble(this.kappaTextField.getText()));
 		conf.setSigma(Double.parseDouble(this.sigmaTextField.getText()));
 		conf.setPhi(Double.parseDouble(this.phiTextField.getText()));
-		this.resultLogger.addConfig(conf);
 	}
 
 	private void simulateMultiConfigs() {
-		ArrayList<Configuration> configs = this.resultLogger.getConfigs();
-		for (Configuration conf : configs) {
-			this.resultLogger.removeIfContains(conf);
-			setValues(conf);
-			createAndStartSimulation(conf);
-			//addConfigToConfigList(conf);
-		}
+		GuiTask worker = new GuiTask(fishCanvas, gc);
+		Thread workerThread = new Thread(worker);
+		workerThread.start();
 	}
 
 	private class GuiTask extends Task<Void> {
@@ -674,6 +686,7 @@ public class ViewControlerWindow extends Application {
 		private GraphicsContext gc;
 		private SimulationApp app;
 		private int iterations;
+		private boolean multiSimulationFlag;
 
 		public GuiTask(Canvas fishCanvas, GraphicsContext gc, SimulationApp app, int iterations) {
 			super();
@@ -681,14 +694,49 @@ public class ViewControlerWindow extends Application {
 			this.gc = gc;
 			this.app = app;
 			this.iterations = iterations;
+			this.multiSimulationFlag = false;
+		}
+
+		public GuiTask(Canvas fishCanvas, GraphicsContext gc, Configuration conf) {
+			super();
+			this.fishCanvas = fishCanvas;
+			this.gc = gc;
+			this.app = createSimulation(conf);
+			this.iterations = conf.getIteration();
+			this.multiSimulationFlag = false;
+		}
+
+		public GuiTask(Canvas fishCanvas, GraphicsContext gc) {
+			super();
+			this.fishCanvas = fishCanvas;
+			this.gc = gc;
+			this.multiSimulationFlag = true;
 		}
 
 		@Override
 		protected Void call() throws Exception {
+			if (this.multiSimulationFlag) {
+				ArrayList<Configuration> configs = resultLogger.getConfigs();
+				for (Configuration conf : configs) {
+					//resultLogger.removeIfContains(conf);
+					this.app = createSimulation(conf);
+					setValues(conf);
+					iterateAndDraw(conf.getIteration());
+					addResultValuesToConf(conf);
+				}
+			} else {
+				iterateAndDraw(this.iterations);
+				addConfigToConfigList();
+			}
+
+			return null;
+		}
+
+		private void iterateAndDraw(int iteration) {
 			DrawStep drawWorker = new DrawStep(fishCanvas, app, gc);
 			MeasureUtil.resetAllWatches();
 			MeasureUtil.startWatch(RUNTIME);
-			for (int i = 0; i < this.iterations; i++) {
+			for (int i = 0; i < iteration; i++) {
 				this.app.startIteration();
 				FutureTask<Boolean> drawTask = new FutureTask<>(drawWorker);
 				Platform.runLater(drawTask);
@@ -700,7 +748,6 @@ public class ViewControlerWindow extends Application {
 			}
 			MeasureUtil.suspend(RUNTIME);
 			showAllMeasures();
-			return null;
 		}
 
 		private void showAllMeasures() {
@@ -709,7 +756,6 @@ public class ViewControlerWindow extends Application {
 			sigmaTextField.setText(String.valueOf(MeasureUtil.getMeasuredTimeFor(SIGMA)));
 			phiTextField.setText(String.valueOf(MeasureUtil.getMeasuredTimeFor(PHI)));
 			kappaTextField.setText(String.valueOf(MeasureUtil.getMeasuredTimeFor(KAPPA)));
-			addConfigToConfigList();
 		}
 	}
 }
