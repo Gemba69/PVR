@@ -70,8 +70,8 @@ public class ViewControlerWindow extends Application {
 
 	private static final Logger LOG = LogManager.getLogger(ViewControlerWindow.class);
 
-	private static double Width = 600;
-	private static double Height = 600;
+	private static double Width = 1200;
+	private static double Height = 400;
 	private GridPane topGrid;
 	private GridPane bottomGrid;
 	Canvas fishCanvas = new Canvas(Width, Height);
@@ -110,7 +110,7 @@ public class ViewControlerWindow extends Application {
 	public void start(Stage primaryStage) {
 
 		BorderPane root = new BorderPane();
-		Scene scene = new Scene(root, 1200, 850, Color.WHITE);
+		Scene scene = new Scene(root, 1250, 850, Color.WHITE);
 
 		// Menüleiste
 		MenuBar menuBar = new MenuBar();
