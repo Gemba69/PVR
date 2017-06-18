@@ -1,4 +1,4 @@
-package de.pvr.fish.simulation.util;
+package de.pvr.fish.simulation.config;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,8 +9,6 @@ import java.util.ArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import de.pvr.fish.simulation.config.Configuration;
 
 public class ConfigurationHandler {
 
