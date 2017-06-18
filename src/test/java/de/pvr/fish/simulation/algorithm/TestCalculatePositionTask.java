@@ -117,4 +117,18 @@ public class TestCalculatePositionTask {
 		
 		assertEquals(72 , iterationTask.calculateNewAngle(fish, neighbourFishes));
 	}
+	
+	@Test
+	public void testMovementIntegrated() {
+		Field field = TestdataGenerator.getFieldWithSpecific10Fishes();
+		CalculateNewPositionTask iterationTask = new CalculateNewPositionTask(field.getFishes(), field.getFishes(), 0, 600);
+		
+		Fish fish = field.getFishes().get(0);
+		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
+		neighbourFishes.add(Pair.of(field.getFishes().get(7), Radius.R1));
+		neighbourFishes.add(Pair.of(field.getFishes().get(8), Radius.R2));
+		neighbourFishes.add(Pair.of(field.getFishes().get(6), Radius.R3));
+		
+		assertEquals(108 , iterationTask.calculateNewAngle(fish, neighbourFishes));
+	}
 }
