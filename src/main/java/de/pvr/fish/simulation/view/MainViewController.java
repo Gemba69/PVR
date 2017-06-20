@@ -195,7 +195,7 @@ public class MainViewController extends Application {
 		Button resetButton = new Button("Reset");
 
 		// Titel Spalte 5
-		Text measuredValueHeading = new Text("Messwerte");
+		Text measuredValueHeading = new Text("Messwerte (ms)");
 		measuredValueHeading.setFont(Font.font("Tahoma", FontWeight.NORMAL, 25));
 		topGrid.add(measuredValueHeading, 12, 0);
 
@@ -273,8 +273,6 @@ public class MainViewController extends Application {
 			File file = fileChooser.showSaveDialog(primaryStage);
 
 			if (file != null) {
-				// Erster Wert nur zum Testen --> bekomme noch keine Messwerte ,
-				// wollte gucken obs klappt
 				saveFile(file);
 			}
 		});
@@ -500,6 +498,7 @@ public class MainViewController extends Application {
 		GridPane.setConstraints(sepVert4, 10, 10);
 		GridPane.setRowSpan(sepVert4, 2);
 		setDefaultValues();
+		
 		// Anzeigen des Panes
 		topGrid.add(new Separator(), 0, 4, 5, 1);
 		topGrid.add(new Separator(), 0, 7, 5, 1);
@@ -523,27 +522,8 @@ public class MainViewController extends Application {
 	}
 
 	private void saveFile(File file) {
-		// this.resultLogger.addConfig(new Configuration(10, 4, 20, 300, 300, 4,
-		// 30, 0.5, 2, 5, 8));
 		this.configHandler.writeToCSV(file.getAbsolutePath());
 	}
-	/*
-	 * public static boolean isNumeric(String str) { return
-	 * str.matches("-?\\d+(\\.\\d+)?"); }
-	 * 
-	 * private boolean checkTextFieldInput() { if
-	 * (isNumeric(iterationTextField.getText()) &&
-	 * isNumeric(threadTextField.getText()) && isNumeric(fishField.getText()) &&
-	 * isNumeric(fieldLengthTextField.getText()) &&
-	 * isNumeric(fieldWidthTextField.getText()) &&
-	 * isNumeric(deathAngelTextField.getText()) &&
-	 * isNumeric(neighbourFishTextField.getText()) &&
-	 * isNumeric(fishLengthTextField.getText()) &&
-	 * isNumeric(r1TextField.getText()) && isNumeric(r2TextField.getText()) &&
-	 * isNumeric(r3TextField.getText()))
-	 * 
-	 * return true; return false; }
-	 */
 
 	public void createAndStartSimulation(int fieldLength, int fieldHeight, int fishNumber, int threads, int iterations,
 			int neighbours, int deathAngle, double r1, double r2, double r3, int bodyLength) {
