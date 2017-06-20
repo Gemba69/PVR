@@ -56,7 +56,7 @@
 						<configuration>
 							<archive>
 								<manifest>
-									<mainClass>de.pvr.fish.simulation.view.ViewControlerWindow</mainClass>
+									<mainClass>de.pvr.fish.simulation.view.MainViewController</mainClass>
 								</manifest>
 							</archive>
 

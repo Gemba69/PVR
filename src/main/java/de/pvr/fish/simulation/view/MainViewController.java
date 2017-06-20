@@ -56,9 +56,9 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class MainViewConroller extends Application {
+public class MainViewController extends Application {
 
-	private static final Logger LOG = LogManager.getLogger(MainViewConroller.class);
+	private static final Logger LOG = LogManager.getLogger(MainViewController.class);
 
 	private static double Width = 1200;
 	private static double Height = 400;

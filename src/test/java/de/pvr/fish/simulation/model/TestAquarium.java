@@ -35,6 +35,13 @@ public class TestAquarium {
 		targetList.add(102);
 		targetList.add(120);
 		assertEquals(targetList, field.splitTasks());
+		
+		field.setFishNumber(120);
+		ThreadPoolSingleton.createNewExecutorService(1);
+		targetList = new ArrayList<Integer>();
+		targetList.add(120);
+		assertEquals(targetList, field.splitTasks());
+		
 		ThreadPoolSingleton.reset();
 	}
 	
