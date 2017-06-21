@@ -713,6 +713,7 @@ public class MainViewController extends Application {
 			DrawStep drawWorker = new DrawStep(fishCanvas, app, gc);
 			MeasureUtil.resetAllWatches();
 			MeasureUtil.startWatch(RUNTIME);
+			MeasureUtil.startWatch(SIGMA);
 			for (int i = 0; i < iteration; i++) {
 				LOG.debug("Start iteration number " + i);
 				this.app.startIteration();
@@ -724,6 +725,7 @@ public class MainViewController extends Application {
 					LOG.error(e);
 				}
 			}
+			MeasureUtil.suspend(SIGMA);
 			MeasureUtil.suspend(RUNTIME);
 			showAllMeasures();
 		}

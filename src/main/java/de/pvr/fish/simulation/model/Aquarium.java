@@ -50,7 +50,7 @@ public class Aquarium {
 	public void nextIteration() {
 		LOG.info("Starting overall Iteration");
 		// Execution
-		MeasureUtil.startWatch(SIGMA);
+		MeasureUtil.suspend(SIGMA);
 		MeasureUtil.startWatch(PHI);
 
 		try {
@@ -65,8 +65,8 @@ public class Aquarium {
 			LOG.error(e.getMessage());
 		}
 		// logFishes(); // only for debugging
-		MeasureUtil.suspend(SIGMA);
 		MeasureUtil.suspend(PHI);
+		MeasureUtil.startWatch(SIGMA);
 	}
 
 	public void prepareTaskLists() {
