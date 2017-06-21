@@ -72,7 +72,8 @@ public class CalculateNewPositionTask extends FishTask {
 
 	private ArrayList<Pair<Fish, Radius>> searchInSpecificRadius(Fish fish, int freeCapacity, double minRadusLength,
 			double radiusLength, Radius radius) {
-		LOG.debug("Searchin for Radous " + radius + " from " + minRadusLength + " to " + radiusLength + " with freeCapacity: " + freeCapacity);
+		LOG.debug("Searchin for Radous " + radius + " from " + minRadusLength + " to " + radiusLength
+				+ " with freeCapacity: " + freeCapacity);
 		ArrayList<Pair<Fish, Radius>> neighbourFishes = new ArrayList<Pair<Fish, Radius>>();
 		double distance;
 		for (Fish potencialNeighbour : fishes) {

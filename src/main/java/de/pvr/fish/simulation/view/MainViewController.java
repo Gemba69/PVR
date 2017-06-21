@@ -498,7 +498,7 @@ public class MainViewController extends Application {
 		GridPane.setConstraints(sepVert4, 10, 10);
 		GridPane.setRowSpan(sepVert4, 2);
 		setDefaultValues();
-		
+
 		// Anzeigen des Panes
 		topGrid.add(new Separator(), 0, 4, 5, 1);
 		topGrid.add(new Separator(), 0, 7, 5, 1);
